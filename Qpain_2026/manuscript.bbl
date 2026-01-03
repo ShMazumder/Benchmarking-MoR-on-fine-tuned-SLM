@@ -1,0 +1,197 @@
+\begin{thebibliography}{10}
+
+\bibitem{b1}
+J.~Devlin, M.-W. Chang, K.~Lee, and K.~Toutanova.
+\newblock {BERT}: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}, 2018.
+
+\bibitem{b2}
+T.~Brown, B.~Mann, N.~Ryder, et~al.
+\newblock Language models are few-shot learners.
+\newblock In {\em Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)}, volume~33,
+  pages 1877--1901, 2020.
+
+\bibitem{b3}
+C.~Raffel, N.~Shazeer, A.~Roberts, et~al.
+\newblock Exploring the limits of transfer learning with a unified text-to-text
+  transformer.
+\newblock {\em J. Mach. Learn. Res.}, 21(1):5485--5551, 2020.
+
+\bibitem{b4}
+Z.~Dai, Z.~Yang, Y.~Yang, J.~Carbonell, Q.~V. Le, and R.~Salakhutdinov.
+\newblock Transformer-{XL}: Attentive language models beyond a fixed-length
+  context.
+\newblock In {\em Proc. 57th Annu. Meet. Assoc. Comput. Linguist. (ACL)}, pages
+  2978--2988, 2019.
+
+\bibitem{b5}
+N.~Kitaev, L.~Kaiser, and A.~Levskaya.
+\newblock Reformer: The efficient transformer.
+\newblock In {\em Proc. Int. Conf. Learn. Represent. (ICLR)}, 2020.
+
+\bibitem{b6}
+J.~W. Rae, A.~Potapenko, S.~M. Jayakumar, C.~Hillier, and T.~P. Lillicrap.
+\newblock Compressive transformers for long-range sequence modelling.
+\newblock {\em arXiv preprint arXiv:1911.05507}, 2019.
+
+\bibitem{b7}
+L.~Ben Allal et~al.
+\newblock {SmolLM2}: When smol goes big--data-centric training of a small
+  language model.
+\newblock {\em arXiv preprint}, 2025.
+
+\bibitem{b8}
+Y.~Li, Y.~Huang, M.~E. Ildiz, A.~S. Rawat, and S.~Oymak.
+\newblock Mechanics of next token prediction with self-attention.
+\newblock {\em arXiv preprint}, 2024.
+
+\bibitem{b9}
+M.~E. Sander and G.~Peyr{\'e}.
+\newblock Towards understanding the universality of transformers for next-token
+  prediction.
+\newblock {\em arXiv preprint arXiv:2410.03011}, 2024.
+
+\bibitem{b10}
+N.~Shazeer, A.~Mirhoseini, K.~Maziarz, A.~Davis, Q.~Le, G.~Hinton, and J.~Dean.
+\newblock Outrageously large neural networks: The sparsely-gated
+  mixture-of-experts layer.
+\newblock In {\em Proc. Int. Conf. Learn. Represent. (ICLR)}, 2017.
+
+\bibitem{b11}
+S.~Bae et~al.
+\newblock Mixture-of-recursions: Learning dynamic recursive depths for adaptive
+  token-level computation.
+\newblock In {\em Proc. 39th Int. Conf. Mach. Learn. (ICML)}, 2025.
+
+\bibitem{b12}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  L.~Kaiser, and I.~Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em Proc. Adv. Neural Inf. Process. Syst. (NIPS)}, pages
+  5998--6008, 2017.
+
+\bibitem{b13}
+H.~Naveed et~al.
+\newblock A comprehensive overview of large language models.
+\newblock {\em arXiv preprint}, 2023.
+
+\bibitem{b14}
+A.~Radford, K.~Narasimhan, T.~Salimans, and I.~Sutskever.
+\newblock Improving language understanding by generative pre-training.
+\newblock Technical report, OpenAI, 2018.
+
+\bibitem{b15}
+J.~Kaplan, S.~McCandlish, T.~Henighan, T.~B. Brown, B.~Chess, R.~Child,
+  S.~Gray, A.~Radford, J.~Wu, and D.~Amodei.
+\newblock Scaling laws for neural language models.
+\newblock {\em arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem{b16}
+A.~Chowdhery et~al.
+\newblock {PaLM}: Scaling language modeling with pathways.
+\newblock {\em J. Mach. Learn. Res.}, 24(240):1--113, 2023.
+
+\bibitem{b17}
+OpenAI.
+\newblock {GPT}-4 technical report.
+\newblock {\em arXiv preprint arXiv:2303.08774}, 2023.
+
+\bibitem{b18}
+J.~Okah.
+\newblock Small language models ({SLM}): A comprehensive overview.
+\newblock Hugging Face, 2025.
+
+\bibitem{b19}
+Q.~Zhang et~al.
+\newblock The rise of small language models.
+\newblock {\em IEEE Intell. Syst.}, 40(1):30--37, 2025.
+
+\bibitem{b20}
+Z.~Lu et~al.
+\newblock Small language models: Survey, measurements, and insights.
+\newblock {\em arXiv preprint}, 2025.
+
+\bibitem{b21}
+V.~Sanh, L.~Debut, J.~Chaumond, and T.~Wolf.
+\newblock {DistilBERT}, a distilled version of {BERT}: smaller, faster, cheaper
+  and lighter.
+\newblock {\em arXiv preprint arXiv:1910.01108}, 2019.
+
+\bibitem{b22}
+S.~Gunasekar, Y.~Zhang, J.~Aneja, C.~C.~Teodoro Mendes, et~al.
+\newblock Textbooks are all you need.
+\newblock {\em arXiv preprint arXiv:2306.11644}, 2023.
+
+\bibitem{b23}
+M.~Javaheripi et~al.
+\newblock Phi-2: The surprising power of small language models.
+\newblock Technical report, Microsoft, 2023.
+
+\bibitem{b24}
+M.~Abdin et~al.
+\newblock Phi-3 technical report: A highly capable language model locally on
+  your phone.
+\newblock {\em arXiv preprint arXiv:2404.14219}, 2024.
+
+\bibitem{b25}
+S.~Bae, A.~Fisch, H.~Harutyunyan, Z.~Ji, S.~Kim, and T.~Schuster.
+\newblock Relaxed recursive transformers: Effective parameter sharing with
+  layer-wise {LoRA}.
+\newblock In {\em Proc. 13th Int. Conf. Learn. Represent. (ICLR)}, 2025.
+
+\bibitem{b26}
+M.~Dehghani, S.~Gouws, O.~Vinyals, J.~Uszkoreit, and L.~Kaiser.
+\newblock Universal transformers.
+\newblock In {\em Proc. Int. Conf. Learn. Represent. (ICLR)}, 2019.
+
+\bibitem{b27}
+W.~Cai et~al.
+\newblock A survey on mixture of experts in large language models.
+\newblock {\em IEEE Trans. Knowl. Data Eng.}, 36(12):7304--7317, 2024.
+
+\bibitem{b28}
+Y.~Zhou et~al.
+\newblock Mixture-of-experts with expert choice routing.
+\newblock In {\em Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)}, volume~35,
+  pages 7103--7114, 2022.
+
+\bibitem{b29}
+R.~A. Jacobs, M.~I. Jordan, S.~J. Nowlan, and G.~E. Hinton.
+\newblock Adaptive mixtures of local experts.
+\newblock {\em Neural Comput.}, 3(1):79--87, 1991.
+
+\bibitem{b30}
+W.~Fedus, B.~Zoph, and N.~Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple
+  and efficient sparsity.
+\newblock {\em J. Mach. Learn. Res.}, 23(1):5232--5270, 2022.
+
+\bibitem{b31}
+A.~Q. Jiang et~al.
+\newblock Mixtral of experts.
+\newblock {\em arXiv preprint arXiv:2401.04088}, 2024.
+
+\bibitem{b32}
+DeepSeek-AI.
+\newblock {DeepSeek}-v2: A strong, economical, and efficient mixture-of-experts
+  language model.
+\newblock {\em arXiv preprint arXiv:2405.04434}, 2024.
+
+\bibitem{b33}
+S.~Shen et~al.
+\newblock Sliced recursive transformer.
+\newblock {\em arXiv preprint}, 2022.
+
+\bibitem{b34}
+M.~Elbayad, J.~Gu, E.~Grave, and M.~Auli.
+\newblock Depth-adaptive transformer.
+\newblock In {\em Proc. Int. Conf. Learn. Represent. (ICLR)}, 2020.
+
+\bibitem{b35}
+A.~Karpathy.
+\newblock char-rnn.
+\newblock GitHub repository, 2015.
+\newblock \url{https://github.com/karpathy/char-rnn}.
+
+\end{thebibliography}
