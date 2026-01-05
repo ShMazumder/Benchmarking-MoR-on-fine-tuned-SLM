@@ -1,0 +1,9 @@
+{
+  "experiment": "Baseline_N6",
+  "model_type": "baseline",
+  "n_layers": 6,
+  "accuracy": 15.268694329844825,
+  "test_accuracy": 14.901009741303652,
+  "effective_depth": 6.0,
+  "training_time_seconds": 39803.30618476868
+}
