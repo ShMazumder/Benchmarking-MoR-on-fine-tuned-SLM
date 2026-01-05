@@ -1,6 +1,4 @@
-"""
-Requirements for MoR Benchmarking Code
-"""
+# Requirements for MoR Benchmarking Code
 torch>=2.0.0
 datasets>=2.14.0
 requests>=2.31.0
