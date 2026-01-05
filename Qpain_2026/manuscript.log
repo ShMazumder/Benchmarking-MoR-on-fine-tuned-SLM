@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  5 JAN 2026 08:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  5 JAN 2026 09:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -511,12 +511,6 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 2856) in paragraph at lines 51--53
-[]\OT1/ptm/b/it/9 Index Terms\OT1/ptm/b/n/9 ---Mixture-of-Recursion (MoR), LLM,
- SLM,
- []
-
-
 
 
 Underfull \hbox (badness 1596) in paragraph at lines 71--73
@@ -540,7 +534,7 @@ Underfull \hbox (badness 4805) in paragraph at lines 120--121
 
 [2]
 
-<figures/proposed_method_pipeline.png, id=246, 753.81625pt x 592.2125pt>
+<figures/proposed_method_pipeline.png, id=245, 753.81625pt x 592.2125pt>
 File: figures/proposed_method_pipeline.png Graphic file (type png)
 <use figures/proposed_method_pipeline.png>
 Package pdftex.def Info: figures/proposed_method_pipeline.png  used on input li
@@ -549,13 +543,13 @@ ne 155.
 
 
 [3]
-<figures/transformer_architecture.jpg, id=271, 732.7375pt x 401.5pt>
+<figures/transformer_architecture.jpg, id=270, 732.7375pt x 401.5pt>
 File: figures/transformer_architecture.jpg Graphic file (type jpg)
 <use figures/transformer_architecture.jpg>
 Package pdftex.def Info: figures/transformer_architecture.jpg  used on input li
 ne 191.
 (pdftex.def)             Requested size: 201.60077pt x 110.4649pt.
-<figures/mor_transformer_architecture.jpg, id=272, 622.325pt x 401.5pt>
+<figures/mor_transformer_architecture.jpg, id=271, 622.325pt x 401.5pt>
 File: figures/mor_transformer_architecture.jpg Graphic file (type jpg)
 <use figures/mor_transformer_architecture.jpg>
 Package pdftex.def Info: figures/mor_transformer_architecture.jpg  used on inpu
@@ -671,10 +665,10 @@ ype1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/
 times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on manuscript.pdf (7 pages, 304612 bytes).
+Output written on manuscript.pdf (7 pages, 304497 bytes).
 PDF statistics:
- 390 PDF objects out of 1000 (max. 8388607)
- 347 compressed objects within 4 object streams
+ 389 PDF objects out of 1000 (max. 8388607)
+ 346 compressed objects within 4 object streams
  91 named destinations out of 1000 (max. 500000)
  336 words of extra memory for PDF output out of 10000 (max. 10000000)
 
