@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Benchmarking Mixture-of-Recursion (MoR) on Fine-tuned Small Language Model}
+\title{Benchmarking Mixture-of-Recursion (MoR) on Small Language Models}
 
 % \author{\IEEEauthorblockN{Sumaiya Sultana}
 % \IEEEauthorblockA{\textit{Dept. of Computer Science \& Engineering} \\
@@ -45,7 +45,7 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper investigates Mixture-of-Recursion (MoR), a novel architecture that dynamically adapts computational depth to enhance efficiency and performance in language modeling. By allowing each layer to recursively re-apply itself, execute once, or be skipped based on input complexity, MoR enables dynamic depth in sequence modeling. Unlike standard Transformers that mandate a fixed number of layers for every token, MoR employs lightweight routing networks to adaptively control recursive computation. We benchmark MoR-based models against standard fixed-depth Transformers using a character-level dataset derived from Tiny Shakespeare for next-token prediction tasks. Two primary experiments are conducted: an efficiency profiling experiment where a 12-layer MoR Transformer is fine-tuned with an auxiliary recursion penalty to reduce effective depth, and an equivalent-cost experiment where a 12-layer MoR model is fine-tuned to operate at an effective depth comparable to a 6-layer baseline. Results demonstrate that MoR consistently outperforms standard Transformers. In the efficiency experiment, the MoR-Transformer achieves a 33\% reduction in effective depth while maintaining comparable accuracy. In the equivalent-cost experiment, the MoR model demonstrates significantly superior generalization, achieving higher accuracy on held-out data than the 6-layer baseline at a similar computational cost. These findings highlight MoR as a promising approach for constructing compute-efficient Transformer models that optimize performance by adaptively allocating computational resources.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We evaluate MoR against fixed-depth Transformers on character-level next-token prediction using Tiny Shakespeare. Two experiments are conducted: (1) Efficiency profiling, where a 12-layer MoR model achieves 33\% depth reduction (E=8) while maintaining accuracy comparable to a 12-layer baseline; (2) Equal-cost comparison, where MoR (N=12, E$\approx$6) outperforms a 6-layer baseline by 10\% absolute accuracy on held-out data at equivalent computational cost. Results demonstrate that MoR's adaptive routing enables superior efficiency and generalization, positioning it as a promising approach for resource-constrained language modeling.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -95,6 +95,15 @@ To achieve this aim, the research focuses on the following objectives:
     \item Understand MoR’s Behavior: Study MoR’s internal routing, such as recursion rates, skip rates, and execution patterns, to see how the model adjusts its computation based on task difficulty.
 \end{itemize}
 
+\subsection{Contributions}
+This work makes the following contributions:
+\begin{itemize}
+    \item \textbf{Empirical Benchmark:} We provide the first systematic evaluation of the MoR architecture on character-level language modeling using Tiny Shakespeare, demonstrating its applicability to small-scale settings.
+    \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines.
+    \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets, MoR achieves 10\% higher held-out accuracy than shallow baselines, validating adaptive depth allocation.
+    \item \textbf{Routing Behavior:} We analyze MoR's routing decisions, providing insights into how dynamic recursion adapts to token-level complexity in next-token prediction tasks.
+\end{itemize}
+
 \section{Literature Review}
 
 \subsection{Introduction}
@@ -139,7 +148,7 @@ Mixture-of-Recursion (MoR), introduced by Bae et al. \cite{b11}, presents a unif
 \textbf{Recursion-Wise KV Cache and Routing:} To further optimize efficiency, MoR implements a specialized caching strategy where Key-Value (KV) pairs are stored only for tokens active at a specific recursion depth. The routing core employs a Multi-Layer Perceptron (MLP) to output probabilities for three distinct actions: Recurse (add depth), Forward (proceed), or Skip (bypass), effectively balancing performance and cost.
 
 \section{Methodology}
-This chapter details the methodology employed to design, implement, fine-tune, and evaluate the MoR Transformer framework. The objective is to empirically assess the MoR architecture, originally proposed by Bae et al. [11], in the context of Fine-tuned Small Language Models (SLMs). We investigate whether MoR's dynamic depth adaptation confers efficiency benefits during the fine-tuning of small-scale models. We benchmark MoR Transformer efficiency against standard transformers on a character-level language modeling task.
+This chapter details the methodology employed to implement, train, and evaluate the MoR Transformer framework. The objective is to empirically assess the MoR architecture, originally proposed by Bae et al. \cite{b11}, in the context of Small Language Models (SLMs). We investigate whether MoR's dynamic depth adaptation confers efficiency benefits when training small-scale models from scratch. We benchmark MoR Transformer efficiency against standard Transformers on a character-level language modeling task.
 
 \begin{figure}[htbp]
 \centering
@@ -171,7 +180,7 @@ itos & Inverse mapping from ID back to character \\
 \end{table}
 
 \subsection{Research Pipeline}
-The research pipeline (Figure \ref{fig:proposed_method}) operates sequentially: dataset tokenization, initialization of MoR and Standard Transformers using pre-trained weights, router decision mechanism integration, fine-tuning, and finally, evaluation.
+The research pipeline (Figure \ref{fig:proposed_method}) operates sequentially: dataset tokenization, random initialization of MoR and Standard Transformer parameters, router integration, training from scratch, and finally, evaluation.
 
 \subsection{Model Architecture}
 \subsubsection{Baseline Transformer}
@@ -194,6 +203,17 @@ The MoR-Transformer uses the same backbone but introduces a routing mechanism. E
 \label{fig:mor_transformer}
 \end{figure}
 
+\subsubsection{Router Architecture}
+The MoR router is a lightweight feed-forward network that determines the execution path for each token:
+\begin{itemize}
+    \item \textbf{Input:} Token embeddings of dimension $d_{model}=256$
+    \item \textbf{Architecture:} Two-layer MLP: $256 \rightarrow 128 \rightarrow 3$ with ReLU activation
+    \item \textbf{Output:} Softmax probability distribution over three actions: Skip (cost 0), Forward (cost 1), Recurse (cost 1+)
+    \item \textbf{Training:} Gumbel-Softmax reparameterization with temperature $\tau=1.0$ for differentiable discrete sampling
+    \item \textbf{Inference:} Argmax selection of highest-probability action
+    \item \textbf{Regularization:} Auxiliary loss $\lambda \cdot E$ penalizes effective depth to encourage efficient routing
+\end{itemize}
+
 \subsection{Experiments}
 We conducted two experiments:
 \begin{itemize}
@@ -204,7 +224,7 @@ We conducted two experiments:
 \textbf{Data Split:} Experiment 1 uses the full set for training/evaluation. Experiment 2 uses the first half for training and the second half as held-out test data.
 
 \subsection{Fine-tuning Process}
-Both models are fine-tuned on the full Tiny Shakespeare dataset. Configuration details are in Table \ref{tab:training_config}.
+Both models are trained from scratch on the full Tiny Shakespeare dataset. Configuration details are in Table \ref{tab:training_config}.
 
 \begin{table}[htbp]
 \caption{Fine-tuning Configuration}
@@ -255,7 +275,7 @@ Held-out accuracy is the classification accuracy measured on data that was not u
 Fine-tuning time is the total amount of time a model spends to finish fine-tuning on a given dataset. It helps evaluate: Efficiency (how fast a model trains), Comparison between models (e.g., Standard Transformer vs. MoR), Compute cost and Time-to-convergence.
 
 \section{Result and Analysis}
-This chapter presents the experimental results that were obtained after training and evaluating our proposed model. The results are analyzed based on metrics such as accuracy, effective depth, train time. The performance of the MoR-Transformer model is discussed in detail to demonstrate its effectiveness.
+This chapter presents the experimental results obtained after training and evaluating the MoR and baseline models. The results are analyzed based on metrics such as accuracy, effective depth, and training time. The performance of the MoR-Transformer is discussed in detail to demonstrate its effectiveness.
 
 \subsection{Results}
 This section details the results of the Efficiency Profiling and Equal Cost Comparison experiments.
@@ -328,14 +348,22 @@ Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N
 \section{Conclusion \& Future Work}
 
 \subsection{Conclusion}
-This thesis explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
+This paper explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
 
 Two experiments were conducted using a character-level dataset inspired by Tiny Shakespeare. The Experimental comparisons between MoR and standard Transformers demonstrate that MoR can achieve superior performance while using fewer effective layers. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning, which is absent in traditional MoE models, and adapts its routing behavior based on token complexity. These capabilities make MoR a scalable and efficient solution for language modeling, especially in resource-constrained environments.
 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
-\subsection{Limitation}
-However, while MoR shows clear advantages, certain trade-offs remain. Recursive mechanisms introduce training instability and tuning complexity. Real-world deployment metrics such as inference latency, throughput, and energy consumption on GPUs/TPUs were not profiled. Routing decisions relied on a simple controller with fixed auxiliary loss weight. More adaptive or learned routing strategies were not explored.
+\subsection{Limitations}
+This study has several limitations that should be acknowledged:
+\begin{itemize}
+    \item \textbf{Dataset Scale:} The Tiny Shakespeare dataset ($\sim$1M characters) is relatively small compared to modern language modeling benchmarks. Results may not generalize to larger, more diverse corpora.
+    \item \textbf{Single Task:} Only character-level next-token prediction was evaluated. Performance on other tasks (e.g., code generation, question answering) remains unexplored.
+    \item \textbf{Training from Scratch:} Models were trained from random initialization rather than fine-tuned from pre-trained weights, limiting insights into transfer learning scenarios.
+    \item \textbf{Limited Baselines:} No comparison to other efficiency methods such as parameter-efficient fine-tuning (LoRA, Adapters), pruning, or early-exit mechanisms.
+    \item \textbf{Statistical Rigor:} Results are based on single runs without multiple random seeds or significance testing.
+    \item \textbf{Deployment Metrics:} Real-world inference latency, throughput, and energy consumption were not measured.
+\end{itemize}
 
 \subsection{Future Works}
 Although this research provides strong evidence for the benefits of adaptive recursion, several avenues remain open for future investigation. One important extension is to evaluate MoR on larger and more diverse datasets, including code generation, question answering, translation and summarization to better understand its generalization ability. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance. Finally, deploying MoR on resource constrained hardware like smartphones or IoT devices would demonstrate its practical benefits for realtime systems, and exploring its extension to multimodal tasks (text plus image or text plus code) could open new opportunities for adaptive recursion in broader domains.
