@@ -114,6 +114,19 @@ def train_baseline(model, train_loader, test_loader, config, experiment_name):
     return results
 
 
+def train_baseline_amp(model, train_loader, test_loader, config, experiment_name):
+    """AMP-specific wrapper that preserves original `train_baseline`.
+    This avoids overriding the original function symbol and keeps both variants available.
+    """
+    return train_baseline(model, train_loader, test_loader, config, experiment_name)
+
+
+def train_mor_amp(model, train_loader, test_loader, config, experiment_name, epochs, lambda_penalty=0.1):
+    """AMP-specific wrapper that preserves original `train_mor`.
+    """
+    return train_mor(model, train_loader, test_loader, config, experiment_name, epochs, lambda_penalty)
+
+
 def train_mor(model, train_loader, test_loader, config, experiment_name, epochs, lambda_penalty=0.1):
     device = config.device
     model = model.to(device)
@@ -228,6 +241,7 @@ def main():
                         help='Which experiment to run')
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu',
                         help='Device to use')
+    parser.add_argument('--amp', action='store_true', help='Use AMP wrapper variants')
     args = parser.parse_args()
 
     config = Config()
@@ -252,23 +266,37 @@ def main():
     if args.experiment == 'baseline_6':
         model = BaselineTransformer(vocab_size, n_layers=6, **vars(config))
         print_model_info(model, "Baseline Transformer (N=6)")
-        results = train_baseline(model, train_loader, test_loader, config, "Baseline_N6")
+        if args.amp:
+            results = train_baseline_amp(model, train_loader, test_loader, config, "Baseline_N6")
+        else:
+            results = train_baseline(model, train_loader, test_loader, config, "Baseline_N6")
 
     elif args.experiment == 'baseline_12':
         model = BaselineTransformer(vocab_size, n_layers=12, **vars(config))
         print_model_info(model, "Baseline Transformer (N=12)")
-        results = train_baseline(model, train_loader, test_loader, config, "Baseline_N12")
+        if args.amp:
+            results = train_baseline_amp(model, train_loader, test_loader, config, "Baseline_N12")
+        else:
+            results = train_baseline(model, train_loader, test_loader, config, "Baseline_N12")
 
     elif args.experiment == 'mor_exp1':
         model = MoRTransformer(vocab_size, n_layers=12, **vars(config))
         print_model_info(model, "MoR Transformer (Exp 1)")
-        results = train_mor(model, train_loader, test_loader, config, "MoR_Exp1",
+        if args.amp:
+            results = train_mor_amp(model, train_loader, test_loader, config, "MoR_Exp1",
+                                   epochs=config.epochs_mor_exp1, lambda_penalty=0.1)
+        else:
+            results = train_mor(model, train_loader, test_loader, config, "MoR_Exp1",
                            epochs=config.epochs_mor_exp1, lambda_penalty=0.1)
 
     elif args.experiment == 'mor_exp2':
         model = MoRTransformer(vocab_size, n_layers=12, **vars(config))
         print_model_info(model, "MoR Transformer (Exp 2)")
-        results = train_mor(model, train_loader, test_loader, config, "MoR_Exp2",
+        if args.amp:
+            results = train_mor_amp(model, train_loader, test_loader, config, "MoR_Exp2",
+                                   epochs=config.epochs_mor_exp2, lambda_penalty=0.05)
+        else:
+            results = train_mor(model, train_loader, test_loader, config, "MoR_Exp2",
                            epochs=config.epochs_mor_exp2, lambda_penalty=0.05)
 
     # Save results
