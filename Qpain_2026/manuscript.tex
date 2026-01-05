@@ -17,9 +17,9 @@
 \usepackage{fancyhdr}
 \fancypagestyle{firstpage}{
   \fancyhf{} % Clear all header and footer fields
-  \fancyhead[L]{\small 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence, and Networking (QPAIN)
- \\ 16 – 18 April 2026, Chittagong, Bangladesh}
-  \fancyfoot[L]{\small 979-8-3315-4990-9/26/\$31.00 \copyright2026 IEEE} % Left-align the footer
+%   \fancyhead[L]{\small 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence, and Networking (QPAIN)
+%  \\ 16 – 18 April 2026, Chittagong, Bangladesh}
+%   \fancyfoot[L]{\small 979-8-3315-4990-9/26/\$31.00 \copyright2026 IEEE} % Left-align the footer
   \renewcommand{\headrulewidth}{0pt} % Remove the header rule
   \renewcommand{\footrulewidth}{0pt} % Remove the footer rule
 }
@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Benchmarking Mixture-of-Recursion (MoR) on Small Language Model}
+\title{Benchmarking Mixture-of-Recursion (MoR) on Fine-tuned Small Language Model}
 
 \author{\IEEEauthorblockN{Sumaiya Sultana}
 \IEEEauthorblockA{\textit{Dept. of Computer Science \& Engineering} \\
@@ -47,7 +47,7 @@ Supervisor}
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper investigates Mixture-of-Recursion (MoR), a novel architecture that dynamically adapts computational depth to enhance efficiency and performance in language modeling. By allowing each layer to recursively re-apply itself, execute once, or be skipped based on input complexity, MoR enables dynamic depth in sequence modeling. Unlike standard Transformers that mandate a fixed number of layers for every token, MoR employs lightweight routing networks to adaptively control recursive computation. We benchmark MoR-based models against standard fixed-depth Transformers using a character-level dataset derived from Tiny Shakespeare for next-token prediction tasks. Two primary experiments are conducted: an efficiency profiling experiment where a 12-layer MoR Transformer is trained with an auxiliary recursion penalty to reduce effective depth, and an equivalent-cost experiment where a 12-layer MoR model operates at an effective depth comparable to a 6-layer baseline. Results demonstrate that MoR consistently outperforms standard Transformers. In the efficiency experiment, the MoR-Transformer achieves a 33\% reduction in effective depth while maintaining comparable accuracy. In the equivalent-cost experiment, the MoR model demonstrates significantly superior generalization, achieving higher accuracy on held-out data than the 6-layer baseline at a similar computational cost. These findings highlight MoR as a promising approach for constructing compute-efficient Transformer models that optimize performance by adaptively allocating computational resources.
+This paper investigates Mixture-of-Recursion (MoR), a novel architecture that dynamically adapts computational depth to enhance efficiency and performance in language modeling. By allowing each layer to recursively re-apply itself, execute once, or be skipped based on input complexity, MoR enables dynamic depth in sequence modeling. Unlike standard Transformers that mandate a fixed number of layers for every token, MoR employs lightweight routing networks to adaptively control recursive computation. We benchmark MoR-based models against standard fixed-depth Transformers using a character-level dataset derived from Tiny Shakespeare for next-token prediction tasks. Two primary experiments are conducted: an efficiency profiling experiment where a 12-layer MoR Transformer is fine-tuned with an auxiliary recursion penalty to reduce effective depth, and an equivalent-cost experiment where a 12-layer MoR model is fine-tuned to operate at an effective depth comparable to a 6-layer baseline. Results demonstrate that MoR consistently outperforms standard Transformers. In the efficiency experiment, the MoR-Transformer achieves a 33\% reduction in effective depth while maintaining comparable accuracy. In the equivalent-cost experiment, the MoR model demonstrates significantly superior generalization, achieving higher accuracy on held-out data than the 6-layer baseline at a similar computational cost. These findings highlight MoR as a promising approach for constructing compute-efficient Transformer models that optimize performance by adaptively allocating computational resources.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -143,7 +143,7 @@ This chapter details the methodology employed to design, implement, train, and e
 
 \begin{figure}[htbp]
 \centering
-\fbox{\parbox{3in}{Figure 4.1: Proposed Method (Not found in extracted media. Please provide actual image.)}}
+\includegraphics[width=\linewidth]{figures/proposed_method_pipeline.png}
 \caption{Proposed Method}
 \label{fig:proposed_method}
 \end{figure}
@@ -173,14 +173,7 @@ itos & inverse mapping from ID back to character \\
 The full corpus is then encoded as a one-dimensional tensor of integer token IDs.
 
 \subsection{Research Pipeline}
-\begin{enumerate}
-    \item Dataset tokenization
-    \item Initialize Two models (MOR Transformer, Standard Transformer)
-    \item Router Decision Process
-    \item Training
-    \item Experiment
-    \item Evaluation
-\end{enumerate}
+The research pipeline, illustrated in Figure \ref{fig:proposed_method}, operates sequentially, beginning with dataset tokenization to prepare the input data. This is followed by the initialization of two distinct models: the MoR Transformer and the Standard Transformer. The process then incorporates the router decision mechanism before proceeding to the fine-tuning phase. Finally, comprehensive experiments are conducted, concluding with a rigorous evaluation of the models' performance.
 
 \subsection{Model Architecture}
 \subsubsection{Baseline Transformer}
@@ -189,7 +182,7 @@ Each Transformer layer includes: multi-head self-attention, Feed-forward neural 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth]{image4.jpg}
+\includegraphics[width=0.8\linewidth]{figures/transformer_architecture.jpg}
 \caption{Transformer Architecture Diagram}
 \label{fig:transformer_arch}
 \end{figure}
@@ -227,7 +220,7 @@ A standard Transformer computation block, An MoR Router module. The router decid
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth]{image5.jpg}
+\includegraphics[width=0.8\linewidth]{figures/mor_transformer_architecture.jpg}
 \caption{MoR-Transformer Diagram}
 \label{fig:mor_transformer}
 \end{figure}
@@ -250,7 +243,7 @@ During training, Gumbel-SoftMax is applied to maintain differentiability, while 
 
 \begin{figure}[htbp]
 \centering
-\fbox{\parbox{3in}{Figure 3.4 (Routing Mechanism) was not found as a separate image.}}
+\includegraphics[width=\linewidth]{figures/routing_mechanism.png}
 \caption{Routing Mechanism}
 \label{fig:routing_mechanism}
 \end{figure}
@@ -264,11 +257,11 @@ We conducted two experiments:
 
 \textbf{Split data:} Experiment 1 use the full set as training/evaluation. Experiment 2 use first half for training (simple/seen), second half as held-out test (complex/unseen).
 
-\subsection{Training Process}
-Both models are trained as language models on the Tiny Shakespeare excerpt dataset. The training pipeline followed these configurations in Table \ref{tab:training_config}.
+\subsection{Fine-tuning Process}
+Both models are fine-tuned as language models on the Tiny Shakespeare excerpt dataset. The fine-tuning pipeline followed these configurations in Table \ref{tab:training_config}.
 
 \begin{table}[htbp]
-\caption{Training Configuration}
+\caption{Fine-tuning Configuration}
 \label{tab:training_config}
 \centering
 \begin{tabular}{|p{4cm}|p{4cm}|}
@@ -312,8 +305,8 @@ Accuracy measures top-1 next-token prediction correctness for language modeling.
 \subsubsection{Held-out accuracy}
 Held-out accuracy is the classification accuracy measured on data that was not used for training (the held-out or test set). It tells how well the model generalizes to unseen examples.
 
-\subsubsection{Train Time}
-Training time is the total amount of time a model spends to finish training on a given dataset. It helps evaluate: Efficiency (how fast a model trains), Comparison between models (e.g., Standard Transformer vs. MoR), Compute cost and Time-to-convergence.
+\subsubsection{Fine-tuning Time}
+Fine-tuning time is the total amount of time a model spends to finish fine-tuning on a given dataset. It helps evaluate: Efficiency (how fast a model trains), Comparison between models (e.g., Standard Transformer vs. MoR), Compute cost and Time-to-convergence.
 
 \section{Result and Analysis}
 This chapter presents the experimental results that were obtained after training and evaluating our proposed model. The results are analyzed based on metrics such as accuracy, effective depth, train time. The performance of the MoR-Transformer model is discussed in detail to demonstrate its effectiveness.
@@ -336,7 +329,7 @@ Accuracy & 22.7634 & 22.7635 \\
 \hline
 Effective Depth (E) & 12.00 & 8.00 \\
 \hline
-Train Time & 108 s & 83 s \\
+Fine-tuning Time & 108 s & 83 s \\
 \hline
 \end{tabular}
 \end{table}
@@ -358,7 +351,7 @@ Held-out Accuracy & 39.87 \% & 49.67 \% \\
 \hline
 Effective Depth (E) & 6.00 & 5.89 \\
 \hline
-Train Time & 30 s & 59 s \\
+Fine-tuning Time & 30 s & 59 s \\
 \hline
 \end{tabular}
 \end{table}
