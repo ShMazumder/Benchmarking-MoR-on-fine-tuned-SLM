@@ -49,7 +49,7 @@ This paper investigates Mixture-of-Recursion (MoR), a novel architecture that dy
 \end{abstract}
 
 \begin{IEEEkeywords}
-Mixture-of-Recursion (MoR), LLM, SLM, Transformer, Recursive wise KV cache, Routing Mechanism.
+Mixture-of-Recursion (MoR), LLM, SLM, Transformer, Recursive wise KV cache, Routing Mechanism (Adapted from \cite{b11}).
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -68,7 +68,7 @@ To mitigate these issues, dynamic computation paradigms have emerged, enabling m
 The Mixture-of-Recursions (MoR) architecture addresses this limitation by offering each layer three execution choices: skip, execute once, or recurse. This flexibility allows for adaptive recursion, where complex tokens receive increased computation \cite{b11}. Such adaptability is vital for tasks with variable difficulty, such as code generation and question answering, positioning MoR as a potent architecture for enhancing both efficiency and reasoning capabilities.
 
 \subsection{Problem Definition}
-Although Transformers are powerful, but their fixed-depth structure creates several challenges:
+Although Transformers are powerful, their fixed-depth structure creates several challenges:
 \begin{itemize}
     \item \textbf{Computational inefficiency:} Every input passes through the full layer stack, even when not necessary \cite{b12}.
     \item \textbf{Lack of recursive computation:} Existing dynamic-routing methods like MoE cannot re-visit a layer, meaning the model cannot naturally perform deeper iterative reasoning \cite{b10}.
@@ -103,55 +103,57 @@ Large Language Models (LLMs) represent a breakthrough in artificial intelligence
 This chapter presents reviews of existing studies related to Large Language Models (LLMs), Small Language Models (SLMs), transformer architectures, Recursive Transformer, the Mixture of Expert (MoE) and the Mixture-of-Recursions (MoR) framework. The goal is to identify the strengths and weaknesses of current models so that we will increase the effectiveness of our model.
 
 \subsection{Large Language Model (LLM)}
-Large language model (LLM) is a language model trained on a vast amount of text, usually based on the Transformer architecture. It designed for natural language processing tasks, especially for language generation. By scaling parameters to billions and using self-supervised learning, they acquire versatile capabilities in understanding and generating human like text across many tasks. The development of large language models (LLMs) began with GPT-1 the first model to apply generative pre-training to a decoder-only transformer \cite{b14}.
+Large Language Models (LLMs) are language models trained on massive text corpora, predominantly utilizing the Transformer architecture. They are designed for natural language processing tasks, particularly text generation. By scaling parameters to billions and leveraging self-supervised learning, they acquire versatile capabilities in understanding and generating human-like text across diverse domains. The development of LLMs began with GPT-1, the first model to apply generative pre-training to a decoder-only Transformer \cite{b14}.
 
-While GPT-1 introduced generative pre-training, the another model GPT-3 a 175-billion parameter model demonstrated that sufficiently large models could learn to follow instructions and solve diverse tasks with minimal examples, no special training needed \cite{b2}. However, the empirical scaling approach of these early models lacked a theoretical foundation for optimal resource allocation, that was systematically addressed by Kaplan et al. \cite{b15}, who formulated scaling laws, showing power-law relationships between model size, dataset size, training compute, and performance. By Following the scaling law Later models did even better. Google's PaLM used 540 billion parameters scaled across different computers easily, it demonstrated breakthrough performance on reasoning tasks, achieving human-level performance \cite{b16}. GPT-4 beats human experts on many tests, it processes both text and image inputs to achieve human-level performance \cite{b17}. Though these LLM models have significant advancement and achieve great performance but these models give every word the full model depth. This wastes power on simple words like “the”.
+While GPT-1 introduced generative pre-training, another model, GPT-3, a 175-billion parameter model, demonstrated that sufficiently large models could learn to follow instructions and solve diverse tasks with minimal examples, requiring no special training \cite{b2}. However, the empirical scaling approach of these early models lacked a theoretical foundation for optimal resource allocation, which was systematically addressed by Kaplan et al. \cite{b15}. They formulated scaling laws, demonstrating power-law relationships between model size, dataset size, training compute, and performance. Following these scaling laws, later models achieved even greater performance. Google's PaLM used 540 billion parameters, effectively scaled across varied computational infrastructure, demonstrating breakthrough performance on reasoning tasks and achieving human-level proficiency \cite{b16}. GPT-4 outperforms human experts on numerous benchmarks, processing both text and image inputs to achieve human-level performance \cite{b17}. Despite these significant advancements, these models apply full model depth to every token, wasting computational resources on simple words.
 
 \subsection{Small Language Model (SLM)}
-Small Language Model (SLM) is a Transformer based AI generative Model which is similar to Large Language Model (LLM) but with a significantly reduced size. Small Language Models (SLMs) are lightweight versions of traditional language models. Typically, large language models have 100 billion to 10+ trillion parameters, On the other hand, SLMs have 1 million to 10 billion parameters. Though small language models are significantly smaller then LLM but they still retain core NLP capabilities \cite{b18}. Large language models (LLMs) exhibit exceptional comprehension and reasoning capabilities across a wide range of tasks. LLMs offer maximal general capability at high cost, while SLMs emphasize efficiency, privacy, and specialization.
+Small Language Models (SLMs) are Transformer-based generative models similar to Large Language Models (LLMs) but with significantly reduced dimensions. SLMs are lightweight versions of traditional language models; while LLMs typically possess 100 billion to over 10 trillion parameters, SLMs range from 1 million to 10 billion parameters. Although significantly smaller, they retain core NLP capabilities \cite{b18}. LLMs offer maximal general capability at high cost, whereas SLMs emphasize efficiency, privacy, and specialization.
 
-However, the massive size, high cost and complexity of LLMs can pose significant challenges for some applications and make them impractical for many use cases. As a solution to these problems small language models (SLMs) were invented \cite{b19}. The Aim of SLM is to make machine intelligence more accessible, affordable, and efficient for everyday tasks \cite{b20}. The SLM journey began in 2019 with the DistilBERT model. It compressed a LLM model - BERT from 110M to 66M parameter and achieved 97\% of BERT performance at 60\% faster inference. Which proved that small model could retain capability \cite{b21}. The Modern SLM era was explored in 2023 with Microsoft Phi family. At 1.3 billion parameters Phi-1 achieves coding performance competitive with models over 100× larger \cite{b22}. Phi-2 achieved 58\% MMLU (Massive Multitask Language Understanding) beating 25B LLMs \cite{b23}. Phi-3 Mini with 3.8 billion parameters reached 68.8\% MMLU beats Llama 70B and running on smartphones \cite{b24}. This evolution of SLM makes machine intelligence accessible, affordable, and efficient for everyday tasks and it proves that capability doesn't require trillions of parameters.
+However, the massive size, high cost, and complexity of LLMs pose significant challenges for certain applications, making them impractical for many use cases. SLMs were developed as a solution to these problems \cite{b19}, aiming to make machine intelligence more accessible, affordable, and efficient for everyday tasks \cite{b20}. The SLM journey began in 2019 with DistilBERT, which compressed the BERT model from 110M to 66M parameters, achieving 97\% of BERT's performance with 60\% faster inference, proving that small models could retain significant capability \cite{b21}. The modern SLM era expanded in 2023 with the Microsoft Phi family. Phi-1, at 1.3 billion parameters, achieved coding performance competitive with models over 100$\times$ larger \cite{b22}. Phi-2 achieved 58\% on MMLU (Massive Multitask Language Understanding), outperforming 25B parameter LLMs \cite{b23}. Phi-3 Mini, with 3.8 billion parameters, reached 68.8\% on MMLU, beating Llama 70B while running on smartphones \cite{b24}. This evolution proves that capability does not strictly require trillions of parameters.
 
-However there remains a problem that all model uses the same number of layers for every word because SLM a Transformer based model. This Fixed-depth gap creates the MoR opportunity because MoR use dynamic recursive depths.
+However, a persistent inefficiency remains: all standard Transformer-based SLMs use the same number of layers for every token. This fixed-depth limitation creates an opportunity for MoR, which utilizes dynamic recursive depths to optimize computation.
 
 \subsection{Transformer}
-The transformer architecture proposed by Vaswani et al. \cite{b12} introduces a mechanism known as "self-attention," which replaces recurrence and sequence modeling, allowing for parallel processing. This self-attention mechanism has dramatically improved training efficiency and better handled long-range dependencies in text compared to RNNs/LSTMs. Self-attention, sometimes called intra-attention, is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence \cite{b12}.
+The Transformer architecture proposed by Vaswani et al. \cite{b12} introduces a mechanism known as "self-attention," which replaces recurrence for sequence modeling, enabling parallel processing. This mechanism has dramatically improved training efficiency and handling of long-range dependencies compared to RNNs/LSTMs. Self-attention relates different positions of a single sequence to compute a representation of the sequence \cite{b12}.
 
-Transformers have layered encoder-decoder blocks that hold multi-head attention and feed-forward sublayers. The decoder includes an extra attention layer that considers outputs from the encoder stack. The transformer uses positional encoding, allowing the entire sequence to be processed in parallel and ensuring that word order information is preserved \cite{b12}.
+Transformers consist of layered encoder-decoder blocks containing multi-head attention and feed-forward sublayers. The decoder includes an additional attention layer that attends to the encoder stack outputs. Positional encoding allows the entire sequence to be processed in parallel while preserving word order information \cite{b12}.
 
-Large Language Models (LLMs) have brought about a significant revolution in the world of language models, and the Transformer architecture serves as the core foundation of LLMs. The transformer has become the backbone of almost all large language models (LLMs), such as BERT, GPT, and T5. However, transformers have enabled significant advancements in tasks like code generation, code summarization, complex reasoning and QA, but despite these successes, this architecture has several limitations, such as high computational cost, memory bottlenecks, and no adaptability. Bae et al. \cite{b25} introduce Relaxed Recursive Transformers that use parameter sharing in large language models (LLMs) to reduce size and cost. This model reuses layers with minimal performance loss. But the MoR (Mixture-of-Recursion) combine parameter sharing and adaptive computation, the two axes of efficiency inside a single Recursive Transformer \cite{b11}. This can overcome all the limitations of previous transformer architectures.
+LLMs have revolutionized language modeling, with the Transformer architecture serving as their core foundation (e.g., BERT, GPT, T5). Despite successes in tasks like code generation and complex reasoning, this architecture faces limitations such as high computational cost, memory bottlenecks, and lack of adaptability. Bae et al. \cite{b25} introduce Relaxed Recursive Transformers utilizing parameter sharing to reduce model size. Building on this, the MoR (Mixture-of-Recursion) framework \cite{b11} combines parameter sharing with adaptive computation, integrating two key efficiency paradigms within a single architecture. This combined approach offers a potential solution to the fixed-depth limitations of standard Transformers.
 
 \subsection{Recursive Transformer}
-Recursive transformer” usually refers to adding explicit recursion, iteration, or recursive structure on top of standard transformer blocks to improve efficiency or enable algorithmic/generalization behavior. It emerged as a solution of "fixed computational depth for all inputs", which is the fundamental limitation of standard transformers. The Universal Transformer introduced recurrence and adaptive computation time, addressing the fixed-depth limitation of standard transformers \cite{b26}. Universal Transformers don’t work perfectly in practice, it works well only on short sequences and it applies the same amount of computation to every word in a sentence. This is where Mixture-of-Recursions (MoR) comes in. Think of MoR as a smart upgrade to the Universal Transformer. It adds a "router" that looks at each word individually \cite{b11}.
+"Recursive Transformer" refers to architectures adding explicit recursion or iteration to standard Transformer blocks to improve efficiency or generalization. It emerged as a solution to the "fixed computational depth" limitation. The Universal Transformer introduced recurrence and adaptive computation time \cite{b26}. However, Universal Transformers do not function perfectly in practice, often performing well only on short sequences and applying uniform computation per word. Mixture-of-Recursions (MoR) advances this by adding a "router" that evaluates each word individually \cite{b11}.
 
-\subsection{Mixture of Expert}
-Mixture of Expert (MoE) is a neural network architecture that was designed to improve model capacity and computational efficiency. It used many specialized subnetworks (“experts”) which share the work and a gating network dynamically selects which experts to activate for each input. It has become central to scaling modern large language models (LLMs) and other deep learning systems while keeping per-token compute roughly constant \cite{b27, b28}. The idea of Mixture of Experts (MoE) originates from the work of Jacobs et al. \cite{b29} where different 'experts' handled different parts of a problem.
+\subsection{Mixture of Experts}
+Mixture of Experts (MoE) is a neural network architecture designed to improve model capacity and efficiency using specialized subnetworks ("experts") and a gating network that dynamically selects experts for each input. It involves scaling modern LLMs while keeping per-token compute constant \cite{b27, b28}. The concept originates from Jacobs et al. \cite{b29}.
 
-Shazeer et al. \cite{b10} introduces the modern application of MoE. This paper introduce the Sparsely-Gated Mixture-of-Experts (MoE) layer, a new neural network component designed to achieve conditional computation. It used top-k gating to select a small subset of experts per token. But this model have training instability due to discrete routing. Switch Transformers Reduced this instability issues, it simplified the original MoE design by routing each token to only one expert instead of topk \cite{b30}. Where Switch transformer used one expert per token, in another study Jiang et al. \cite{b31} used two experts per token and Improved Balance and Efficiency. The another model DeepSeek-V2 introduced routing diversity with MLA and fine-grained MoE \cite{b32}. The new model MoR mix routing strategies to optimize efficiency, specialization, and generalization.
+Shazeer et al. \cite{b10} introduced the Sparsely-Gated MoE layer for conditional computation, using top-k gating. To address training instability, Switch Transformers simplified this to routing each token to a single expert \cite{b30}. Jiang et al. \cite{b31} used two experts per token to improve balance. DeepSeek-V2 introduced further routing diversity \cite{b32}. MoR mixes routing strategies to optimize efficiency, specialization, and generalization.
 
 \subsection{Mixture of Recursion}
-Mixture-of-Recursion (MoR) proposed by Bae et al. \cite{b11}, a unified framework that combines parameter sharing and adaptive computation inside a single Recursive Transformer to enhance the efficiency of large language models (LLMs). In Traditional Transformers \cite{b12}, each input goes through the same fixed number of layers, and the model always does the same amount of work. On the other hand, MoR reuses a single set of shared layers across multiple recursion steps and it allows each token to be processed based on how difficult the task is. MoR doesn’t hold memory like Transformer.
+Mixture-of-Recursion (MoR), introduced by Bae et al. \cite{b11}, presents a unified architecture merging parameter sharing with adaptive computation. In contrast to standard Transformers where every input token is processed by a fixed sequence of layers \cite{b12}, MoR employs a single shared layer stack that can be re-entered multiple times. Crucially, it assigns a specific processing depth to each token based on its complexity, allowing for variable compute paths.
 
-Parameter sharing techniques reduce the total number of unique parameters by reusing weights, which reduce the overall computational complexity. Parameter sharing techniques build on the concept of Recursive Architecture. Sharing weights across layers, enabling extremely deep networks with minimum parameter growth and computational cost \cite{b26, b33, b25}. Sliced Recursive Transformer achieve 10-30\% less FLOPs by using parameter sharing mechanism \cite{b33}. Adaptive computation makes computation adaptive, not fixed. Each token can decide how many recurrent steps its need, easy token-fewer steps, complex token-more steps \cite{b26}. Elbayad et al. \cite{b34} proposed a depth-adaptive transformer that uses a halting mechanism to dynamically skip layers during inference. This model can achieve computation savings of 20-40\%. But it’s makes training more complex and less stable. MoR uses a lightweight router that assigns a specific recursion depth to each token. This concept is similar to the routing mechanism in Mixture of Expert (MoE) models, where a router directs tokens to specialized expert networks. In this paper MoE achieves Lower perplexity at scale and 4x faster efficiency \cite{b10}. In another study, which also uses routing mechanism archives better stability over Traditional MoE, it uses top-1 routing where MoE uses top-2 routing \cite{b30}. Relaxed Recursive Transformer use parameter sharing and adaptive computation(depth-wise batching) gains 2-3x speedup \cite{b25}.
+\textbf{Parameter Sharing:} This technique reuses the weights of a layer across multiple recursive steps. It enables the construction of effectively deep networks without a corresponding increase in the number of distinct parameters, thereby reducing memory overhead \cite{b11, b33}.
 
-MoR models use parameter sharing, adaptive computation and also routing mechanisms. This model achieves 5-10\% Perplexity, save 20-30\% Flops, have two times faster inference, need 50\% smaller memory, better performance than much bigger transformer models \cite{b11}.
+\textbf{Adaptive Computation:} MoR utilizes lightweight, learnable routers to dynamically determine the recursion depth for each token. This ensures that computational resources are concentrated on more difficult tokens that require deeper processing \cite{b26}. This approach differs from halting mechanisms, offering stable training dynamics by avoiding discrete, hard-to-optimize decisions \cite{b34}.
+
+\textbf{Recursion-Wise KV Cache and Routing:} To further optimize efficiency, MoR implements a specialized caching strategy where Key-Value (KV) pairs are stored only for tokens active at a specific recursion depth. The routing core employs a Multi-Layer Perceptron (MLP) to output probabilities for three distinct actions: Recurse (add depth), Forward (proceed), or Skip (bypass), effectively balancing performance and cost.
 
 \section{Methodology}
-This chapter details the methodology employed to design, implement, train, and evaluate the proposed Mixture of Recursions (MoR) Transformer architecture. The objective is to empirically assess whether MoR can dynamically adapt computational depth while maintaining or enhancing performance relative to standard fixed-depth interactions. We compare MoR Transformer efficiency against standard transformers on a character-level language modeling task, drawing design inspiration from recent advancements in MoR that introduce dynamic recursive depths for adaptive token-level computation.
+This chapter details the methodology employed to design, implement, fine-tune, and evaluate the MoR Transformer framework. The objective is to empirically assess the MoR architecture, originally proposed by Bae et al. [11], in the context of Fine-tuned Small Language Models (SLMs). We investigate whether MoR's dynamic depth adaptation confers efficiency benefits during the fine-tuning of small-scale models. We benchmark MoR Transformer efficiency against standard transformers on a character-level language modeling task.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/proposed_method_pipeline.png}
-\caption{Proposed Method}
+\caption{Evaluated Research Pipeline}
 \label{fig:proposed_method}
 \end{figure}
 
 \subsection{Dataset and Preprocessing}
 \subsubsection{Dataset}
-The dataset built from a Tiny Shakespeare excerpt (Romeo \& Juliet balcony scene, $\sim$1,200 characters) is used as a controlled language modeling benchmark. We used this dataset for the next token predictions task. It is taken from Andrej Karpathy charRNN project \cite{b35}. The dataset is also available in TensorFlow Datasets and the Hugging Face Hub. The dataset is chosen because -It has rich linguistic structure; it is small enough for rapid experimentation and it enables reproducibility. Vocab Size is 55 characters. Generated 5,000 sequences of length 64 for causal language modeling (next-token prediction).
+The full Tiny Shakespeare dataset ($\sim$1,000,000 characters) is used as a controlled benchmark. It is sourced from the Andrej Karpathy charRNN project \cite{b35} and chosen for its linguistic structure and suitability for rapid experimentation. The vocabulary size is 55 characters.
 
 \subsubsection{Tokenization}
-Character-level tokenization is applied. Each character is mapped to a unique integer. All unique characters in the corpus (including spaces, punctuation, and line breaks) are collected into a sorted set. Two lookup tables are defined in Table \ref{tab:tokenization}.
+Character-level tokenization is applied. Each character is mapped to a unique integer, as shown in Table \ref{tab:tokenization}. The corpus is encoded as a one-dimensional tensor of token IDs.
 
 \begin{table}[htbp]
 \caption{Tokenization}
@@ -161,22 +163,19 @@ Character-level tokenization is applied. Each character is mapped to a unique in
 \hline
 \textbf{Name} & \textbf{Description} \\
 \hline
-stoi & maps each character to a unique integer ID \\
+stoi & Maps each character to a unique integer ID \\
 \hline
-itos & inverse mapping from ID back to character \\
+itos & Inverse mapping from ID back to character \\
 \hline
 \end{tabular}
 \end{table}
 
-The full corpus is then encoded as a one-dimensional tensor of integer token IDs.
-
 \subsection{Research Pipeline}
-The research pipeline, illustrated in Figure \ref{fig:proposed_method}, operates sequentially, beginning with dataset tokenization to prepare the input data. This is followed by the initialization of two distinct models: the MoR Transformer and the Standard Transformer. The process then incorporates the router decision mechanism before proceeding to the fine-tuning phase. Finally, comprehensive experiments are conducted, concluding with a rigorous evaluation of the models' performance.
+The research pipeline (Figure \ref{fig:proposed_method}) operates sequentially: dataset tokenization, initialization of MoR and Standard Transformers using pre-trained weights, router decision mechanism integration, fine-tuning, and finally, evaluation.
 
 \subsection{Model Architecture}
 \subsubsection{Baseline Transformer}
-The baseline model is a standard Transformer encoder-decoder based language model consisting of: - Token embedding layer, Positional encoding, A stack of fixed Transformer layers, Output projection layer for next-token prediction.
-Each Transformer layer includes: multi-head self-attention, Feed-forward neural network, Residual connections and layer normalization. This baseline executes all layers for every input, resulting in a fixed computational depth equal to the number of layers $N$ \cite{b12}.
+The baseline is a standard Transformer encoder-decoder language model \cite{b12}. It includes token embeddings, positional encoding, and a stack of $N$ fixed layers.
 
 \begin{figure}[htbp]
 \centering
@@ -185,36 +184,8 @@ Each Transformer layer includes: multi-head self-attention, Feed-forward neural 
 \label{fig:transformer_arch}
 \end{figure}
 
-The base Transformer configuration is shown in Table \ref{tab:transformer_config}.
-
-\begin{table}[htbp]
-\caption{Base Transformer configuration}
-\label{tab:transformer_config}
-\centering
-\begin{tabular}{|p{3cm}|p{5cm}|}
-\hline
-\textbf{Configuration} & \textbf{Description} \\
-\hline
-Embedding dimension & $d_{model}=256$ \\
-\hline
-Number of layers & $N_{full}=12$ (deep configuration) \newline $N_{low}=6$ (shallower baseline). \\
-\hline
-Attention & Multi-head self-attention with 8 heads \newline Batch-first layout \newline Inputs are shaped $B \times L \times d_{model}$ \\
-\hline
-Feedforward network & Hidden dimension: $d_{ff}=2048$. \newline Activation: ReLU. \\
-\hline
-Normalization & LayerNorm after attention and feedforward sublayers \\
-\hline
-Dropout probability & 0.1 \\
-\hline
-Positional encoding & Standard sinusoidal positional encoding with maximum length 5000, truncated to the sequence length $L=64$ \\
-\hline
-\end{tabular}
-\end{table}
-
 \subsubsection{MoR-Transformer}
-MoR-transformer use same backbone as baseline transformer, it extends the standard Transformer by introducing a routing mechanism that enables conditional execution, skipping, or recursion at each layer. Each MoR Transformer layer optionally includes:
-A standard Transformer computation block, An MoR Router module. The router decides per input sample whether to: Skip the layer, Execute the layer once, recurse by re-applying the same layer multiple times. This design allows the model to allocate more computation to complex inputs and less computation to simpler inputs, enabling adaptive depth.
+The MoR-Transformer uses the same backbone but introduces a routing mechanism. Each layer optionally includes a standard block and an MoR Router. The router decides to Skip, Execute, or Recurse.
 
 \begin{figure}[htbp]
 \centering
@@ -223,40 +194,17 @@ A standard Transformer computation block, An MoR Router module. The router decid
 \label{fig:mor_transformer}
 \end{figure}
 
-MoR use Parameter Sharing, Adaptive Computation, Recursion Wise KV cache and Routing Mechanism for enhance the efficiency of Language Model \cite{b11}.
-
-\textbf{Parameter Sharing:} Parameter sharing is the process of reusing a single set of shared layers across multiple recursion steps to reduce the total number of unique parameters. This makes a model more efficient by using fewer parameters \cite{b11} \cite{b33}.
-
-\textbf{Adaptive Computation:} MoR uses lightweight routers trained end-to-end to dynamically assign a token-specific recursion depth. This dynamic allocation ensures that computational effort is focused only on tokens that are still active at a given recursion depth, effectively directing "thinking" to where it is most needed.
-
-\textbf{Recursion Wise KV cache:} Dynamic recursion routing only cache what is actually used at each recursion, so KV memory and bandwidth drop while throughput improves. At each recursion step, only the tokens that are routed to that step store their keys and values in the cache for that level.
-
-\textbf{MoR Routing Mechanism:} The MoR-Router is the core of the adaptive mechanism. The router uses a multi-layer perceptron (MLP) followed by a SoftMax layer to output probabilities over three routing actions:
-\begin{itemize}
-    \item Recurse (Cost:1+): execute the layer and then dynamically call the same layer again (up to a maximum recursion depth).
-    \item Forward/Execute (Cost:1): execute the layer once and continue.
-    \item Skip (Cost:0): bypass the layer entirely.
-\end{itemize}
-During training, Gumbel-SoftMax is applied to maintain differentiability, while during inference, hard argmax decisions are used.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{figures/routing_mechanism.png}
-\caption{Routing Mechanism}
-\label{fig:routing_mechanism}
-\end{figure}
-
 \subsection{Experiments}
 We conducted two experiments:
 \begin{itemize}
-    \item \textbf{Experiment 1 (Efficiency Profiling):} Compares a 12-layer baseline Transformer with a 12-layer MoR-Transformer trained on identical data and epochs.
-    \item \textbf{Experiment 2 (Equal Cost Comparison):} Compares a 6-layer baseline Transformer against a 12-layer MoR model trained to effectively utilize approximately 6 layers (E $\approx$ 6).
+    \item \textbf{Experiment 1 (Efficiency Profiling):} Compares a 12-layer Baseline with a 12-layer MoR-Transformer.
+    \item \textbf{Experiment 2 (Equal Cost Comparison):} Compares a 6-layer Baseline against a 12-layer MoR model (Effective depth E $\approx$ 6).
 \end{itemize}
 
-\textbf{Split data:} Experiment 1 use the full set as training/evaluation. Experiment 2 use first half for training (simple/seen), second half as held-out test (complex/unseen).
+\textbf{Data Split:} Experiment 1 uses the full set for training/evaluation. Experiment 2 uses the first half for training and the second half as held-out test data.
 
 \subsection{Fine-tuning Process}
-Both models are fine-tuned as language models on the Tiny Shakespeare excerpt dataset. The fine-tuning pipeline followed these configurations in Table \ref{tab:training_config}.
+Both models are fine-tuned on the full Tiny Shakespeare dataset. Configuration details are in Table \ref{tab:training_config}.
 
 \begin{table}[htbp]
 \caption{Fine-tuning Configuration}
