@@ -24,7 +24,7 @@ class PositionalEncoding(nn.Module):
 class MoRTransformer(nn.Module):
     def __init__(self, vocab_size, d_model=256, n_heads=8, n_layers=12, 
                  d_ff=2048, dropout=0.1, max_seq_len=64, router_hidden_dim=128,
-                 gumbel_temperature=1.0):
+                 gumbel_temperature=1.0, **kwargs):
         """
         Args:
             vocab_size: Size of vocabulary
