@@ -29,6 +29,18 @@ class Config:
     # Dataset
     vocab_size_shakespeare = 55  # Will be set dynamically
     vocab_size_wikitext = None   # Will be set dynamically
+    # Tokenization: 'char' (default), 'word', or 'subword'
+    tokenization = 'char'
+    # For subword tokenization (SentencePiece), choose vocab size and model path
+    subword_vocab_size = 5000
+    tokenizer_dir = './data/tokenizers'
+    tokenizer_model_shakespeare = './data/tokenizers/sp_shakespeare.model'
+    tokenizer_model_wikitext = './data/tokenizers/sp_wikitext.model'
+    tokenizer_model_bangla = './data/tokenizers/sp_bangla.model'
+    # Bangla SLM dataset path and tokenizer model
+    bangla_data_dir = './data/bangla'
+    bangla_data_file = './data/bangla/bangla_slm.txt'
+    tokenizer_model_bangla = './data/tokenizers/sp_bangla.model'
     
     # Device
     device = 'cuda' if __import__('torch').cuda.is_available() else 'cpu'

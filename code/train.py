@@ -9,7 +9,7 @@ import argparse
 import os
 
 from config import Config
-from data import get_shakespeare_loaders, get_wikitext_loaders
+from data import get_shakespeare_loaders, get_wikitext_loaders, get_bangla_loaders
 from models import BaselineTransformer, MoRTransformer
 from utils import calculate_accuracy, save_checkpoint, save_results, Timer, print_model_info
 
@@ -224,13 +224,19 @@ def train_mor(model, train_loader, test_loader, config, experiment_name, epochs,
 
 def main():
     parser = argparse.ArgumentParser(description='Train MoR Benchmarking Models')
-    parser.add_argument('--dataset', type=str, default='shakespeare', choices=['shakespeare', 'wikitext'],
+    parser.add_argument('--dataset', type=str, default='shakespeare', choices=['shakespeare', 'wikitext', 'bangla'],
                         help='Dataset to use')
     parser.add_argument('--experiment', type=str, required=True,
                         choices=['baseline_6', 'baseline_12', 'mor_exp1', 'mor_exp2'],
                         help='Which experiment to run')
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu',
                         help='Device to use')
+    parser.add_argument('--tokenization', type=str, choices=['char', 'word', 'subword'], default=None,
+                        help='Tokenization to use (char, word, subword). If omitted, uses config default')
+    parser.add_argument('--subword_vocab_size', type=int, default=None,
+                        help='Vocabulary size when using subword tokenization')
+    parser.add_argument('--tokenizer_model', type=str, default=None,
+                        help='Path to a pre-trained SentencePiece model to use for subword tokenization')
     args = parser.parse_args()
     
     config = Config()
@@ -241,13 +247,31 @@ def main():
     if args.dataset == 'shakespeare':
         train_loader, test_loader, vocab_size = get_shakespeare_loaders(
             batch_size=config.batch_size,
-            seq_length=config.max_seq_len
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
         )
-    else:
+        val_loader = None
+    elif args.dataset == 'wikitext':
         train_loader, val_loader, test_loader, vocab_size = get_wikitext_loaders(
             batch_size=config.batch_size,
-            seq_length=config.max_seq_len
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
         )
+    elif args.dataset == 'bangla':
+        train_loader, test_loader, vocab_size = get_bangla_loaders(
+            batch_size=config.batch_size,
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
+        )
+        val_loader = None
+    else:
+        raise ValueError(f'Unknown dataset: {args.dataset}')
     
     print(f"Vocabulary size: {vocab_size}")
     
