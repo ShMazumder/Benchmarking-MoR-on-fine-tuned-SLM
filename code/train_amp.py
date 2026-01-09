@@ -20,7 +20,7 @@ from config import Config
 from data import get_shakespeare_loaders, get_wikitext_loaders, get_bangla_loaders
 from models import BaselineTransformer, MoRTransformer
 from utils import calculate_accuracy, save_checkpoint, save_results, Timer, print_model_info
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 
 
 def maybe_move_model(model, device):
@@ -40,7 +40,7 @@ def train_baseline(model, train_loader, test_loader, config, experiment_name):
     criterion = nn.CrossEntropyLoss()
 
     use_amp = True if str(config.device).startswith('cuda') else False
-    scaler = GradScaler() if use_amp else None
+    scaler = GradScaler('cuda') if use_amp else None
 
     timer = Timer()
     history = []
@@ -58,7 +58,7 @@ def train_baseline(model, train_loader, test_loader, config, experiment_name):
             x, y = x.to(device), y.to(device)
 
             if use_amp:
-                with autocast():
+                with autocast('cuda'):
                     logits, effective_depth = model(x)
                     loss = criterion(logits.view(-1, logits.size(-1)), y.view(-1))
                 optimizer.zero_grad()
@@ -154,7 +154,7 @@ def train_mor(model, train_loader, test_loader, config, experiment_name, epochs,
     criterion = nn.CrossEntropyLoss()
 
     use_amp = True if str(config.device).startswith('cuda') else False
-    scaler = GradScaler() if use_amp else None
+    scaler = GradScaler('cuda') if use_amp else None
 
     timer = Timer()
     history = []
@@ -173,7 +173,7 @@ def train_mor(model, train_loader, test_loader, config, experiment_name, epochs,
             x, y = x.to(device), y.to(device)
 
             if use_amp:
-                with autocast():
+                with autocast('cuda'):
                     logits, effective_depth, routing_stats = model(x, training=True)
                     ce_loss = criterion(logits.view(-1, logits.size(-1)), y.view(-1))
                     depth_penalty = lambda_penalty * effective_depth

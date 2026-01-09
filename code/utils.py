@@ -78,4 +78,4 @@ def print_model_info(model, name="Model"):
     num_params = count_parameters(model)
     print(f"\n{name} Information:")
     print(f"  Total parameters: {num_params:,}")
-    print(f"  Model size: {num_params * 4 / 1024 / 1024:.2f} MB (FP32)")
+    print(f"  Model size: {num_params * 4 / 1024 / 1024:.2f} MB (Parameter Storage)")
