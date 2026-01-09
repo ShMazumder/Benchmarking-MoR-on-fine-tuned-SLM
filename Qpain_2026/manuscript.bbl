@@ -1,11 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{b11}
-S.~Bae et~al.
-\newblock Mixture-of-recursions: Learning dynamic recursive depths for adaptive
-  token-level computation.
-\newblock In {\em Proc. 39th Int. Conf. Mach. Learn. (ICML)}, 2025.
-
 \bibitem{b1}
 J.~Devlin, M.-W. Chang, K.~Lee, and K.~Toutanova.
 \newblock {BERT}: Pre-training of deep bidirectional transformers for language
@@ -63,6 +57,12 @@ N.~Shazeer, A.~Mirhoseini, K.~Maziarz, A.~Davis, Q.~Le, G.~Hinton, and J.~Dean.
 \newblock Outrageously large neural networks: The sparsely-gated
   mixture-of-experts layer.
 \newblock In {\em Proc. Int. Conf. Learn. Represent. (ICLR)}, 2017.
+
+\bibitem{b11}
+S.~Bae et~al.
+\newblock Mixture-of-recursions: Learning dynamic recursive depths for adaptive
+  token-level computation.
+\newblock In {\em Proc. 39th Int. Conf. Mach. Learn. (ICML)}, 2025.
 
 \bibitem{b12}
 A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,

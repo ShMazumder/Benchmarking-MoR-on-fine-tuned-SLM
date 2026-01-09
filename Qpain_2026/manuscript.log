@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  5 JAN 2026 09:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  10 JAN 2026 05:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,55 +501,72 @@ LaTeX Warning: No \author given.
 LaTeX Warning: No \author given.
 
 
-! LaTeX Error: Unicode character ≈ (U+2248)
-               not set up for use with LaTeX.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.48 ...ual-cost comparison, where MoR (N=12, E≈
-                                                  6) outperforms a 6-layer b...
+LaTeX Font Info:    Trying to load font information for U+msa on input line 73.
 
-? 
-! Emergency stop.
- ...                                              
-                                                  
-l.48 ...ual-cost comparison, where MoR (N=12, E≈
-                                                  6) outperforms a 6-layer b...
+(/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 73.
 
-You may provide a definition with
-\DeclareUnicodeCharacter 
 
- 
-Here is how much of TeX's memory you used:
- 11582 strings out of 474662
- 181256 string characters out of 5751109
- 577410 words of memory out of 5000000
- 34476 multiletter control sequences out of 15000+600000
- 579907 words of font info for 76 fonts, out of 8000000 for 9000
- 319 hyphenation exceptions out of 8191
- 75i,8n,79p,971b,261s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
-nsformer_architecture.jpg, id=270, 732.7375pt x 401.5pt>
+(/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 1596) in paragraph at lines 71--73
+[]\OT1/ptm/m/n/10 Although Trans-form-ers are pow-er-ful, their fixed-depth
+ []
+
+
+
+[1{/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/
+usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+
+]
+
+
+Underfull \hbox (badness 4805) in paragraph at lines 120--121
+\OT1/ptm/m/n/10 gen-er-a-tive mod-els sim-i-lar to Large Lan-guage Mod-els
+ []
+
+
+
+[2]
+
+<figures/proposed_method_pipeline.png, id=248, 753.81625pt x 592.2125pt>
+File: figures/proposed_method_pipeline.png Graphic file (type png)
+<use figures/proposed_method_pipeline.png>
+Package pdftex.def Info: figures/proposed_method_pipeline.png  used on input li
+ne 155.
+(pdftex.def)             Requested size: 252.0pt x 197.96996pt.
+
+
+[3]
+Underfull \hbox (badness 3525) in paragraph at lines 171--172
+[]\OT1/ptm/b/n/10 Character-level (Shake-speare): \OT1/ptm/m/n/10 Each char-ac-
+ter is
+ []
+
+<figures/transformer_architecture.jpg, id=272, 732.7375pt x 401.5pt>
 File: figures/transformer_architecture.jpg Graphic file (type jpg)
 <use figures/transformer_architecture.jpg>
 Package pdftex.def Info: figures/transformer_architecture.jpg  used on input li
-ne 191.
+ne 199.
 (pdftex.def)             Requested size: 201.60077pt x 110.4649pt.
-<figures/mor_transformer_architecture.jpg, id=271, 622.325pt x 401.5pt>
+
+
+<figures/mor_transformer_architecture.jpg, id=273, 622.325pt x 401.5pt>
 File: figures/mor_transformer_architecture.jpg Graphic file (type jpg)
 <use figures/mor_transformer_architecture.jpg>
 Package pdftex.def Info: figures/mor_transformer_architecture.jpg  used on inpu
-t line 201.
+t line 209.
 (pdftex.def)             Requested size: 201.60077pt x 130.06322pt.
-
-
 
 
 [4 <./figures/proposed_method_pipeline.png> <./figures/transformer_architecture
 .jpg> <./figures/mor_transformer_architecture.jpg>]
-Underfull \hbox (badness 1975) in paragraph at lines 284--285
+Underfull \hbox (badness 1975) in paragraph at lines 293--294
  \OT1/ptm/m/it/10 1) Ex-per-i-ment 1: Ef-fi-ciency Pro-fil-ing (N=12 vs MoR
  []
 
@@ -557,55 +574,55 @@ Underfull \hbox (badness 1975) in paragraph at lines 284--285
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 306.
+(hyperref)                removing `math shift' on input line 315.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\approx' on input line 306.
+(hyperref)                removing `\approx' on input line 315.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 306.
+(hyperref)                removing `math shift' on input line 315.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--338
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 369--369
 []\OT1/ptm/m/n/8 2: Equiv-a-lent
  []
 
 
-Underfull \hbox (badness 3735) in paragraph at lines 338--338
+Underfull \hbox (badness 3735) in paragraph at lines 369--369
 []\OT1/ptm/m/n/8 For same av-er-age cost
  []
 
 
-Underfull \hbox (badness 1789) in paragraph at lines 338--339
+Underfull \hbox (badness 1789) in paragraph at lines 369--370
 []\OT1/ptm/m/n/8 MoR uses depth where
  []
 
 
-Overfull \hbox (11.62202pt too wide) in paragraph at lines 332--341
+Overfull \hbox (11.62202pt too wide) in paragraph at lines 363--372
  [][] 
  []
 
 
 
-[5]
 
-
-Underfull \hbox (badness 2096) in paragraph at lines 365--366
+Underfull \hbox (badness 2096) in paragraph at lines 396--397
 []\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
 a-tency,
  []
 
 (./manuscript.bbl
-Underfull \hbox (badness 1502) in paragraph at lines 56--60
+
+[6]
+Underfull \hbox (badness 1502) in paragraph at lines 50--54
 \OT1/ptm/m/n/8 sal-ity of trans-form-ers for next-token pre-dic-tion.  \OT1/ptm
 /m/it/8 arXiv preprint
  []
 
-
-
-[6])
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -629,16 +646,16 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
-(rerunfilecheck)             Checksum: 3E37DA813E4B867B24C95F9840B1A3ED;6341.
+(rerunfilecheck)             Checksum: 43D7059B340846582AC7D84BE95909BB;6616.
  ) 
 Here is how much of TeX's memory you used:
- 11783 strings out of 474662
- 184632 string characters out of 5751109
- 605410 words of memory out of 5000000
- 34583 multiletter control sequences out of 15000+600000
- 598544 words of font info for 114 fonts, out of 8000000 for 9000
+ 11781 strings out of 474662
+ 184674 string characters out of 5751109
+ 604460 words of memory out of 5000000
+ 34581 multiletter control sequences out of 15000+600000
+ 596999 words of font info for 108 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,12n,79p,1205b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1205b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/c
@@ -648,15 +665,14 @@ onts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/t
-ype1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
-urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/
-times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on manuscript.pdf (7 pages, 304497 bytes).
+1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw
+/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/tim
+es/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/times/ut
+mri8a.pfb>
+Output written on manuscript.pdf (7 pages, 295981 bytes).
 PDF statistics:
- 389 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
- 91 named destinations out of 1000 (max. 500000)
- 336 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 390 PDF objects out of 1000 (max. 8388607)
+ 349 compressed objects within 4 object streams
+ 95 named destinations out of 1000 (max. 500000)
+ 344 words of extra memory for PDF output out of 10000 (max. 10000000)
 
