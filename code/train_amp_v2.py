@@ -175,13 +175,13 @@ def train_baseline(model, train_loader, test_loader, config, experiment_name):
 
     if is_main:
         results_path = Path(config.results_dir) / f"{experiment_name}.json"
-        save_results(results_path, {
+        save_results({
             'training_accuracy': avg_acc,
             'test_accuracy': test_acc,
             'test_loss': test_loss,
             'effective_depth': 'N/A',
             'training_time': training_time
-        })
+        }, results_path)
         print(f"Results saved: {results_path}")
         print(f"\\nResults:\\n  Training Accuracy: {avg_acc:.2f}%\\n  Test Accuracy: {test_acc:.2f}%")
         print(f"  Test Loss: {test_loss:.4f}\\n  Training Time: {training_time}s")
