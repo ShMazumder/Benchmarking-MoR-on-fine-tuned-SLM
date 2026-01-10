@@ -148,6 +148,9 @@ Mixture-of-Recursion (MoR), introduced by Bae et al. \cite{b11}, presents a unif
 
 \textbf{Recursion-Wise KV Cache and Routing:} To further optimize efficiency, MoR implements a specialized caching strategy where Key-Value (KV) pairs are stored only for tokens active at a specific recursion depth. The routing core employs a Multi-Layer Perceptron (MLP) to output probabilities for three distinct actions: Recurse (add depth), Forward (proceed), or Skip (bypass), effectively balancing performance and cost.
 
+\subsection{Research Gap}
+Despite the advancements in adaptive computation (Universal Transformers) and spatial routing (MoE), a significant research gap remains in combining \textit{parameter sharing} with \textit{token-level temporal recursion} specifically for Small Language Models (SLMs). Most existing adaptive methods are optimized for massive-scale models, leaving their efficacy on resource-constrained architectures underexplored. Furthermore, the interplay between \textit{token information density} (granularity) and \textit{optimal recursive depth} has not been systematically benchmarked, creating a need for a study that evaluates how dynamic routing adapts to different linguistic typologies.
+
 \section{Methodology}
 This chapter details the methodology employed to implement, train, and evaluate the MoR Transformer framework. The objective is to empirically assess the MoR architecture, originally proposed by Bae et al. \cite{b11}, in the context of Small Language Models (SLMs). We investigate whether MoR's dynamic depth adaptation confers efficiency benefits when training small-scale models from scratch. We benchmark MoR Transformer efficiency against standard Transformers on a character-level language modeling task.
 
@@ -266,7 +269,7 @@ MoR (Exp 1) & 30 epochs \\
 \hline
 MoR (Exp 2) & 50 epochs (to optimize routing) \\
 \hline
-Platform and Hardware & Kaggle, Gpu \\
+Platform and Hardware & Kaggle (NVIDIA Tesla P100 GPU) \\
 \hline
 \end{tabular}
 \end{table}
@@ -430,7 +433,7 @@ This study has several limitations that should be acknowledged:
 \end{itemize}
 
 \subsection{Future Works}
-Although this research provides strong evidence for the benefits of adaptive recursion, several avenues remain open for future investigation. One important extension is to evaluate MoR on larger and more diverse datasets, including code generation, question answering, translation and summarization to better understand its generalization ability. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance. Finally, deploying MoR on resource constrained hardware like smartphones or IoT devices would demonstrate its practical benefits for realtime systems, and exploring its extension to multimodal tasks (text plus image or text plus code) could open new opportunities for adaptive recursion in broader domains.
+Although this research provides strong evidence for the benefits of adaptive recursion, several avenues remain open for future investigation. One important extension is to evaluate MoR on larger and more diverse datasets, including code generation and reasoning-heavy benchmarks (e.g., GSM8K) to better understand its capability for deep recursive reasoning. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance. Finally, deploying MoR on resource constrained hardware like smartphones or IoT devices would demonstrate its practical benefits for realtime systems, and exploring its extension to multimodal tasks (text plus image or text plus code) could open new opportunities for adaptive recursion in broader domains.
 
 \bibliographystyle{unsrt}
 \bibliography{manuscript_ref}
