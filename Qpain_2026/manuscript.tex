@@ -384,7 +384,7 @@ Fine-tuning Time & 2742 s & 2785 s \\
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the 12-layer models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate robust learning, reaching 25.11\% accuracy in the first epoch alone, with intermediate baseline runs hitting over 38\% by epoch 2. MoR successfully maintained this performance while reducing effective computational depth to 8.15, confirming that adaptive computation is effective for morphologically rich subword modeling when paired with appropriate regularization.
+\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate robust learning. The 12-layer baseline reached 25.11\% accuracy in its first epoch, while the 6-layer baseline (representing the equivalent compute cost of MoR) achieved a validation accuracy of 33.69\% by epoch 2 (with training accuracy exceeding 43\%). MoR successfully navigated this space with an effective depth of 8.15, confirming that adaptive computation is effective for morphologically rich subword modeling.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
