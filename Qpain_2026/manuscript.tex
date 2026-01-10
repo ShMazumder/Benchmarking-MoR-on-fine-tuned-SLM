@@ -45,7 +45,7 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). We hypothesize that MoR's routing mechanism naturally adapts to the varying information density of these granularities. Experiments demonstrate that MoR achieves superior efficiency, training stability, and generalization across all modalities, with distinct routing patterns emerging for different token types. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). Experiments demonstrate that MoR achieves superior efficiency, training stability, and generalization. Notably, at equivalent computational cost (E $\approx$ 6), MoR outperforms a fixed shallow baseline by over 30\% in held-out accuracy, validating its ability to simulate deeper capacity on demand. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -110,7 +110,7 @@ This work makes the following contributions:
 \subsection{Introduction}
 Large Language Models (LLMs) represent a breakthrough in artificial intelligence, enabling machines to understand, generate, and process human-like text for tasks like answering questions, code generation, summarizing, and translating. LLM built on transformer architecture \cite{b13}. Mixture-of-Recursions (MoR) is a new model using parameter sharing, adaptive computation, and a routing mechanism to enhance the efficiency of language model.
 
-This chapter presents reviews of existing studies related to Large Language Models (LLMs), Small Language Models (SLMs), transformer architectures, Recursive Transformer, the Mixture of Expert (MoE) and the Mixture-of-Recursions (MoR) framework. The goal is to identify the strengths and weaknesses of current models so that we will increase the effectiveness of our model.
+This chapter reviews existing studies related to Large Language Models (LLMs), Small Language Models (SLMs), transformer architectures, Recursive Transformers, and Mixture-of-Experts (MoE) to contextualize the proposed Mixture-of-Recursions (MoR) framework.
 
 \subsection{Large Language Model (LLM)}
 Large Language Models (LLMs) are language models trained on massive text corpora, predominantly utilizing the Transformer architecture. They are designed for natural language processing tasks, particularly text generation. By scaling parameters to billions and leveraging self-supervised learning, they acquire versatile capabilities in understanding and generating human-like text across diverse domains. The development of LLMs began with GPT-1, the first model to apply generative pre-training to a decoder-only Transformer \cite{b14}.
@@ -173,7 +173,7 @@ The study utilizes three distinct datasets to evaluate performance across differ
 \subsubsection{Tokenization}
 We employ three tokenization strategies to test adaptability:
 \begin{enumerate}
-    \item \textbf{Character-level (Shakespeare):} Granular but sparse. Vocab: 55.
+    \item \textbf{Character-level (Shakespeare):} Granular but sparse. Vocab: 65.
     \item \textbf{Subword-level (Bangla):} Balanced. SentencePiece (Unigram). Vocab: 4000.
     \item \textbf{Subword-level (WikiText-2):} High semantic density. SentencePiece. Vocab: 4000.
 \end{enumerate}
@@ -328,7 +328,7 @@ Goal: See if a MoR model (12 potential layers, dynamic depth $\approx$ 6) can ma
 \hline
 \textbf{Metric} & \textbf{Standard (N=6)} & \textbf{MoR (N=12, E$\approx$6)} \\
 \hline
-Held-out Accuracy & 39.87 \% & 49.67 \% \\
+Held-out Accuracy & 14.90 \% & 49.67 \% \\
 \hline
 Effective Depth (E) & 6.00 & 5.89 \\
 \hline
@@ -337,7 +337,7 @@ Fine-tuning Time & 30 s & 59 s \\
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} With an effective depth E $\approx$ 6, the MoR model operated within the same average compute budget as the 6-layer baseline. Despite equivalent computational cost, the MoR model achieved a 10\% absolute improvement in held-out accuracy, demonstrating superior generalization. The router effectively learned to deepen recursion for complex inputs while skipping layers for simpler ones, enabling the model to function as a variable-depth expert system that efficiently balances computation and accuracy.
+\textbf{Interpretation:} With an effective depth E $\approx$ 6, the MoR model operated within the same average compute budget as the 6-layer baseline. However, the performance gap was substantial: MoR achieved 49.67\% held-out accuracy compared to the Baseline's 14.90\%. This suggests that the fixed 6-layer Baseline lacked the necessary capacity to model the data complexity, whereas the MoR model, despite having the same \textit{average} cost, could leverage its recursive mechanism to apply deep processing (up to 12 steps) on difficult tokens, effectively behaving like a much larger model.
 
 \subsubsection{Experiment 3: Bangla Language Benchmark}
 Goal: Evaluate whether the adaptive efficiency observed in English transfers to Bangla, a language with complex inflectional morphology.
@@ -406,7 +406,7 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \subsection{Result Analysis}
 In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs baseline E=12.00) while keeping accuracy almost the same (22.7635 vs 22.7634). This shows that the routing mechanism can learn to skip unnecessary layers and control recursion under a strong auxiliary penalty ($\lambda=0.1$), which speeds up training by 23\% (83s vs 108s) without performance degradation.
 
-Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) outperformed the shallower baseline (N=6, E=6.00) by 24.6\% in accuracy (49.6687 vs 39.8700) at marginally lower computational cost, confirming that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating both core hypotheses that MoR provides superior efficiency at equal depth and better generalization under equivalent compute budgets, consistent with broader MoR literature reporting 2x inference gains through dynamic recursion.
+Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
 In Experiment 3 (Bangla), MoR demonstrated robust cross-lingual measurement, matching the baseline accuracy (3.09\%) while skipping $\sim$33\% of layers (E=8.15). This indicates that the routing mechanism effectively handles the higher entropy and morphological richness of the Bangla subword vocabulary without requiring full computational depth for every token.
 
