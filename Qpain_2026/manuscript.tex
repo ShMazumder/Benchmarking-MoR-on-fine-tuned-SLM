@@ -317,6 +317,13 @@ Fine-tuning Time & 108 s & 83 s \\
 
 \textbf{Interpretation:} The results indicate that the MoR model achieves virtually identical predictive accuracy to the standard Transformer (approx. 22.76). Notably, the MoR router utilized an average of only 8 layers per sample, compared to the fixed 12 layers of the baseline. This 33\% reduction in computations per token sequence underscores the efficiency gains of adaptive routing, leading to faster and more resource-efficient training without compromising accuracy.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/exp1_efficiency_comparison.png}
+\caption{Experiment 1: Efficiency Profiling Comparison between Standard Transformer (N=12) and MoR (N=12). MoR achieves identical accuracy with 33\% fewer layers and 23\% faster training.}
+\label{fig:exp1_comparison}
+\end{figure}
+
 \subsubsection{Experiment 2: Performance Under Equivalent Cost (N=6 vs MoR N=12, E $\approx$ 6)}
 Goal: See if a MoR model (12 potential layers, dynamic depth $\approx$ 6) can match the compute cost of a smaller baseline (6 layers) while achieving better accuracy through adaptive computation.
 
@@ -338,6 +345,13 @@ Fine-tuning Time & 30 s & 59 s \\
 \end{table}
 
 \textbf{Interpretation:} With an effective depth E $\approx$ 6, the MoR model operated within the same average compute budget as the 6-layer baseline. However, the performance gap was substantial: MoR achieved 49.67\% held-out accuracy compared to the Baseline's 14.90\%. This suggests that the fixed 6-layer Baseline lacked the necessary capacity to model the data complexity, whereas the MoR model, despite having the same \textit{average} cost, could leverage its recursive mechanism to apply deep processing (up to 12 steps) on difficult tokens, effectively behaving like a much larger model.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/exp2_equal_cost_comparison.png}
+\caption{Experiment 2: Equal Cost Comparison. At equivalent computational cost (E $\approx$ 6), MoR achieves 34.77\% higher held-out accuracy than the shallow baseline.}
+\label{fig:exp2_comparison}
+\end{figure}
 
 \subsubsection{Experiment 3: Bangla Language Benchmark}
 Goal: Evaluate whether the adaptive efficiency observed in English transfers to Bangla, a language with complex inflectional morphology.
@@ -383,6 +397,13 @@ Fine-tuning Time & 5854 s & 5922 s \\
 
 \textbf{Interpretation (Stability):} Experiment 4 highlights a critical stability advantage. The deep Baseline (N=12) failed to converge (3.69\%, compared to $>$31\% for a shallow N=6 control), suffering from optimization instability. In contrast, the MoR model (N=12) successfully converged to 30.06\% accuracy with a reduced effective depth of 8.13. This proves that MoR's routing mechanism acts as architectural regularization, allowing deep models to recover the stability of shallow networks while maintaining the capacity for deeper recursion where needed.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/stability_analysis.png}
+\caption{Training Stability Analysis on WikiText-2. MoR (N=12) successfully recovers the stability of shallow baselines (N=6), while the deep fixed baseline (N=12) diverges.}
+\label{fig:stability_analysis}
+\end{figure}
+
 \subsubsection{Overall Experimental Outcome}
 \begin{table}[htbp]
 \caption{Overall Outcome}
@@ -402,6 +423,20 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \hline
 \end{tabular}
 \end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/multi_granularity_summary.png}
+\caption{Performance Summary Across Token Granularities. MoR demonstrates consistent efficiency gains across character-level (Shakespeare), morphological subword (Bangla), and high-density subword (WikiText-2) tokenization.}
+\label{fig:multi_granularity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/computational_savings.png}
+\caption{Computational Savings Across Datasets. MoR consistently achieves approximately 33\% reduction in effective depth across all three datasets.}
+\label{fig:computational_savings}
+\end{figure}
 
 \subsection{Result Analysis}
 In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs baseline E=12.00) while keeping accuracy almost the same (22.7635 vs 22.7634). This shows that the routing mechanism can learn to skip unnecessary layers and control recursion under a strong auxiliary penalty ($\lambda=0.1$), which speeds up training by 23\% (83s vs 108s) without performance degradation.
