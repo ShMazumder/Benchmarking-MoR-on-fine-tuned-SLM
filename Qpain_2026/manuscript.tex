@@ -228,6 +228,13 @@ The MoR router is a lightweight feed-forward network that determines the executi
     \item \textbf{Regularization:} Auxiliary loss $\lambda \cdot E$ penalizes effective depth to encourage efficient routing
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/routing_mechanism.png}
+\caption{MoR Routing Mechanism. The router predicts discrete actions (Skip, Forward, Recurse) for each token to optimize computational depth.}
+\label{fig:routing_mechanism}
+\end{figure}
+
 \subsection{Experiments}
 We conducted two experiments:
 \begin{itemize}
@@ -440,6 +447,12 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \end{figure}
 
 \subsection{Result Analysis}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/depth_accuracy_tradeoff.png}
+\caption{Efficiency-Performance Trade-off. MoR models (blue markers) consistently occupy the upper-left quadrant, achieving higher accuracy at lower effective depths compared to deep fixed baselines.}
+\label{fig:tradeoff}
+\end{figure}
 In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs baseline E=12.00) while keeping accuracy almost the same (22.7635 vs 22.7634). This shows that the routing mechanism can learn to skip unnecessary layers and control recursion under a strong auxiliary penalty ($\lambda=0.1$), which speeds up training by 23\% (83s vs 108s) without performance degradation.
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
