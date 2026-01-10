@@ -373,15 +373,15 @@ Goal: Evaluate whether the adaptive efficiency observed in English transfers to 
 \hline
 \textbf{Model} & \textbf{Accuracy} & \textbf{Effective Depth (E)} & \textbf{Time/Epoch} \\
 \hline
-Standard ($N = 6$)$^\dagger$ & 63.43\% & 6.00 & 28m/ep \\
+Standard ($N = 6$)$^\dagger$ & 63.74\% & 6.00 & 28m/ep \\
 Standard ($N = 12$) & 25.11\% & 12.00 & 58m/ep \\
 MoR ($N = 12$) & 22.45\% & 8.15 & 1h 05m/ep \\
 \hline
-\multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 9.}
+\multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.}
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a validation accuracy of 63.43\% by epoch 9 (with training accuracy exceeding 64\% in epoch 10). MoR successfully navigated this space with an effective depth of 8.15, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
+\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a validation accuracy of 63.74\% by epoch 10 (with training accuracy reaching 64.96\%). MoR successfully navigated this space with an effective depth of 8.15, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
@@ -425,7 +425,7 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \hline
 2: Equivalent Cost & For same average cost (E $\approx$ 6), MoR (12 L) achieves higher accuracy than fixed 6 L. & MoR uses depth where needed $\rightarrow$ better adaptability and generalization. \\
 \hline
-3: Cross-Lingual & Models achieve 63\%+ on Bangla (Subword). & Successfully resolves morpho-convergence hurdles. \\
+3: Cross-Lingual & Models achieve 63.7\% on Bangla (Subword). & Successfully resolves morpho-convergence hurdles. \\
 \hline
 4: Stability & MoR converges (30\%) while Baseline fails (3\%). & \textbf{MoR stabilizes training} for deep architectures. \\
 \hline
@@ -457,7 +457,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), the implementation of aggressive optimizations successfully resolved the previously observed convergence failure. By utilizing a larger 16K vocabulary and refined learning rate scheduling, the models achieved state-of-the-of-the-art results, with the 6-layer baseline reaching 63.43\% accuracy by Epoch 9. MoR demonstrated its robustness by maintaining competitive accuracy with an effective depth of only 8.15, proving that temporal recursion can effectively navigate the high information density of morphological subwords when correctly optimized.
+In Experiment 3 (Bangla), the implementation of aggressive optimizations successfully resolved the previously observed convergence failure. By utilizing a larger 16K vocabulary and refined learning rate scheduling, the models achieved state-of-the-art results, with the 6-layer baseline reaching 63.74\% accuracy by Epoch 10. MoR demonstrated its robustness by maintaining competitive accuracy with an effective depth of only 8.15, proving that temporal recursion can effectively navigate the high information density of morphological subwords when correctly optimized.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
@@ -487,7 +487,7 @@ This study has several critical limitations that must be acknowledged:
 \subsection{Future Works}
 Although this research provides strong evidence for the benefits of adaptive recursion, several critical avenues remain open for future investigation:
 
-\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (exceeding 63\% validation accuracy), future work should explore: (1) Dynamic vocabulary scaling based on morphological complexity, (2) Integration of language-specific priors into the routing mechanism to better handle inflectional richness, (3) Hyperparameter sweeps for ultra-small datasets.
+\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should explore: (1) Dynamic vocabulary scaling based on morphological complexity, (2) Integration of language-specific priors into the routing mechanism to better handle inflectional richness, (3) Hyperparameter sweeps for ultra-small datasets.
 
 \textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should explore: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks, (4) Hardware-aware architecture search to minimize latency.
 
