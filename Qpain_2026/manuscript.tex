@@ -45,11 +45,11 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character, Subword, and Word-level, using WikiText-2 and Bangla Wikipedia. We hypothesize that MoR's routing mechanism naturally adapts to the varying information density of these granularities. Experiments demonstrate that MoR achieves superior efficiency and generalization across all modalities, with distinct routing patterns emerging for different token types. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Subword (Bangla), and Word-level (WikiText-2). We hypothesize that MoR's routing mechanism naturally adapts to the varying information density of these granularities. Experiments demonstrate that MoR achieves superior efficiency and generalization across all modalities, with distinct routing patterns emerging for different token types. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Mixture-of-Recursion (MoR), Character-Level Language Modeling, Transformer, Adaptive Computation, Routing Mechanism, Next-Token Prediction.
+Mixture-of-Recursion (MoR), Multi-Granularity Language Modeling, Transformer, Adaptive Computation, Routing Mechanism, Next-Token Prediction.
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -160,18 +160,19 @@ This chapter details the methodology employed to implement, train, and evaluate 
 
 \subsection{Dataset and Preprocessing}
 \subsubsection{Dataset}
-The study utilizes two distinct datasets to evaluate performance across different linguistic typologies:
+The study utilizes three distinct datasets to evaluate performance across different linguistic typologies and granularities:
 \begin{itemize}
-    \item \textbf{WikiText-2:} A standard benchmark for language modeling, consisting of curated Wikipedia articles ($\sim$2M tokens). It offers a more realistic vocabulary and structure than character-level datasets.
-    \item \textbf{Bangla Wikipedia:} To evaluate performance on low-resource languages, we create a subset of the Bangla Wikipedia corpus ($\sim$15MB text). This dataset introduces complex morphological challenges distinct from English.
+    \item \textbf{Tiny Shakespeare:} The full dataset ($\sim$1M characters) is used as a controlled character-level benchmark \cite{b35}. It serves as the baseline for high-granularity, low-information-density modeling.
+    \item \textbf{WikiText-2:} A standard benchmark for word/subword modeling ($\sim$2M tokens). It offers a realistic vocabulary and is used to test the model on higher information densitiy.
+    \item \textbf{Bangla Wikipedia:} To evaluate performance on low-resource languages, we create a subset of the Bangla Wikipedia corpus ($\sim$15MB text). This dataset introduces complex morphological challenges.
 \end{itemize}
 
 \subsubsection{Tokenization}
-We employ three tokenization strategies to test the model's adaptability to increasingly dense information streams:
+We employ three tokenization strategies to test adaptability:
 \begin{enumerate}
-    \item \textbf{Character-level:} Granular but sparse. Vocab: 55.
-    \item \textbf{Subword-level:} Balanced. SentencePiece (Unigram). Vocab: 4000.
-    \item \textbf{Word-level:} High semantic density. Whitespace/Punctuation splitting. Vocab: $\sim$33,000 (WikiText-2).
+    \item \textbf{Character-level (Shakespeare):} Granular but sparse. Vocab: 55.
+    \item \textbf{Subword-level (Bangla):} Balanced. SentencePiece (Unigram). Vocab: 4000.
+    \item \textbf{Word-level (WikiText-2):} High semantic density. Whitespace/Punctuation splitting. Vocab: $\sim$33,000.
 \end{enumerate}
 
 \begin{table}[htbp]
@@ -409,7 +410,7 @@ Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N
 \subsection{Conclusion}
 This paper explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
 
-Three experiments were conducted using WikiText-2 and Bangla Wikipedia. The Experimental comparisons demonstrate that MoR can achieve superior performance while using fewer effective layers. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning and generalizes to diverse languages.
+Three experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla Wikipedia. The Experimental comparisons demonstrate that MoR can achieve superior performance while using fewer effective layers. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning and generalizes to diverse languages.
 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
@@ -417,7 +418,7 @@ In conclusion, our findings position MoR as a viable alternative to fixed-depth 
 This study has several limitations that should be acknowledged:
 \begin{itemize}
     \item \textbf{Dataset Scale:} While WikiText-2 ($\sim$2M tokens) is larger than character-level baselines, it is still small compared to industrial-scale pre-training. Results may not fully predict behavior on Billion-scale corpora.
-    \item \textbf{Single Task:} Only character-level next-token prediction was evaluated. Performance on other tasks (e.g., code generation, question answering) remains unexplored.
+    \item \textbf{Single Task:} Only next-token prediction was evaluated across granularities. Performance on downstream tasks (e.g., code generation, question answering) remains unexplored.
     \item \textbf{Training from Scratch:} Models were trained from random initialization rather than fine-tuned from pre-trained weights, limiting insights into transfer learning scenarios.
     \item \textbf{Limited Baselines:} No comparison to other efficiency methods such as parameter-efficient fine-tuning (LoRA, Adapters), pruning, or early-exit mechanisms.
     \item \textbf{Statistical Rigor:} Results are based on single runs without multiple random seeds or significance testing.
