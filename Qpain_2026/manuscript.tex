@@ -443,7 +443,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), MoR demonstrated robust cross-lingual measurement, matching the baseline accuracy (3.09\%) while skipping $\sim$33\% of layers (E=8.15). This indicates that the routing mechanism effectively handles the higher entropy and morphological richness of the Bangla subword vocabulary without requiring full computational depth for every token.
+In Experiment 3 (Bangla), both deep models (N=12) failed to converge effectively, achieving only 3.09\% accuracy compared to 25.77\% for the shallow N=6 baseline. This represents a critical failure mode where deep architectures on small datasets with limited training epochs (2) and constrained vocabulary (4000 subwords) cannot escape poor local minima. However, MoR still demonstrated its core efficiency property by reducing effective depth to 8.15 while maintaining parity with the failed baseline, suggesting that the routing mechanism functions correctly even when the underlying optimization landscape is problematic.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
@@ -457,18 +457,29 @@ Three experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
 \subsection{Limitations}
-This study has several limitations that should be acknowledged:
+This study has several critical limitations that must be acknowledged:
 \begin{itemize}
+    \item \textbf{Bangla Optimization Failure:} The Bangla experiments (Exp 3) revealed a catastrophic convergence failure for deep models (3.09\% vs 25.77\% for N=6). Analysis of training logs indicates: (1) Loss plateaued at $\sim$7.2 throughout training, (2) Only 2 epochs were used due to computational constraints, insufficient for convergence, (3) Vocabulary size of 4000 subwords is inadequate for morphologically rich Bangla, causing excessive fragmentation, (4) Learning rate and optimization hyperparameters were not tuned for the Bangla linguistic structure.
+    \item \textbf{MoR Computational Overhead:} Despite reducing parameters from 17.8M to 3.7M (79\% reduction), MoR training time per epoch remained nearly identical to the baseline ($\sim$24 minutes). This indicates that the routing mechanism's architectural overhead negates the theoretical computational savings from parameter sharing, a critical limitation for practical deployment.
     \item \textbf{Dataset Scale:} While WikiText-2 ($\sim$2M tokens) is larger than character-level baselines, it is still small compared to industrial-scale pre-training. Results may not fully predict behavior on Billion-scale corpora.
     \item \textbf{Single Task:} Only next-token prediction was evaluated across granularities. Performance on downstream tasks (e.g., code generation, question answering) remains unexplored.
     \item \textbf{Training from Scratch:} Models were trained from random initialization rather than fine-tuned from pre-trained weights, limiting insights into transfer learning scenarios.
     \item \textbf{Limited Baselines:} No comparison to other efficiency methods such as parameter-efficient fine-tuning (LoRA, Adapters), pruning, or early-exit mechanisms.
     \item \textbf{Statistical Rigor:} Results are based on single runs without multiple random seeds or significance testing.
     \item \textbf{Deployment Metrics:} Real-world inference latency, throughput, and energy consumption were not measured.
+    \item \textbf{Hyperparameter Sensitivity:} The auxiliary loss weight ($\lambda=0.1$) and router architecture were not systematically ablated. Different values may yield different efficiency-accuracy trade-offs.
 \end{itemize}
 
 \subsection{Future Works}
-Although this research provides strong evidence for the benefits of adaptive recursion, several avenues remain open for future investigation. One important extension is to evaluate MoR on larger and more diverse datasets, including code generation and reasoning-heavy benchmarks (e.g., GSM8K) to better understand its capability for deep recursive reasoning. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance. Finally, deploying MoR on resource constrained hardware like smartphones or IoT devices would demonstrate its practical benefits for realtime systems, and exploring its extension to multimodal tasks (text plus image or text plus code) could open new opportunities for adaptive recursion in broader domains.
+Although this research provides strong evidence for the benefits of adaptive recursion, several critical avenues remain open for future investigation:
+
+\textbf{Addressing Bangla Optimization:} The catastrophic failure on Bangla (3.09\% accuracy) demands systematic investigation. Future work should: (1) Increase vocabulary size to 16K-32K subwords to better capture morphological richness, (2) Extend training to 50+ epochs with learning rate scheduling, (3) Implement language-specific preprocessing and normalization, (4) Conduct hyperparameter sweeps specifically for low-resource, morphologically complex languages.
+
+\textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should explore: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks, (4) Hardware-aware architecture search to minimize latency.
+
+\textbf{Scaling and Generalization:} Evaluate MoR on larger and more diverse datasets, including code generation and reasoning-heavy benchmarks (e.g., GSM8K, HumanEval) to better understand its capability for deep recursive reasoning. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance.
+
+\textbf{Deployment and Validation:} Deploy MoR on resource-constrained hardware like smartphones or IoT devices to measure real-world inference latency, energy consumption, and throughput. Explore extension to multimodal tasks (text+image or text+code) to validate adaptive recursion in broader domains.
 
 \bibliographystyle{unsrt}
 \bibliography{manuscript_ref}
