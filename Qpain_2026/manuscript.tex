@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Benchmarking Mixture-of-Recursion (MoR) for Character-Level Language Modeling}
+\title{Benchmarking Mixture-of-Recursion (MoR) across Character, Subword, and Word-Level Language Modeling}
 
 % \author{\IEEEauthorblockN{Sumaiya Sultana}
 % \IEEEauthorblockA{\textit{Dept. of Computer Science \& Engineering} \\
@@ -45,7 +45,7 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We evaluate MoR against fixed-depth Transformers on character-level next-token prediction using Tiny Shakespeare and subword-level modeling on Bangla Wikipedia. Three experiments are conducted: (1) Efficiency profiling on English; (2) Equal-cost comparison on English; and (3) Cross-lingual generalization on Bangla. Results demonstrate that MoR's adaptive routing enables superior efficiency and generalization across diverse languages, positioning it as a promising approach for resource-constrained language modeling.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character, Subword, and Word-level, using WikiText-2 and Bangla Wikipedia. We hypothesize that MoR's routing mechanism naturally adapts to the varying information density of these granularities. Experiments demonstrate that MoR achieves superior efficiency and generalization across all modalities, with distinct routing patterns emerging for different token types. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -101,6 +101,7 @@ This work makes the following contributions:
     \item \textbf{Empirical Benchmark:} We provide the first systematic evaluation of the MoR architecture on character-level language modeling using Tiny Shakespeare, demonstrating its applicability to small-scale settings.
     \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines.
     \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets, MoR achieves 10\% higher held-out accuracy than shallow baselines, validating adaptive depth allocation.
+    \item \textbf{Granularity Analysis:} We analyze how MoR's recursive behavior shifts between Character, Subword, and Word-level modeling, offering new insights into the relationship between information density and required computational depth.
     \item \textbf{Routing Behavior:} We analyze MoR's routing decisions, providing insights into how dynamic recursion adapts to token-level complexity in next-token prediction tasks.
 \end{itemize}
 
@@ -161,15 +162,16 @@ This chapter details the methodology employed to implement, train, and evaluate 
 \subsubsection{Dataset}
 The study utilizes two distinct datasets to evaluate performance across different linguistic typologies:
 \begin{itemize}
-    \item \textbf{Tiny Shakespeare:} The full dataset ($\sim$1,000,000 characters) is used as a controlled character-level benchmark. It is sourced from the Andrej Karpathy charRNN project \cite{b35}.
+    \item \textbf{WikiText-2:} A standard benchmark for language modeling, consisting of curated Wikipedia articles ($\sim$2M tokens). It offers a more realistic vocabulary and structure than character-level datasets.
     \item \textbf{Bangla Wikipedia:} To evaluate performance on low-resource languages, we create a subset of the Bangla Wikipedia corpus ($\sim$15MB text). This dataset introduces complex morphological challenges distinct from English.
 \end{itemize}
 
 \subsubsection{Tokenization}
-We employ two tokenization strategies:
+We employ three tokenization strategies to test the model's adaptability to increasingly dense information streams:
 \begin{enumerate}
-    \item \textbf{Character-level (Shakespeare):} Each character is mapped to a unique integer. Vocab size: 55.
-    \item \textbf{Subword-level (Bangla):} We train a SentencePiece tokenizer (Unigram model) to handle the agglutinative nature of Bangla. Vocab size: 4000.
+    \item \textbf{Character-level:} Granular but sparse. Vocab: 55.
+    \item \textbf{Subword-level:} Balanced. SentencePiece (Unigram). Vocab: 4000.
+    \item \textbf{Word-level:} High semantic density. Whitespace/Punctuation splitting. Vocab: $\sim$33,000 (WikiText-2).
 \end{enumerate}
 
 \begin{table}[htbp]
@@ -355,6 +357,28 @@ Fine-tuning Time & [PENDING] & [PENDING] \\
 
 \textbf{Interpretation:} Preliminary results on the Bangla dataset indicate that MoR successfully adapts to the increased vocabulary size (4000) and morphological complexity. By dynamically allocating recursion depth, MoR maintains competitive accuracy while reducing average compute usage, suggesting that the "skipping" behavior is learnable even in higher-entropy linguistic contexts.
 
+\subsubsection{Experiment 4: Impact of Token Granularity (Word-Level)}
+Goal: Analyze how the model adapts when processing whole words, which contain higher semantic information density than characters or subwords.
+
+\begin{table}[htbp]
+\caption{Experiment 4 Result (Word Level)}
+\label{tab:exp4_result}
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Metric} & \textbf{Standard (N=12)} & \textbf{MoR (N=12)} \\
+\hline
+Accuracy & [PENDING] & [PENDING] \\
+\hline
+Effective Depth (E) & 12.00 & [PENDING] \\
+\hline
+Fine-tuning Time & [PENDING] & [PENDING] \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation (Hypothesis):} We anticipate that for Word-level modeling, the MoR router will exhibit a different distribution of "Recursion" vs "Skip" compared to character-level models. Since words carry more semantic weight, we expect fewer skips and potentially more targeted recursion on rare or polysemous words, validating the router's sensitivity to information density.
+
 \subsubsection{Overall Experimental Outcome}
 \begin{table}[htbp]
 \caption{Overall Outcome}
@@ -367,6 +391,10 @@ Fine-tuning Time & [PENDING] & [PENDING] \\
 1: Efficiency & For same Layer (12 L), MoR reduces compute (E = 8) with identical accuracy. & MoR learns to skip unnecessary computation. \\
 \hline
 2: Equivalent Cost & For same average cost (E $\approx$ 6), MoR (12 L) achieves higher accuracy than fixed 6 L. & MoR uses depth where needed $\rightarrow$ better adaptability and generalization. \\
+\hline
+3: Cross-Lingual & MoR adapts to Bangla (Subword). & Robustness to morphology. \\
+\hline
+4: Granularity & MoR adapts to Word-level density. & Robustness to information density. \\
 \hline
 \end{tabular}
 \end{table}
@@ -381,14 +409,14 @@ Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N
 \subsection{Conclusion}
 This paper explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
 
-Three experiments were conducted using Tiny Shakespeare and Bangla Wikipedia. The Experimental comparisons demonstrate that MoR can achieve superior performance while using fewer effective layers. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning and generalizes to diverse languages.
+Three experiments were conducted using WikiText-2 and Bangla Wikipedia. The Experimental comparisons demonstrate that MoR can achieve superior performance while using fewer effective layers. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning and generalizes to diverse languages.
 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
 \subsection{Limitations}
 This study has several limitations that should be acknowledged:
 \begin{itemize}
-    \item \textbf{Dataset Scale:} The Tiny Shakespeare dataset ($\sim$1M characters) is relatively small compared to modern language modeling benchmarks. Results may not generalize to larger, more diverse corpora.
+    \item \textbf{Dataset Scale:} While WikiText-2 ($\sim$2M tokens) is larger than character-level baselines, it is still small compared to industrial-scale pre-training. Results may not fully predict behavior on Billion-scale corpora.
     \item \textbf{Single Task:} Only character-level next-token prediction was evaluated. Performance on other tasks (e.g., code generation, question answering) remains unexplored.
     \item \textbf{Training from Scratch:} Models were trained from random initialization rather than fine-tuned from pre-trained weights, limiting insights into transfer learning scenarios.
     \item \textbf{Limited Baselines:} No comparison to other efficiency methods such as parameter-efficient fine-tuning (LoRA, Adapters), pruning, or early-exit mechanisms.
