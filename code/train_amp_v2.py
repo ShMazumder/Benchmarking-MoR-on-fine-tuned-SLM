@@ -337,5 +337,116 @@ def train_mor(model, train_loader, test_loader, config, experiment_name, lambda_
     return avg_acc, test_acc, avg_depth, test_depth, training_time
 
 
-# [Rest of the file remains the same - main function, argument parsing, etc.]
-# Copy from original train_amp.py lines 200-421
+    return avg_acc, test_acc, avg_depth, test_depth, training_time
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Train MoR Transformer with Aggressive Optimizations')
+    parser.add_argument('--dataset', type=str, default='shakespeare', choices=['shakespeare', 'wikitext', 'bangla'])
+    parser.add_argument('--experiment', type=str, required=True,
+                        choices=['baseline_6', 'baseline_12', 'mor_exp1', 'mor_exp2'])
+    parser.add_argument('--tokenization', type=str, default='char', choices=['char', 'subword'])
+    parser.add_argument('--tokenizer_model', type=str, default=None)
+    parser.add_argument('--subword_vocab_size', type=int, default=8000)
+    parser.add_argument('--device', type=str, default='cuda')
+    parser.add_argument('--amp', action='store_true', help='Enable automatic mixed precision')
+    parser.add_argument('--epochs', type=int, default=None, help='Override epochs')
+    parser.add_argument('--local_rank', type=int, default=-1, help='Local rank for distributed training')
+    parser.add_argument('--syncbn', action='store_true', help='Use SyncBatchNorm for distributed')
+    args = parser.parse_args()
+
+    # Distributed setup
+    is_distributed = args.local_rank != -1
+    if is_distributed:
+        torch.cuda.set_device(args.local_rank)
+        dist.init_process_group(backend='nccl')
+        device = torch.device('cuda', args.local_rank)
+    else:
+        device = torch.device(args.device if torch.cuda.is_available() else 'cpu')
+
+    config = Config()
+    config.device = device
+
+    # Override epochs if specified
+    if args.epochs:
+        config.epochs_baseline = args.epochs
+        config.epochs_mor = args.epochs
+
+    # Load dataset
+    if args.dataset == 'shakespeare':
+        train_loader, test_loader, vocab_size = get_shakespeare_loaders(
+            batch_size=config.batch_size,
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
+        )
+    elif args.dataset == 'wikitext':
+        train_loader, val_loader, test_loader, vocab_size = get_wikitext_loaders(
+            batch_size=config.batch_size,
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
+        )
+    elif args.dataset == 'bangla':
+        train_loader, test_loader, vocab_size = get_bangla_loaders(
+            batch_size=config.batch_size,
+            seq_length=config.max_seq_len,
+            tokenization=args.tokenization,
+            tokenizer_model=args.tokenizer_model,
+            vocab_size=args.subword_vocab_size
+        )
+    else:
+        raise ValueError(f'Unknown dataset: {args.dataset}')
+
+    # Distributed sampler
+    if is_distributed:
+        train_dataset = train_loader.dataset
+        train_sampler = DistributedSampler(train_dataset)
+        train_loader = DataLoader(train_dataset, batch_size=config.batch_size, sampler=train_sampler,
+                                  num_workers=2, pin_memory=True)
+        test_dataset = test_loader.dataset
+        test_loader = DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False,
+                                 num_workers=2, pin_memory=True)
+
+    print(f"Vocabulary size: {vocab_size}")
+
+    # Run experiment with aggressive training
+    experiment_name = f"{args.dataset}_{args.experiment}"
+    
+    if args.experiment == 'baseline_6':
+        model = BaselineTransformer(vocab_size, n_layers=6, **vars(config))
+        print_model_info(model, "Baseline Transformer (N=6)")
+        if is_distributed:
+            model.to(device)
+            model = DDP(model, device_ids=[args.local_rank] if str(device).startswith('cuda') else None)
+        train_baseline(model, train_loader, test_loader, config, experiment_name)
+
+    elif args.experiment == 'baseline_12':
+        model = BaselineTransformer(vocab_size, n_layers=12, **vars(config))
+        print_model_info(model, "Baseline Transformer (N=12)")
+        if is_distributed:
+            model.to(device)
+            model = DDP(model, device_ids=[args.local_rank] if str(device).startswith('cuda') else None)
+        train_baseline(model, train_loader, test_loader, config, experiment_name)
+
+    elif args.experiment == 'mor_exp1':
+        model = MoRTransformer(vocab_size, n_layers=12, **vars(config))
+        print_model_info(model, "MoR Transformer (Exp 1)")
+        if is_distributed:
+            model.to(device)
+            model = DDP(model, device_ids=[args.local_rank] if str(device).startswith('cuda') else None)
+        train_mor(model, train_loader, test_loader, config, experiment_name, lambda_aux=0.1)
+
+    elif args.experiment == 'mor_exp2':
+        model = MoRTransformer(vocab_size, n_layers=12, **vars(config))
+        print_model_info(model, "MoR Transformer (Exp 2)")
+        if is_distributed:
+            model.to(device)
+            model = DDP(model, device_ids=[args.local_rank] if str(device).startswith('cuda') else None)
+        train_mor(model, train_loader, test_loader, config, experiment_name, lambda_aux=0.05)
+
+
+if __name__ == '__main__':
+    main()
