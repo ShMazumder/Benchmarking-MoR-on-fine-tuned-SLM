@@ -1,0 +1,720 @@
+=== Running Experiments for BANGLA ===
+Running: /usr/bin/python3 train_amp.py --dataset bangla --experiment baseline_12 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+sentencepiece_trainer.cc(178) LOG(INFO) Running command: --input=temp_bangla_for_sp.txt --model_prefix=data/tokenizers/sp_bangla --vocab_size=4000 --model_type=bpe --character_coverage=1.0
+sentencepiece_trainer.cc(78) LOG(INFO) Starts training with : 
+trainer_spec {
+  input: temp_bangla_for_sp.txt
+  input_format: 
+  model_prefix: data/tokenizers/sp_bangla
+  model_type: BPE
+  vocab_size: 4000
+  self_test_sample_size: 0
+  character_coverage: 1
+  input_sentence_size: 0
+  shuffle_input_sentence: 1
+  seed_sentencepiece_size: 1000000
+  shrinking_factor: 0.75
+  max_sentence_length: 4192
+  num_threads: 16
+  num_sub_iterations: 2
+  max_sentencepiece_length: 16
+  split_by_unicode_script: 1
+  split_by_number: 1
+  split_by_whitespace: 1
+  split_digits: 0
+  pretokenization_delimiter: 
+  treat_whitespace_as_suffix: 0
+  allow_whitespace_only_pieces: 0
+  required_chars: 
+  byte_fallback: 0
+  vocabulary_output_piece_score: 1
+  train_extremely_large_corpus: 0
+  seed_sentencepieces_file: 
+  hard_vocab_limit: 1
+  use_all_vocab: 0
+  unk_id: 0
+  bos_id: 1
+  eos_id: 2
+  pad_id: -1
+  unk_piece: <unk>
+  bos_piece: <s>
+  eos_piece: </s>
+  pad_piece: <pad>
+  unk_surface:  ⁇ 
+  enable_differential_privacy: 0
+  differential_privacy_noise_level: 0
+  differential_privacy_clipping_threshold: 0
+}
+normalizer_spec {
+  name: nmt_nfkc
+  add_dummy_prefix: 1
+  remove_extra_whitespaces: 1
+  escape_whitespaces: 1
+  normalization_rule_tsv: 
+}
+denormalizer_spec {}
+trainer_interface.cc(355) LOG(INFO) SentenceIterator is not specified. Using MultiFileSentenceIterator.
+trainer_interface.cc(186) LOG(INFO) Loading corpus: temp_bangla_for_sp.txt
+trainer_interface.cc(382) LOG(WARNING) Found too long line (5323 > 4192).
+trainer_interface.cc(384) LOG(WARNING) Too long lines are skipped in the training.
+trainer_interface.cc(385) LOG(WARNING) The maximum length can be changed with --max_sentence_length=<size> flag.
+trainer_interface.cc(411) LOG(INFO) Loaded all 38331 sentences
+trainer_interface.cc(418) LOG(INFO) Skipped 107 too long sentences.
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: <unk>
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: <s>
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: </s>
+trainer_interface.cc(432) LOG(INFO) Normalizing sentences...
+trainer_interface.cc(541) LOG(INFO) all chars count=5798769
+trainer_interface.cc(562) LOG(INFO) Alphabet size=658
+trainer_interface.cc(563) LOG(INFO) Final character coverage=1
+trainer_interface.cc(594) LOG(INFO) Done! preprocessed 37315 sentences.
+trainer_interface.cc(600) LOG(INFO) Tokenizing input sentences with whitespace: 37315
+trainer_interface.cc(611) LOG(INFO) Done! 122270
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=90390 min_freq=344
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=26818 size=20 all=8038 active=2207 piece=▁দ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=16670 size=40 all=9412 active=3581 piece=িল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=11190 size=60 all=10781 active=4950 piece=▁চ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=8537 size=80 all=12201 active=6370 piece=্প
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=6429 size=100 all=13762 active=7931 piece=াহ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=6284 min_freq=739
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=5406 size=120 all=15223 active=2338 piece=▁বিশ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=4744 size=140 all=16817 active=3932 piece=ৃত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=4068 size=160 all=18149 active=5264 piece=াশ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3511 size=180 all=19230 active=6345 piece=েক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3133 size=200 all=20627 active=7742 piece=▁গ্র
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=3132 min_freq=602
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2882 size=220 all=22042 active=2409 piece=ারা
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2656 size=240 all=23261 active=3628 piece=▁বাংলাদেশ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2362 size=260 all=24169 active=4536 piece=▁দু
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2180 size=280 all=25099 active=5466 piece=ীব
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2065 size=300 all=26148 active=6515 piece=মন
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=2054 min_freq=430
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1932 size=320 all=27192 active=2249 piece=োপ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1795 size=340 all=28451 active=3508 piece=সম
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1683 size=360 all=29653 active=4710 piece=),
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1589 size=380 all=30570 active=5627 piece=সে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1538 size=400 all=31799 active=6856 piece=▁কম
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1535 min_freq=322
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1444 size=420 all=32946 active=2700 piece=▁জীব
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1379 size=440 all=33621 active=3375 piece=▁১৮
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1312 size=460 all=34541 active=4295 piece=তিহাস
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1258 size=480 all=35325 active=5079 piece=োম
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1206 size=500 all=36178 active=5932 piece=▁করেছিলেন
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1201 min_freq=265
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1159 size=520 all=36814 active=2443 piece=ল্প
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1119 size=540 all=37585 active=3214 piece=জি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1076 size=560 all=38634 active=4263 piece=▁শ্র
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1044 size=580 all=39418 active=5047 piece=▁বল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1007 size=600 all=40088 active=5717 piece=সব
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1001 min_freq=226
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=966 size=620 all=40771 active=2620 piece=▁তথ্য
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=931 size=640 all=41416 active=3265 piece=ূত্র
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=901 size=660 all=41936 active=3785 piece=▁পরিচিত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=867 size=680 all=42853 active=4702 piece=▁খ্রিষ্ট
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=839 size=700 all=43305 active=5154 piece=▁সদস্য
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=836 min_freq=199
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=818 size=720 all=43873 active=2721 piece=▁বিদ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=795 size=740 all=44624 active=3472 piece=▁ব্রি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=761 size=760 all=45458 active=4306 piece=▁ঢাকা
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=750 size=780 all=45910 active=4758 piece=▁খ্রিষ্টাব্দ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=728 size=800 all=46561 active=5409 piece=▁ধর
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=728 min_freq=173
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=709 size=820 all=47164 active=2912 piece=▁আই
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=681 size=840 all=47712 active=3460 piece=াতা
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=669 size=860 all=48387 active=4135 piece=▁ক্ষম
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=647 size=880 all=48976 active=4724 piece=▁শে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=633 size=900 all=49599 active=5347 piece=▁আহ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=632 min_freq=153
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=613 size=920 all=50240 active=3095 piece=▁কলক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=596 size=940 all=50955 active=3810 piece=ol
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=587 size=960 all=51541 active=4396 piece=ভুক্ত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=568 size=980 all=52047 active=4902 piece=▁সঙ্গে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=556 size=1000 all=52806 active=5661 piece=▁ব্যবস্থা
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=554 min_freq=139
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=546 size=1020 all=53196 active=3028 piece=▁উল্লেখযোগ্য
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=532 size=1040 all=53585 active=3417 piece=ুত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=518 size=1060 all=54015 active=3847 piece=▁৯
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=510 size=1080 all=54578 active=4410 piece=ূলক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=502 size=1100 all=54956 active=4788 piece=্রাজ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=502 min_freq=129
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=489 size=1120 all=55650 active=3422 piece=▁আবি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=481 size=1140 all=56239 active=4011 piece=▁H
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=474 size=1160 all=56750 active=4522 piece=▁তুল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=464 size=1180 all=57338 active=5110 piece=▁ক্রিকে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=457 size=1200 all=58144 active=5916 piece=▁পি
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=457 min_freq=116
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=446 size=1220 all=58542 active=3281 piece=▁ইত্যাদি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=436 size=1240 all=59051 active=3790 piece=▁খেল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=425 size=1260 all=59758 active=4497 piece=▁প্রাথম
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=418 size=1280 all=60271 active=5010 piece=▁টেল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=410 size=1300 all=60685 active=5424 piece=টন
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=410 min_freq=107
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=403 size=1320 all=61197 active=3494 piece=▁বিন
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=399 size=1340 all=61612 active=3909 piece=▁পালন
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=392 size=1360 all=62052 active=4349 piece=াব্য
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=385 size=1380 all=62664 active=4961 piece=▁বিবে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=377 size=1400 all=63143 active=5440 piece=▁প্রস্ত
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=377 min_freq=100
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=370 size=1420 all=63578 active=3585 piece=াবাদ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=363 size=1440 all=63943 active=3950 piece=▁আত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=356 size=1460 all=64557 active=4564 piece=বিধান
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=351 size=1480 all=64897 active=4904 piece=▁পাকিস্তান
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=344 size=1500 all=65206 active=5213 piece=▁বিরুদ্ধে
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=343 min_freq=93
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=338 size=1520 all=65652 active=3706 piece=▁কাঠ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=330 size=1540 all=66174 active=4228 piece=▁নৌ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=325 size=1560 all=66637 active=4691 piece=শাস
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=320 size=1580 all=67029 active=5083 piece=২০০
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=316 size=1600 all=67317 active=5371 piece=িকাংশ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=316 min_freq=88
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=312 size=1620 all=67677 active=3719 piece=▁যন্ত্র
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=307 size=1640 all=67957 active=3999 piece=▁সীম
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=304 size=1660 all=68485 active=4527 piece=▁দেখুন
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=300 size=1680 all=68747 active=4789 piece=▁শহরে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=296 size=1700 all=68972 active=5014 piece=িতি
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=296 min_freq=84
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=293 size=1720 all=69276 active=3731 piece=▁পরিণত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=288 size=1740 all=69647 active=4102 piece=িরে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=285 size=1760 all=69952 active=4407 piece=▁বৌ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=281 size=1780 all=70255 active=4710 piece=▁ভারতে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=278 size=1800 all=70581 active=5036 piece=▁রাজা
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=277 min_freq=79
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=274 size=1820 all=70997 active=3945 piece=▁জ্ঞান
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=271 size=1840 all=71350 active=4298 piece=▁তৎ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=269 size=1860 all=71694 active=4642 piece=▁প্রচলিত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=263 size=1880 all=72155 active=5103 piece=্দর
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=261 size=1900 all=72540 active=5488 piece=▁নির্মিত
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=261 min_freq=75
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=257 size=1920 all=72799 active=3886 piece=▁শহীদ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=253 size=1940 all=73288 active=4375 piece=ারী
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=249 size=1960 all=73732 active=4819 piece=আর
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=246 size=1980 all=74276 active=5363 piece=াগত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=244 size=2000 all=74608 active=5695 piece=▁ফেব্রুয়ারি
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=243 min_freq=71
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=240 size=2020 all=74875 active=3998 piece=os
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=238 size=2040 all=75200 active=4323 piece=▁দাবি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=235 size=2060 all=75524 active=4647 piece=▁দশকে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=233 size=2080 all=75926 active=5049 piece=▁কুর
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=229 size=2100 all=76214 active=5337 piece=id
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=229 min_freq=68
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=227 size=2120 all=76774 active=4288 piece=▁অভিয
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=223 size=2140 all=77123 active=4637 piece=টো
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=221 size=2160 all=77476 active=4990 piece=▁পার্থ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=219 size=2180 all=77777 active=5291 piece=িত্তিক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=216 size=2200 all=78108 active=5622 piece=চন্দ্র
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=216 min_freq=64
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=214 size=2220 all=78414 active=4167 piece=▁তাপমাত্র
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=211 size=2240 all=78744 active=4497 piece=▁পল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=208 size=2260 all=79096 active=4849 piece=▁মাঝে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=205 size=2280 all=79418 active=5171 piece=মহ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=203 size=2300 all=79721 active=5474 piece=দা
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=203 min_freq=62
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=201 size=2320 all=80070 active=4281 piece=চক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=200 size=2340 all=80396 active=4607 piece=▁গ্যাল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=198 size=2360 all=80608 active=4819 piece=▁শব্দের
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=196 size=2380 all=80909 active=5120 piece=▁সারা
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=194 size=2400 all=81163 active=5374 piece=সমূহের
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=194 min_freq=59
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=192 size=2420 all=81553 active=4359 piece=ভিত্তিক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=189 size=2440 all=81853 active=4659 piece=্ট্র
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=187 size=2460 all=82220 active=5026 piece=ুদি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=185 size=2480 all=82532 active=5338 piece=▁Pr
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=183 size=2500 all=82868 active=5674 piece=▁রাস
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=183 min_freq=57
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=181 size=2520 all=83160 active=4422 piece=ণ্য
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=179 size=2540 all=83571 active=4833 piece=ঙ্গো
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=177 size=2560 all=83789 active=5051 piece=ুরি
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=175 size=2580 all=84083 active=5345 piece=১৪
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=174 size=2600 all=84417 active=5679 piece=▁শ্রেষ্ঠ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=174 min_freq=54
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=172 size=2620 all=84874 active=4675 piece=▁জায়
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=170 size=2640 all=85079 active=4880 piece=▁পরীক্ষ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=168 size=2660 all=85430 active=5231 piece=▁তুলে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=166 size=2680 all=85599 active=5400 piece=▁সায়
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=164 size=2700 all=85849 active=5650 piece=্যায়ে
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=164 min_freq=52
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=162 size=2720 all=86096 active=4535 piece=েকে
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=161 size=2740 all=86406 active=4845 piece=▁২০১০
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=160 size=2760 all=86681 active=5120 piece=▁ক্রিকেটার
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=158 size=2780 all=87112 active=5551 piece=ার্ড
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=157 size=2800 all=87410 active=5849 piece=▁জম
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=157 min_freq=50
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=156 size=2820 all=87583 active=4522 piece=▁বিচ্ছিন্ন
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=154 size=2840 all=87963 active=4902 piece=াভাব
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=153 size=2860 all=88087 active=5026 piece=▁বিপ্ল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=152 size=2880 all=88304 active=5243 piece=▁মুজিবুর
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=151 size=2900 all=88515 active=5454 piece=▁প্রজাতির
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=151 min_freq=48
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=149 size=2920 all=88690 active=4600 piece=োধন
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=148 size=2940 all=88910 active=4820 piece=▁মাইল
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=147 size=2960 all=89113 active=5023 piece=▁ছাড়াও
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=146 size=2980 all=89394 active=5304 piece=▁ব্যবস্থাপ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=145 size=3000 all=89640 active=5550 piece=▁স্বাধীনতার
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=144 min_freq=47
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=143 size=3020 all=89968 active=4810 piece=▁সত্ত্ব
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=142 size=3040 all=90253 active=5095 piece=▁সম্ভবত
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=141 size=3060 all=90498 active=5340 piece=▁ব্যবস্থার
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=139 size=3080 all=90850 active=5692 piece=ষ্ঠীর
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=138 size=3100 all=91159 active=6001 piece=▁অনুমান
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=138 min_freq=45
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=137 size=3120 all=91345 active=4733 piece=▁ক্যাথলিক
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=136 size=3140 all=91587 active=4975 piece=▁চলচ্চিত্রের
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=134 size=3160 all=92021 active=5409 piece=▁ছাড়
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=133 size=3180 all=92284 active=5672 piece=বিশ্ব
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=132 size=3200 all=92449 active=5837 piece=▁প্রতিক
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=131 min_freq=44
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=130 size=3220 all=92800 active=4962 piece=ভুজ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=129 size=3240 all=93034 active=5196 piece=▁পার্
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=128 size=3260 all=93255 active=5417 piece=▁পাঞ্জ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=127 size=3280 all=93487 active=5649 piece=▁১৯৮০
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=126 size=3300 all=93660 active=5822 piece=▁প্রতিনিধ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=126 min_freq=43
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=125 size=3320 all=93932 active=4948 piece=▁উদ্ভাবন
+trainer_interface.cc(689) LOG(INFO) Saving model: data/tokenizers/sp_bangla.model
+trainer_interface.cc(701) LOG(INFO) Saving vocabs: data/tokenizers/sp_bangla.vocab
+Loading bangla dataset...
+Training SentencePiece model for Bangla at data/tokenizers/sp_bangla.model...
+Vocabulary size: 4000
+
+Baseline Transformer (N=12) Information:
+  Total parameters: 17,832,864
+  Model size: 68.03 MB (Parameter Storage)
+
+Training Baseline_N12...
+Epoch 1/2: 100%|██████████| 12554/12554 [24:44<00:00,  8.46it/s, loss=7.2097, acc=2.86%, depth=12.00]
+Epoch 1: Loss=7.2611, Acc=2.69%
+Epoch 2/2: 100%|██████████| 12554/12554 [24:31<00:00,  8.53it/s, loss=7.2404, acc=2.39%, depth=12.00]
+Epoch 2: Loss=7.2572, Acc=2.70%
+
+Evaluating...
+Results saved: ./results/Baseline_N12.json
+
+Results:
+  Training Accuracy: 2.70%
+  Test Accuracy: 3.09%
+  Effective Depth: 12
+  Training Time: 2957s
+Results saved: results/bangla_baseline_12.json
+Running: /usr/bin/python3 train_amp.py --dataset bangla --experiment mor_exp1 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading bangla dataset...
+Vocabulary size: 4000
+
+MoR Transformer (Exp 1) Information:
+  Total parameters: 3,766,468
+  Model size: 14.37 MB (Parameter Storage)
+
+Training MoR_Exp1...
+Epoch 1/2: 100%|██████████| 12554/12554 [24:49<00:00,  8.43it/s, loss=7.2442, acc=3.21%, depth=8.15]
+Epoch 2/2:   0%|          | 0/12554 [00:00<?, ?it/s]
+Epoch 1: Loss=7.2450, Acc=2.71%, Depth=8.29
+Epoch 2/2: 100%|██████████| 12554/12554 [24:47<00:00,  8.44it/s, loss=7.3182, acc=2.52%, depth=8.21]
+Epoch 2: Loss=7.2577, Acc=2.70%, Depth=8.15
+
+Evaluating...
+Results saved: ./results/MoR_Exp1.json
+
+Results:
+  Training Accuracy: 2.70%
+  Test Accuracy: 3.09%
+  Effective Depth: 8.15
+  Test Effective Depth: 8.98
+  Training Time: 2977s
+Results saved: results/bangla_mor_exp1.json
+Running: /usr/bin/python3 train_amp.py --dataset bangla --experiment baseline_6 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading bangla dataset...
+Vocabulary size: 4000
+
+Baseline Transformer (N=6) Information:
+  Total parameters: 9,942,432
+  Model size: 37.93 MB (Parameter Storage)
+
+Training Baseline_N6...
+Epoch 1/2: 100%|██████████| 12554/12554 [13:28<00:00, 15.53it/s, loss=2.9086, acc=40.19%, depth=6.00]
+Epoch 1: Loss=3.5922, Acc=31.83%
+Epoch 2/2: 100%|██████████| 12554/12554 [13:18<00:00, 15.73it/s, loss=2.4756, acc=44.70%, depth=6.00]
+Epoch 2: Loss=2.6248, Acc=43.02%
+
+Evaluating...
+Results saved: ./results/Baseline_N6.json
+
+Results:
+  Training Accuracy: 43.02%
+  Test Accuracy: 25.77%
+  Effective Depth: 6
+  Training Time: 1607s
+Results saved: results/bangla_baseline_6.json
+Running: /usr/bin/python3 train_amp.py --dataset bangla --experiment mor_exp2 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading bangla dataset...
+Vocabulary size: 4000
+
+MoR Transformer (Exp 2) Information:
+  Total parameters: 3,766,468
+  Model size: 14.37 MB (Parameter Storage)
+
+Training MoR_Exp2...
+Epoch 1/2: 100%|██████████| 12554/12554 [24:41<00:00,  8.48it/s, loss=7.0337, acc=2.78%, depth=7.99]
+Epoch 2/2:   0%|          | 0/12554 [00:00<?, ?it/s]
+Epoch 1: Loss=7.2139, Acc=2.74%, Depth=8.22
+Epoch 2/2: 100%|██████████| 12554/12554 [24:29<00:00,  8.54it/s, loss=6.9137, acc=2.43%, depth=8.11]
+Epoch 2: Loss=7.0911, Acc=2.86%, Depth=8.01
+
+Evaluating...
+Results saved: ./results/MoR_Exp2.json
+
+Results:
+  Training Accuracy: 2.86%
+  Test Accuracy: 3.21%
+  Effective Depth: 8.01
+  Test Effective Depth: 7.72
+  Training Time: 2951s
+Results saved: results/bangla_mor_exp2.json
+
+=== Running Experiments for WIKITEXT ===
+Running: /usr/bin/python3 train_amp.py --dataset wikitext --experiment baseline_12 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading wikitext dataset...
+Generating test split: 100%|██████████| 4358/4358 [00:00<00:00, 352742.76 examples/s]
+Generating train split: 100%|██████████| 36718/36718 [00:00<00:00, 762955.86 examples/s]
+Generating validation split: 100%|██████████| 3760/3760 [00:00<00:00, 673697.43 examples/s]
+sentencepiece_trainer.cc(178) LOG(INFO) Running command: --input=wikitext_raw.txt --model_prefix=data/tokenizers/sp_wikitext --vocab_size=4000 --model_type=bpe --character_coverage=1.0
+sentencepiece_trainer.cc(78) LOG(INFO) Starts training with : 
+trainer_spec {
+  input: wikitext_raw.txt
+  input_format: 
+  model_prefix: data/tokenizers/sp_wikitext
+  model_type: BPE
+  vocab_size: 4000
+  self_test_sample_size: 0
+  character_coverage: 1
+  input_sentence_size: 0
+  shuffle_input_sentence: 1
+  seed_sentencepiece_size: 1000000
+  shrinking_factor: 0.75
+  max_sentence_length: 4192
+  num_threads: 16
+  num_sub_iterations: 2
+  max_sentencepiece_length: 16
+  split_by_unicode_script: 1
+  split_by_number: 1
+  split_by_whitespace: 1
+  split_digits: 0
+  pretokenization_delimiter: 
+  treat_whitespace_as_suffix: 0
+  allow_whitespace_only_pieces: 0
+  required_chars: 
+  byte_fallback: 0
+  vocabulary_output_piece_score: 1
+  train_extremely_large_corpus: 0
+  seed_sentencepieces_file: 
+  hard_vocab_limit: 1
+  use_all_vocab: 0
+  unk_id: 0
+  bos_id: 1
+  eos_id: 2
+  pad_id: -1
+  unk_piece: <unk>
+  bos_piece: <s>
+  eos_piece: </s>
+  pad_piece: <pad>
+  unk_surface:  ⁇ 
+  enable_differential_privacy: 0
+  differential_privacy_noise_level: 0
+  differential_privacy_clipping_threshold: 0
+}
+normalizer_spec {
+  name: nmt_nfkc
+  add_dummy_prefix: 1
+  remove_extra_whitespaces: 1
+  escape_whitespaces: 1
+  normalization_rule_tsv: 
+}
+denormalizer_spec {}
+trainer_interface.cc(355) LOG(INFO) SentenceIterator is not specified. Using MultiFileSentenceIterator.
+trainer_interface.cc(186) LOG(INFO) Loading corpus: wikitext_raw.txt
+trainer_interface.cc(411) LOG(INFO) Loaded all 23768 sentences
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: <unk>
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: <s>
+trainer_interface.cc(427) LOG(INFO) Adding meta_piece: </s>
+trainer_interface.cc(432) LOG(INFO) Normalizing sentences...
+trainer_interface.cc(541) LOG(INFO) all chars count=10845432
+trainer_interface.cc(562) LOG(INFO) Alphabet size=992
+trainer_interface.cc(563) LOG(INFO) Final character coverage=1
+trainer_interface.cc(594) LOG(INFO) Done! preprocessed 23767 sentences.
+trainer_interface.cc(600) LOG(INFO) Tokenizing input sentences with whitespace: 23767
+trainer_interface.cc(611) LOG(INFO) Done! 76602
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=226668 min_freq=71
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=65091 size=20 all=6765 active=2014 piece=en
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=38170 size=40 all=8116 active=3365 piece=ion
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=23474 size=60 all=9538 active=4787 piece=▁n
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=17540 size=80 all=11158 active=6407 piece=▁for
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=14231 size=100 all=12715 active=7964 piece=her
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=14138 min_freq=1090
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=11539 size=120 all=13975 active=2185 piece=ra
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=9615 size=140 all=15752 active=3962 piece=ain
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=7634 size=160 all=17354 active=5564 piece=pp
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=6651 size=180 all=19084 active=7294 piece=ud
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=5847 size=200 all=20597 active=8807 piece=ect
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=5735 min_freq=924
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=5073 size=220 all=22077 active=2448 piece=ell
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=4312 size=240 all=23691 active=4062 piece=irst
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3954 size=260 all=24482 active=4853 piece=ould
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3675 size=280 all=25422 active=5793 piece=ran
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3353 size=300 all=26603 active=6974 piece=▁one
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=3351 min_freq=619
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=3160 size=320 all=27303 active=2031 piece=▁who
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2973 size=340 all=28332 active=3060 piece=▁j
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2724 size=360 all=29002 active=3730 piece=▁im
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2552 size=380 all=30073 active=4801 piece=ember
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2375 size=400 all=31047 active=5775 piece=vel
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=2373 min_freq=482
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2288 size=420 all=31828 active=2299 piece=ited
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2160 size=440 all=32851 active=3322 piece=old
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=2011 size=460 all=33801 active=4272 piece=▁kn
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1923 size=480 all=34512 active=4983 piece=ug
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1814 size=500 all=35225 active=5696 piece=ral
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1807 min_freq=395
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1740 size=520 all=35878 active=2367 piece=ron
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1660 size=540 all=36385 active=2874 piece=ished
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1608 size=560 all=36997 active=3486 piece=▁where
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1541 size=580 all=37443 active=3932 piece=ins
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1473 size=600 all=38199 active=4688 piece=▁0
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1473 min_freq=338
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1412 size=620 all=38824 active=2526 piece=▁supp
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1348 size=640 all=39452 active=3154 piece=▁tra
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1291 size=660 all=40275 active=3977 piece=ince
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1250 size=680 all=40762 active=4464 piece=▁known
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1225 size=700 all=41171 active=4873 piece=▁dep
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1225 min_freq=297
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1187 size=720 all=41974 active=2849 piece=▁15
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1147 size=740 all=42500 active=3375 piece=iam
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1106 size=760 all=43141 active=4016 piece=erm
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1084 size=780 all=43901 active=4776 piece=▁pol
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1057 size=800 all=44290 active=5165 piece=▁near
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=1057 min_freq=264
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=1020 size=820 all=44539 active=2458 piece=▁imp
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=994 size=840 all=45197 active=3116 piece=▁ship
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=962 size=860 all=45558 active=3477 piece=ism
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=943 size=880 all=45958 active=3877 piece=▁const
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=922 size=900 all=46280 active=4199 piece=ouse
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=921 min_freq=242
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=895 size=920 all=46916 active=2931 piece=▁support
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=871 size=940 all=47144 active=3159 piece=▁br
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=852 size=960 all=47509 active=3524 piece=▁ann
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=833 size=980 all=47969 active=3984 piece=▁Pro
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=805 size=1000 all=48502 active=4517 piece=dom
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=805 min_freq=220
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=783 size=1020 all=49034 active=2940 piece=▁received
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=765 size=1040 all=49335 active=3241 piece=ting
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=748 size=1060 all=49646 active=3552 piece=▁played
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=738 size=1080 all=50031 active=3937 piece=▁build
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=721 size=1100 all=50498 active=4404 piece=▁child
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=719 min_freq=203
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=710 size=1120 all=50825 active=2847 piece=▁differ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=694 size=1140 all=51269 active=3291 piece=ham
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=682 size=1160 all=51606 active=3628 piece=▁estab
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=668 size=1180 all=51913 active=3935 piece=ched
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=655 size=1200 all=52170 active=4192 piece=▁expl
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=654 min_freq=189
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=639 size=1220 all=52487 active=2915 piece=▁place
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=626 size=1240 all=52810 active=3238 piece=oci
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=616 size=1260 all=53139 active=3567 piece=▁2009
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=597 size=1280 all=53493 active=3921 piece=▁Man
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=586 size=1300 all=53882 active=4310 piece=aining
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=585 min_freq=178
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=573 size=1320 all=54245 active=3040 piece=sh
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=565 size=1340 all=54718 active=3513 piece=▁deb
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=557 size=1360 all=54951 active=3746 piece=▁X
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=544 size=1380 all=55234 active=4029 piece=▁wind
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=536 size=1400 all=55476 active=4271 piece=▁Te
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=536 min_freq=167
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=527 size=1420 all=55883 active=3151 piece=▁written
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=516 size=1440 all=56123 active=3391 piece=▁become
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=508 size=1460 all=56329 active=3597 piece=ising
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=503 size=1480 all=56573 active=3841 piece=▁24
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=493 size=1500 all=56764 active=4032 piece=▁times
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=492 min_freq=159
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=486 size=1520 all=56893 active=2966 piece=▁reported
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=475 size=1540 all=57214 active=3287 piece=esc
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=467 size=1560 all=57574 active=3647 piece=ford
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=460 size=1580 all=58077 active=4150 piece=▁lost
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=452 size=1600 all=58423 active=4496 piece=▁equ
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=452 min_freq=149
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=447 size=1620 all=58752 active=3231 piece=▁making
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=439 size=1640 all=58942 active=3421 piece=ological
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=433 size=1660 all=59208 active=3687 piece=▁established
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=427 size=1680 all=59447 active=3926 piece=ki
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=423 size=1700 all=59792 active=4271 piece=iec
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=423 min_freq=142
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=417 size=1720 all=60093 active=3269 piece=▁himself
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=408 size=1740 all=60352 active=3528 piece=▁bar
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=403 size=1760 all=60610 active=3786 piece=▁television
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=398 size=1780 all=60896 active=4072 piece=▁activ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=390 size=1800 all=61123 active=4299 piece=▁To
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=390 min_freq=135
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=385 size=1820 all=61411 active=3331 piece=▁sett
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=380 size=1840 all=61652 active=3572 piece=ara
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=374 size=1860 all=62077 active=3997 piece=▁Som
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=371 size=1880 all=62490 active=4410 piece=▁characters
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=364 size=1900 all=62779 active=4699 piece=▁val
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=364 min_freq=128
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=357 size=1920 all=62967 active=3310 piece=enth
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=355 size=1940 all=63116 active=3459 piece=▁cross
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=350 size=1960 all=63359 active=3702 piece=oid
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=347 size=1980 all=63760 active=4103 piece=▁circ
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=341 size=2000 all=63908 active=4251 piece=urb
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=341 min_freq=122
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=337 size=2020 all=64145 active=3389 piece=▁women
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=332 size=2040 all=64305 active=3549 piece=▁features
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=328 size=2060 all=64512 active=3756 piece=▁estim
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=324 size=2080 all=64886 active=4130 piece=▁lack
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=321 size=2100 all=65116 active=4360 piece=▁condom
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=321 min_freq=117
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=318 size=2120 all=65332 active=3470 piece=liament
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=314 size=2140 all=65664 active=3802 piece=▁move
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=311 size=2160 all=65907 active=4045 piece=ests
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=306 size=2180 all=66046 active=4184 piece=uter
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=303 size=2200 all=66334 active=4472 piece=▁Viet
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=303 min_freq=112
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=299 size=2220 all=66524 active=3505 piece=etwork
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=296 size=2240 all=66684 active=3665 piece=wood
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=293 size=2260 all=66880 active=3861 piece=▁yard
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=290 size=2280 all=67119 active=4100 piece=medi
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=288 size=2300 all=67238 active=4219 piece=▁manager
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=288 min_freq=108
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=284 size=2320 all=67462 active=3585 piece=▁Play
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=282 size=2340 all=67935 active=4058 piece=▁Wal
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=280 size=2360 all=68132 active=4255 piece=atural
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=277 size=2380 all=68370 active=4493 piece=▁material
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=274 size=2400 all=68533 active=4656 piece=▁working
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=273 min_freq=103
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=269 size=2420 all=68989 active=3883 piece=urt
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=268 size=2440 all=69195 active=4089 piece=▁station
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=265 size=2460 all=69389 active=4283 piece=▁invest
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=262 size=2480 all=69586 active=4480 piece=▁Richard
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=260 size=2500 all=69893 active=4787 piece=ription
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=260 min_freq=99
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=257 size=2520 all=70068 active=3665 piece=ania
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=255 size=2540 all=70323 active=3920 piece=▁react
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=253 size=2560 all=70526 active=4123 piece=▁Govern
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=250 size=2580 all=70703 active=4300 piece=▁Later
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=248 size=2600 all=70813 active=4410 piece=▁Not
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=248 min_freq=95
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=246 size=2620 all=70943 active=3657 piece=▁recording
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=243 size=2640 all=71120 active=3834 piece=▁mem
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=241 size=2660 all=71228 active=3942 piece=▁social
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=239 size=2680 all=71389 active=4103 piece=aled
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=237 size=2700 all=71547 active=4261 piece=▁184
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=237 min_freq=92
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=236 size=2720 all=71757 active=3778 piece=▁score
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=235 size=2740 all=71907 active=3928 piece=▁already
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=233 size=2760 all=72150 active=4171 piece=▁language
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=231 size=2780 all=72290 active=4311 piece=▁aut
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=229 size=2800 all=72517 active=4538 piece=stein
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=229 min_freq=89
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=227 size=2820 all=72651 active=3739 piece=▁UK
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=226 size=2840 all=72808 active=3896 piece=▁center
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=223 size=2860 all=73038 active=4126 piece=▁Stud
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=221 size=2880 all=73148 active=4236 piece=▁Je
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=219 size=2900 all=73247 active=4335 piece=▁type
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=219 min_freq=86
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=217 size=2920 all=73359 active=3774 piece=▁birds
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=214 size=2940 all=73478 active=3893 piece=▁Under
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=212 size=2960 all=73768 active=4183 piece=▁sil
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=210 size=2980 all=73946 active=4361 piece=rael
+bpe_model_trainer.cc(268) LOG(INFO) Added: freq=208 size=3000 all=74238 active=4653 piece=▁Tur
+bpe_model_trainer.cc(159) LOG(INFO) Updating active symbols. max_freq=208 min_freq=83
+trainer_interface.cc(689) LOG(INFO) Saving model: data/tokenizers/sp_wikitext.model
+trainer_interface.cc(701) LOG(INFO) Saving vocabs: data/tokenizers/sp_wikitext.vocab
+Vocabulary size: 4000
+
+Baseline Transformer (N=12) Information:
+  Total parameters: 17,832,864
+  Model size: 68.03 MB (Parameter Storage)
+
+Training Baseline_N12...
+Epoch 1/2: 100%|██████████| 25001/25001 [48:55<00:00,  8.52it/s, loss=6.7183, acc=4.06%, depth=12.00]
+Epoch 1: Loss=6.7798, Acc=3.55%
+Epoch 2/2: 100%|██████████| 25001/25001 [48:37<00:00,  8.57it/s, loss=6.8148, acc=3.88%, depth=12.00]
+Epoch 2: Loss=6.7769, Acc=3.56%
+
+Evaluating...
+Results saved: ./results/Baseline_N12.json
+
+Results:
+  Training Accuracy: 3.56%
+  Test Accuracy: 3.69%
+  Effective Depth: 12
+  Training Time: 5854s
+Results saved: results/wikitext_baseline_12.json
+Running: /usr/bin/python3 train_amp.py --dataset wikitext --experiment mor_exp1 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading wikitext dataset...
+Vocabulary size: 4000
+
+MoR Transformer (Exp 1) Information:
+  Total parameters: 3,766,468
+  Model size: 14.37 MB (Parameter Storage)
+
+Training MoR_Exp1...
+Epoch 1/2: 100%|██████████| 25001/25001 [49:27<00:00,  8.42it/s, loss=3.2926, acc=35.80%, depth=8.09]
+Epoch 2/2:   0%|          | 0/25001 [00:00<?, ?it/s]
+Epoch 1: Loss=3.7001, Acc=30.90%, Depth=8.11
+Epoch 2/2: 100%|██████████| 25001/25001 [49:14<00:00,  8.46it/s, loss=3.2052, acc=36.21%, depth=8.16]
+Epoch 2: Loss=3.2245, Acc=36.21%, Depth=8.13
+
+Evaluating...
+Results saved: ./results/MoR_Exp1.json
+
+Results:
+  Training Accuracy: 36.21%
+  Test Accuracy: 30.06%
+  Effective Depth: 8.13
+  Test Effective Depth: 8.07
+  Training Time: 5922s
+Results saved: results/wikitext_mor_exp1.json
+Running: /usr/bin/python3 train_amp.py --dataset wikitext --experiment baseline_6 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading wikitext dataset...
+Vocabulary size: 4000
+
+Baseline Transformer (N=6) Information:
+  Total parameters: 9,942,432
+  Model size: 37.93 MB (Parameter Storage)
+
+Training Baseline_N6...
+Epoch 1/2: 100%|██████████| 25001/25001 [26:36<00:00, 15.66it/s, loss=2.8788, acc=41.43%, depth=6.00]
+Epoch 1: Loss=3.3592, Acc=34.95%
+Epoch 2/2: 100%|██████████| 25001/25001 [26:30<00:00, 15.72it/s, loss=2.8617, acc=40.94%, depth=6.00]
+Epoch 2: Loss=2.8290, Acc=41.35%
+
+Evaluating...
+Results saved: ./results/Baseline_N6.json
+
+Results:
+  Training Accuracy: 41.35%
+  Test Accuracy: 31.89%
+  Effective Depth: 6
+  Training Time: 3187s
+Results saved: results/wikitext_baseline_6.json
+Running: /usr/bin/python3 train_amp.py --dataset wikitext --experiment mor_exp2 --tokenization subword --subword_vocab_size 4000 --epochs 2 --device cuda --amp
+Loading wikitext dataset...
+Vocabulary size: 4000
+
+MoR Transformer (Exp 2) Information:
+  Total parameters: 3,766,468
+  Model size: 14.37 MB (Parameter Storage)
+
+Training MoR_Exp2...
+Epoch 1/2: 100%|██████████| 25001/25001 [49:23<00:00,  8.44it/s, loss=3.4177, acc=33.66%, depth=8.35]
+Epoch 2/2:   0%|          | 0/25001 [00:00<?, ?it/s]
+Epoch 1: Loss=3.6611, Acc=31.22%, Depth=8.31
+Epoch 2/2: 100%|██████████| 25001/25001 [49:24<00:00,  8.43it/s, loss=3.2763, acc=35.31%, depth=8.37]
+Epoch 2: Loss=3.2228, Acc=36.26%, Depth=8.39
+
+Evaluating...
+Results saved: ./results/MoR_Exp2.json
+
+Results:
+  Training Accuracy: 36.26%
+  Test Accuracy: 30.14%
+  Effective Depth: 8.39
+  Test Effective Depth: 8.43
+  Training Time: 5929s
+Results saved: results/wikitext_mor_exp2.json
