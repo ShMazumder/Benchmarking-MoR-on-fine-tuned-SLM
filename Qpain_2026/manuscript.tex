@@ -102,8 +102,17 @@ This work makes the following contributions:
     \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines.
     \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets, MoR achieves 10\% higher held-out accuracy than shallow baselines, validating adaptive depth allocation.
     \item \textbf{Granularity Analysis:} We analyze how MoR's recursive behavior shifts between Character and Subword modeling (Low vs High Density), offering new insights into the relationship between information density and required computational depth.
+
+
     \item \textbf{Routing Behavior:} We analyze MoR's routing decisions, providing insights into how dynamic recursion adapts to token-level complexity in next-token prediction tasks.
 \end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/proposed_method_pipeline.png}
+\caption{Evaluated Research Pipeline}
+\label{fig:proposed_method}
+\end{figure}
 
 \section{Literature Review}
 
@@ -129,6 +138,13 @@ The Transformer architecture proposed by Vaswani et al. \cite{b12} introduces a 
 
 Transformers consist of layered encoder-decoder blocks containing multi-head attention and feed-forward sublayers. The decoder includes an additional attention layer that attends to the encoder stack outputs. Positional encoding allows the entire sequence to be processed in parallel while preserving word order information \cite{b12}.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/transformer_architecture.jpg}
+\caption{Standard Transformer Architecture Diagram \cite{b12}}
+\label{fig:transformer_arch}
+\end{figure}
+
 LLMs have revolutionized language modeling, with the Transformer architecture serving as their core foundation (e.g., BERT, GPT, T5). Despite successes in tasks like code generation and complex reasoning, this architecture faces limitations such as high computational cost, memory bottlenecks, and lack of adaptability. Bae et al. \cite{b25} introduce Relaxed Recursive Transformers utilizing parameter sharing to reduce model size. Building on this, the MoR (Mixture-of-Recursion) framework \cite{b11} combines parameter sharing with adaptive computation, integrating two key efficiency paradigms within a single architecture. This combined approach offers a potential solution to the fixed-depth limitations of standard Transformers.
 
 \subsection{Recursive Transformer}
@@ -148,18 +164,18 @@ Mixture-of-Recursion (MoR), introduced by Bae et al. \cite{b11}, presents a unif
 
 \textbf{Recursion-Wise KV Cache and Routing:} To further optimize efficiency, MoR implements a specialized caching strategy where Key-Value (KV) pairs are stored only for tokens active at a specific recursion depth. The routing core employs a Multi-Layer Perceptron (MLP) to output probabilities for three distinct actions: Recurse (add depth), Forward (proceed), or Skip (bypass), effectively balancing performance and cost.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/mor_transformer_architecture.jpg}
+\caption{MoR-Transformer Architecture Diagram \cite{b11}}
+\label{fig:mor_transformer}
+\end{figure}
+
 \subsection{Research Gap}
 Despite the advancements in adaptive computation (Universal Transformers) and spatial routing (MoE), a significant research gap remains in combining \textit{parameter sharing} with \textit{token-level temporal recursion} specifically for Small Language Models (SLMs). Most existing adaptive methods are optimized for massive-scale models, leaving their efficacy on resource-constrained architectures underexplored. Furthermore, the interplay between \textit{token information density} (granularity) and \textit{optimal recursive depth} has not been systematically benchmarked, creating a need for a study that evaluates how dynamic routing adapts to different linguistic typologies.
 
 \section{Methodology}
 This chapter details the methodology employed to implement, train, and evaluate the MoR Transformer framework. The objective is to empirically assess the MoR architecture, originally proposed by Bae et al. \cite{b11}, in the context of Small Language Models (SLMs). We investigate whether MoR's dynamic depth adaptation confers efficiency benefits when training small-scale models from scratch. We benchmark MoR Transformer efficiency against standard Transformers on a character-level language modeling task.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{figures/proposed_method_pipeline.png}
-\caption{Evaluated Research Pipeline}
-\label{fig:proposed_method}
-\end{figure}
 
 \subsection{Dataset and Preprocessing}
 \subsubsection{Dataset}
@@ -179,19 +195,20 @@ We employ three tokenization strategies to test adaptability:
 \end{enumerate}
 
 \begin{table}[htbp]
-\caption{Tokenization}
+\caption{Tokenization Methods}
 \label{tab:tokenization}
 \centering
 \begin{tabular}{|c|p{5cm}|}
 \hline
 \textbf{Name} & \textbf{Description} \\
 \hline
-stoi & Maps each character to a unique integer ID \\
+stoi & Maps each character/token to a unique integer ID \\
 \hline
-itos & Inverse mapping from ID back to character \\
+itos & Inverse mapping from ID back to character/token \\
 \hline
 \end{tabular}
 \end{table}
+
 
 \subsection{Research Pipeline}
 The research pipeline (Figure \ref{fig:proposed_method}) operates sequentially: dataset tokenization, random initialization of MoR and Standard Transformer parameters, router integration, training from scratch, and finally, evaluation.
@@ -200,22 +217,8 @@ The research pipeline (Figure \ref{fig:proposed_method}) operates sequentially: 
 \subsubsection{Baseline Transformer}
 The baseline is a standard Transformer encoder-decoder language model \cite{b12}. It includes token embeddings, positional encoding, and a stack of $N$ fixed layers.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/transformer_architecture.jpg}
-\caption{Transformer Architecture Diagram}
-\label{fig:transformer_arch}
-\end{figure}
-
 \subsubsection{MoR-Transformer}
 The MoR-Transformer uses the same backbone but introduces a routing mechanism. Each layer optionally includes a standard block and an MoR Router. The router decides to Skip, Execute, or Recurse.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/mor_transformer_architecture.jpg}
-\caption{MoR-Transformer Diagram}
-\label{fig:mor_transformer}
-\end{figure}
 
 \subsubsection{Router Architecture}
 The MoR router is a lightweight feed-forward network that determines the execution path for each token:
