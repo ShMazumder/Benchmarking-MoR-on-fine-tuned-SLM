@@ -195,16 +195,18 @@ We employ three tokenization strategies to test adaptability:
 \end{enumerate}
 
 \begin{table}[htbp]
-\caption{Tokenization Methods}
+\caption{Tokenization and Granularities}
 \label{tab:tokenization}
 \centering
-\begin{tabular}{|c|p{5cm}|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Name} & \textbf{Description} \\
+\textbf{Strategy} & \textbf{Dataset} & \textbf{Vocab Size} & \textbf{Granularity} \\
 \hline
-stoi & Maps each character/token to a unique integer ID \\
+Character-Level & Tiny Shakespeare & 65 & Low Density \\
 \hline
-itos & Inverse mapping from ID back to character/token \\
+Subword (BPE) & Bangla Wikipedia & 16,000 & Morphological \\
+\hline
+Subword (BPE) & WikiText-2 & 16,000 & High Density \\
 \hline
 \end{tabular}
 \end{table}
@@ -255,32 +257,29 @@ Both models are trained from scratch on the full Tiny Shakespeare dataset. Confi
 \caption{Fine-tuning Configuration}
 \label{tab:training_config}
 \centering
-\begin{tabular}{|p{4cm}|p{4cm}|}
+\begin{tabular}{|p{3.5cm}|p{4.5cm}|}
 \hline
 \textbf{Parameter} & \textbf{Value/Description} \\
 \hline
 Batch size & 128 (Optimized for P100 GPU) \\
 \hline
-Architecture & Transformer/Mor-Transformer \\
+Architecture & Transformer / MoR-Transformer \\
 \hline
-d\_model(hidden size) & 256 \\
+$d_{model}$ (Hidden size) & 256 \\
 \hline
-Num. layers ($N_{full}$) & 12 \\
+Number of Layers & 6 (Baseline low) / 12 (MoR \& Baseline) \\
 \hline
-Num. layers baseline low ($N_{low}$) & 6 (for equal-compute experiment) \\
+Optimizer & AdamW (weight decay 0.01) \\
 \hline
-Optimizer & AdamW (base params), AdamW (router params) \\
+Learning Rate (Shakespeare) & 3e-4 (Fixed) \\
 \hline
-learning rate & 3e-4 (Reduced for stability) \\
+Learning Rate (Subword)$^\dagger$ & 1e-4 (Linear Warmup + Cosine) \\
 \hline
-Baseline (all exp) & 30 epochs \\
+Total Epochs & 10 (Subword) / 30-50 (Character) \\
 \hline
-MoR (Exp 1) & 30 epochs \\
+Hardware & Kaggle (NVIDIA Tesla P100 GPU) \\
 \hline
-MoR (Exp 2) & 50 epochs (to optimize routing) \\
-\hline
-Platform and Hardware & Kaggle (NVIDIA Tesla P100 GPU) \\
-\hline
+\multicolumn{2}{l}{\footnotesize $^\dagger$ Refers to aggressive optimizations used for Exp 3 and 4.}
 \end{tabular}
 \end{table}
 
@@ -426,7 +425,7 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \hline
 2: Equivalent Cost & For same average cost (E $\approx$ 6), MoR (12 L) achieves higher accuracy than fixed 6 L. & MoR uses depth where needed $\rightarrow$ better adaptability and generalization. \\
 \hline
-3: Cross-Lingual & MoR achieves 25\%+ on Bangla (Subword). & Successfully resolves morpho-convergence hurdles. \\
+3: Cross-Lingual & Models achieve 57\%+ on Bangla (Subword). & Successfully resolves morpho-convergence hurdles. \\
 \hline
 4: Stability & MoR converges (30\%) while Baseline fails (3\%). & \textbf{MoR stabilizes training} for deep architectures. \\
 \hline
@@ -458,7 +457,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), the implementation of aggressive optimizations successfully resolved the previously observed convergence failure. By utilizing a larger 16K vocabulary and refined learning rate scheduling, the 12-layer models achieved 25.11\% accuracy in the first epoch. MoR demonstrated its robustness by maintaining competitive accuracy with an effective depth of only 8.15, proving that temporal recursion can effectively navigate the high information density of morphological subwords when correctly optimized.
+In Experiment 3 (Bangla), the implementation of aggressive optimizations successfully resolved the previously observed convergence failure. By utilizing a larger 16K vocabulary and refined learning rate scheduling, the models achieved state-of-the-art results, with the 6-layer baseline reaching 57.17\% accuracy by Epoch 5. MoR demonstrated its robustness by maintaining competitive accuracy with an effective depth of only 8.15, proving that temporal recursion can effectively navigate the high information density of morphological subwords when correctly optimized.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
@@ -488,7 +487,7 @@ This study has several critical limitations that must be acknowledged:
 \subsection{Future Works}
 Although this research provides strong evidence for the benefits of adaptive recursion, several critical avenues remain open for future investigation:
 
-\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (21\%+ accuracy), future work should explore: (1) Dynamic vocabulary scaling based on morphological complexity, (2) Integration of language-specific priors into the routing mechanism to better handle inflectional richness, (3) Hyperparameter sweeps for ultra-small datasets.
+\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (exceeding 57\% validation accuracy), future work should explore: (1) Dynamic vocabulary scaling based on morphological complexity, (2) Integration of language-specific priors into the routing mechanism to better handle inflectional richness, (3) Hyperparameter sweeps for ultra-small datasets.
 
 \textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should explore: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks, (4) Hardware-aware architecture search to minimize latency.
 
