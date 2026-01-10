@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  10 JAN 2026 13:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  10 JAN 2026 21:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -524,170 +524,195 @@ usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
+<figures/proposed_method_pipeline.png, id=210, 753.81625pt x 592.2125pt>
+File: figures/proposed_method_pipeline.png Graphic file (type png)
+<use figures/proposed_method_pipeline.png>
+Package pdftex.def Info: figures/proposed_method_pipeline.png  used on input li
+ne 112.
+(pdftex.def)             Requested size: 252.0pt x 197.96996pt.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
 \OT1/ptm/m/n/10 trans-former ar-chi-tec-tures, Re-cur-sive Trans-form-ers, and
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 113--114
+Underfull \hbox (badness 1968) in paragraph at lines 122--123
 \OT1/ptm/m/n/10 Mixture-of-Experts (MoE) to con-tex-tu-al-ize the pro-posed
  []
 
 
-Underfull \hbox (badness 4805) in paragraph at lines 121--122
+
+[2 <./figures/proposed_method_pipeline.png>]
+Underfull \hbox (badness 4805) in paragraph at lines 130--131
 \OT1/ptm/m/n/10 gen-er-a-tive mod-els sim-i-lar to Large Lan-guage Mod-els
  []
 
 
 
-[2]
+<figures/transformer_architecture.jpg, id=238, 732.7375pt x 401.5pt>
+File: figures/transformer_architecture.jpg Graphic file (type jpg)
+<use figures/transformer_architecture.jpg>
+Package pdftex.def Info: figures/transformer_architecture.jpg  used on input li
+ne 143.
+(pdftex.def)             Requested size: 201.60077pt x 110.4649pt.
+
+
+[3 <./figures/transformer_architecture.jpg>]
+<figures/mor_transformer_architecture.jpg, id=280, 622.325pt x 401.5pt>
+File: figures/mor_transformer_architecture.jpg Graphic file (type jpg)
+<use figures/mor_transformer_architecture.jpg>
+Package pdftex.def Info: figures/mor_transformer_architecture.jpg  used on inpu
+t line 169.
+(pdftex.def)             Requested size: 201.60077pt x 130.06322pt.
 
 
 
-[3]
-<figures/proposed_method_pipeline.png, id=276, 753.81625pt x 592.2125pt>
-File: figures/proposed_method_pipeline.png Graphic file (type png)
-<use figures/proposed_method_pipeline.png>
-Package pdftex.def Info: figures/proposed_method_pipeline.png  used on input li
-ne 159.
-(pdftex.def)             Requested size: 252.0pt x 197.96996pt.
-
-Underfull \hbox (badness 1389) in paragraph at lines 168--169
+Underfull \hbox (badness 1389) in paragraph at lines 184--185
 []\OT1/ptm/b/n/10 Tiny Shake-speare: \OT1/ptm/m/n/10 The full dataset ($\OMS/cm
 sy/m/n/10 ^^X$\OT1/ptm/m/n/10 1M char-ac-
  []
 
 
 
-<figures/transformer_architecture.jpg, id=281, 732.7375pt x 401.5pt>
-File: figures/transformer_architecture.jpg Graphic file (type jpg)
-<use figures/transformer_architecture.jpg>
-Package pdftex.def Info: figures/transformer_architecture.jpg  used on input li
-ne 205.
-(pdftex.def)             Requested size: 201.60077pt x 110.4649pt.
-<figures/mor_transformer_architecture.jpg, id=282, 622.325pt x 401.5pt>
-File: figures/mor_transformer_architecture.jpg Graphic file (type jpg)
-<use figures/mor_transformer_architecture.jpg>
-Package pdftex.def Info: figures/mor_transformer_architecture.jpg  used on inpu
-t line 215.
-(pdftex.def)             Requested size: 201.60077pt x 130.06322pt.
+[4 <./figures/mor_transformer_architecture.jpg>]
+<figures/routing_mechanism.png, id=298, 858.20625pt x 568.1225pt>
+File: figures/routing_mechanism.png Graphic file (type png)
+<use figures/routing_mechanism.png>
+Package pdftex.def Info: figures/routing_mechanism.png  used on input line 236.
+
+(pdftex.def)             Requested size: 214.20154pt x 141.7962pt.
 
 
-[4 <./figures/proposed_method_pipeline.png> <./figures/transformer_architecture
-.jpg>]
 
-
-Underfull \hbox (badness 1975) in paragraph at lines 299--300
+Underfull \hbox (badness 1975) in paragraph at lines 309--310
  \OT1/ptm/m/it/10 1) Ex-per-i-ment 1: Ef-fi-ciency Pro-fil-ing (N=12 vs MoR
  []
 
-<figures/exp1_efficiency_comparison.png, id=299, 1075.3776pt x 283.0575pt>
+
+
+[5 <./figures/routing_mechanism.png>]
+<figures/exp1_efficiency_comparison.png, id=312, 1075.3776pt x 283.0575pt>
 File: figures/exp1_efficiency_comparison.png Graphic file (type png)
 <use figures/exp1_efficiency_comparison.png>
 Package pdftex.def Info: figures/exp1_efficiency_comparison.png  used on input 
-line 322.
+line 332.
 (pdftex.def)             Requested size: 252.0pt x 66.32848pt.
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 328.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\approx' on input line 328.
+(hyperref)                removing `math shift' on input line 338.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 328.
+(hyperref)                removing `\approx' on input line 338.
 
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 338.
 
-[5 <./figures/mor_transformer_architecture.jpg> <./figures/exp1_efficiency_comp
-arison.png>]
-<figures/exp2_equal_cost_comparison.png, id=311, 1075.3776pt x 283.0575pt>
+<figures/exp2_equal_cost_comparison.png, id=313, 1075.3776pt x 283.0575pt>
 File: figures/exp2_equal_cost_comparison.png Graphic file (type png)
 <use figures/exp2_equal_cost_comparison.png>
 Package pdftex.def Info: figures/exp2_equal_cost_comparison.png  used on input 
-line 351.
+line 361.
 (pdftex.def)             Requested size: 252.0pt x 66.32848pt.
 
 
-<figures/stability_analysis.png, id=312, 714.9912pt x 427.8384pt>
+<figures/stability_analysis.png, id=314, 714.9912pt x 427.8384pt>
 File: figures/stability_analysis.png Graphic file (type png)
 <use figures/stability_analysis.png>
-Package pdftex.def Info: figures/stability_analysis.png  used on input line 402
+Package pdftex.def Info: figures/stability_analysis.png  used on input line 413
 .
 (pdftex.def)             Requested size: 214.20154pt x 128.16971pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 418--418
+Underfull \hbox (badness 10000) in paragraph at lines 429--429
 []\OT1/ptm/m/n/8 2: Equiv-a-lent
  []
 
 
-Underfull \hbox (badness 3735) in paragraph at lines 418--418
+Underfull \hbox (badness 3735) in paragraph at lines 429--429
 []\OT1/ptm/m/n/8 For same av-er-age cost
  []
 
 
-Underfull \hbox (badness 1789) in paragraph at lines 418--419
+Underfull \hbox (badness 1789) in paragraph at lines 429--430
 []\OT1/ptm/m/n/8 MoR uses depth where
  []
 
 
-Underfull \hbox (badness 2990) in paragraph at lines 420--420
-[]\OT1/ptm/m/n/8 MoR adapts to Bangla
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+[]\OT1/ptm/m/n/8 Successfully re-solves
  []
 
 
-Underfull \hbox (badness 3009) in paragraph at lines 420--421
-[]\OT1/ptm/m/n/8 Robustness to mor-phol-
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+\OT1/ptm/m/n/8 morpho-convergence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 422--422
+Underfull \hbox (badness 10000) in paragraph at lines 433--433
 []\OT1/ptm/m/n/8 MoR con-verges (30%)
  []
 
 
-Overfull \hbox (11.62202pt too wide) in paragraph at lines 412--425
+Overfull \hbox (11.62202pt too wide) in paragraph at lines 423--436
  [][] 
  []
 
-<figures/multi_granularity_summary.png, id=313, 859.5312pt x 425.6703pt>
+<figures/multi_granularity_summary.png, id=315, 859.5312pt x 425.6703pt>
 File: figures/multi_granularity_summary.png Graphic file (type png)
 <use figures/multi_granularity_summary.png>
 Package pdftex.def Info: figures/multi_granularity_summary.png  used on input l
-ine 429.
+ine 440.
 (pdftex.def)             Requested size: 252.0pt x 124.7987pt.
-<figures/computational_savings.png, id=314, 714.9912pt x 427.8384pt>
+<figures/computational_savings.png, id=316, 714.9912pt x 427.8384pt>
 File: figures/computational_savings.png Graphic file (type png)
 <use figures/computational_savings.png>
 Package pdftex.def Info: figures/computational_savings.png  used on input line 
-436.
+447.
 (pdftex.def)             Requested size: 214.20154pt x 128.16971pt.
+<figures/depth_accuracy_tradeoff.png, id=317, 714.9912pt x 426.6339pt>
+File: figures/depth_accuracy_tradeoff.png Graphic file (type png)
+<use figures/depth_accuracy_tradeoff.png>
+Package pdftex.def Info: figures/depth_accuracy_tradeoff.png  used on input lin
+e 455.
+(pdftex.def)             Requested size: 239.39923pt x 142.84674pt.
 
 
-[6 <./figures/exp2_equal_cost_comparison.png> <./figures/stability_analysis.png
->]
+[6 <./figures/exp1_efficiency_comparison.png> <./figures/exp2_equal_cost_compar
+ison.png>]
 
 
 
-[7 <./figures/multi_granularity_summary.png> <./figures/computational_savings.p
-ng>]
-Underfull \hbox (badness 2096) in paragraph at lines 469--470
+[7 <./figures/stability_analysis.png> <./figures/multi_granularity_summary.png>
+ <./figures/computational_savings.png> <./figures/depth_accuracy_tradeoff.png>]
+
+Underfull \hbox (badness 2088) in paragraph at lines 479--480
+[]\OT1/ptm/b/n/10 High-Density Sub-word Hur-dles: \OT1/ptm/m/n/10 While ag-gres
+-sive
+ []
+
+
+Underfull \hbox (badness 4096) in paragraph at lines 479--480
+\OT1/ptm/m/n/10 op-ti-miza-tions re-solved the Bangla con-ver-gence is-
+ []
+
+
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 486--487
 []\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
 a-tency,
  []
 
 
-Underfull \hbox (badness 2529) in paragraph at lines 482--483
+Underfull \hbox (badness 2529) in paragraph at lines 499--500
 \OT1/ptm/m/n/10 and through-put. Ex-plore ex-ten-sion to mul-ti-modal tasks
  []
 
 (./manuscript.bbl
-
-
 Underfull \hbox (badness 1502) in paragraph at lines 50--54
 \OT1/ptm/m/n/8 sal-ity of trans-form-ers for next-token pre-dic-tion.  \OT1/ptm
 /m/it/8 arXiv preprint
@@ -719,16 +744,16 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
-(rerunfilecheck)             Checksum: C46DA8B8D5F1911105C28B0BB339C77C;7085.
+(rerunfilecheck)             Checksum: FCC7C444D6AD79D464DBAA5A2AB2B9C8;7085.
  ) 
 Here is how much of TeX's memory you used:
- 11845 strings out of 474662
- 186511 string characters out of 5751109
- 604464 words of memory out of 5000000
- 34630 multiletter control sequences out of 15000+600000
+ 11863 strings out of 474662
+ 187109 string characters out of 5751109
+ 607874 words of memory out of 5000000
+ 34646 multiletter control sequences out of 15000+600000
  598544 words of font info for 114 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,12n,79p,1206b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1206b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/c
@@ -743,10 +768,10 @@ ype1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/
 times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on manuscript.pdf (9 pages, 1033428 bytes).
+Output written on manuscript.pdf (9 pages, 1242838 bytes).
 PDF statistics:
- 430 PDF objects out of 1000 (max. 8388607)
- 375 compressed objects within 4 object streams
- 106 named destinations out of 1000 (max. 500000)
- 385 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 379 compressed objects within 4 object streams
+ 108 named destinations out of 1000 (max. 500000)
+ 395 words of extra memory for PDF output out of 10000 (max. 10000000)
 
