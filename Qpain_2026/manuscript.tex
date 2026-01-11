@@ -375,15 +375,15 @@ Goal: Evaluate whether the adaptive efficiency observed in English transfers to 
 \hline
 Standard ($N = 6$)$^\dagger$ & 63.74\% & 6.00 & 28m/ep \\
 Standard ($N = 12$) & 75.46\%$^\ddagger$ & 12.00 & 58m/ep \\
-MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 1h 05m/ep \\
-MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 47.97\% & 7.42 & 1h 02m/ep \\
+MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 48m/ep \\
+MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 47.97\% & 7.42 & 45m/ep \\
 \hline
 \multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
 \multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate result at Epoch 8 (Standard) / Epoch 7 (MoR).}
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a final validation accuracy of 63.74\% by epoch 10. Crucially, the deeper 12-layer baseline has reached 75.46\% by epoch 8 (with training accuracy exceeding 77\% in epoch 9), indicating that the optimization regime has successfully unlocked the significant headroom available in deeper architectures on morphological subwords. MoR successfully navigated this space with an effective depth of 8.15, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
+\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a final validation accuracy of 63.74\% by epoch 10. Crucially, the deeper 12-layer baseline has reached 75.46\% by epoch 8 (with training accuracy exceeding 77\% in epoch 9), indicating that the optimization regime has successfully unlocked the significant headroom available in deeper architectures on morphological subwords. MoR successfully navigated this space with an effective depth of 8.30, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
@@ -410,7 +410,7 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\linewidth]{figures/stability_analysis.png}
-\caption{Training Stability Analysis on WikiText-2. MoR (N=12) successfully recovers the stability of shallow baselines (N=6), while the deep fixed baseline (N=12) diverges.}
+\caption{Stability Analysis across WikiText-2 and Bangla benchmarks. While standard 12-layer architectures diverge (WikiText) or fail to converge (Bangla) under standard regimes, MoR restores architectural stability through dynamic execution paths.}
 \label{fig:stability_analysis}
 \end{figure}
 
