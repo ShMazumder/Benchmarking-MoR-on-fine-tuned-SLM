@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -579,137 +579,146 @@ sy/m/n/10 ^^X$\OT1/ptm/m/n/10 1M char-ac-
 <figures/routing_mechanism.png, id=298, 858.20625pt x 568.1225pt>
 File: figures/routing_mechanism.png Graphic file (type png)
 <use figures/routing_mechanism.png>
-Package pdftex.def Info: figures/routing_mechanism.png  used on input line 241.
+Package pdftex.def Info: figures/routing_mechanism.png  used on input line 243.
 
 (pdftex.def)             Requested size: 214.20154pt x 141.7962pt.
 
 
 
-Underfull \hbox (badness 1975) in paragraph at lines 311--312
- \OT1/ptm/m/it/10 1) Ex-per-i-ment 1: Ef-fi-ciency Pro-fil-ing (N=12 vs MoR
+Underfull \hbox (badness 3281) in paragraph at lines 254--255
+[]\OT1/ptm/b/n/10 Experiment 4 (High-Density Sta-bil-ity): \OT1/ptm/m/n/10 An-a
+-lyzes
+ []
+
+
+Underfull \hbox (badness 1418) in paragraph at lines 254--255
+\OT1/ptm/m/n/10 model sta-bil-ity and con-ver-gence on the WikiText-2
  []
 
 
 
 [5 <./figures/routing_mechanism.png>]
+Underfull \hbox (badness 1975) in paragraph at lines 314--315
+ \OT1/ptm/m/it/10 1) Ex-per-i-ment 1: Ef-fi-ciency Pro-fil-ing (N=12 vs MoR
+ []
+
 <figures/exp1_efficiency_comparison.png, id=315, 1075.3776pt x 308.5929pt>
 File: figures/exp1_efficiency_comparison.png Graphic file (type png)
 <use figures/exp1_efficiency_comparison.png>
 Package pdftex.def Info: figures/exp1_efficiency_comparison.png  used on input 
-line 334.
+line 337.
 (pdftex.def)             Requested size: 252.0pt x 72.31215pt.
 
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 340.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\approx' on input line 340.
+(hyperref)                removing `math shift' on input line 343.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 340.
+(hyperref)                removing `\approx' on input line 343.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 343.
+
+
 
 <figures/exp2_equal_cost_comparison.png, id=316, 1075.3776pt x 308.5929pt>
 File: figures/exp2_equal_cost_comparison.png Graphic file (type png)
 <use figures/exp2_equal_cost_comparison.png>
 Package pdftex.def Info: figures/exp2_equal_cost_comparison.png  used on input 
-line 363.
+line 366.
 (pdftex.def)             Requested size: 252.0pt x 72.31215pt.
 
-Overfull \hbox (29.82655pt too wide) in paragraph at lines 375--387
+Overfull \hbox (29.82655pt too wide) in paragraph at lines 378--390
  [][] 
  []
 
-
-
-<figures/stability_analysis.png, id=318, 1075.3776pt x 448.074pt>
-File: figures/stability_analysis.png Graphic file (type png)
-<use figures/stability_analysis.png>
-Package pdftex.def Info: figures/stability_analysis.png  used on input line 417
-.
-(pdftex.def)             Requested size: 214.20154pt x 89.25084pt.
 
 
 [6 <./figures/exp1_efficiency_comparison.png> <./figures/exp2_equal_cost_compar
 ison.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 433--433
+<figures/stability_analysis.png, id=332, 1075.3776pt x 448.074pt>
+File: figures/stability_analysis.png Graphic file (type png)
+<use figures/stability_analysis.png>
+Package pdftex.def Info: figures/stability_analysis.png  used on input line 420
+.
+(pdftex.def)             Requested size: 214.20154pt x 89.25084pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 436--436
 []\OT1/ptm/m/n/8 2: Equiv-a-lent
  []
 
 
-Underfull \hbox (badness 1515) in paragraph at lines 433--434
+Underfull \hbox (badness 1515) in paragraph at lines 436--437
 []\OT1/ptm/m/n/8 Dynamic depth $\OMS/cmsy/m/n/8 !$ \OT1/ptm/m/n/8 bet-
  []
 
 
-Underfull \hbox (badness 2990) in paragraph at lines 435--435
+Underfull \hbox (badness 2990) in paragraph at lines 438--438
 \OT1/ptm/m/n/8 forms MoR on Bangla
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
+Underfull \hbox (badness 10000) in paragraph at lines 440--440
 []\OT1/ptm/m/n/8 MoR con-verges (30%)
  []
 
 
-Overfull \hbox (11.62202pt too wide) in paragraph at lines 427--440
+Overfull \hbox (11.62202pt too wide) in paragraph at lines 430--443
  [][] 
  []
 
-<figures/multi_granularity_summary.png, id=334, 859.5312pt x 425.6703pt>
+<figures/multi_granularity_summary.png, id=333, 859.5312pt x 425.6703pt>
 File: figures/multi_granularity_summary.png Graphic file (type png)
 <use figures/multi_granularity_summary.png>
 Package pdftex.def Info: figures/multi_granularity_summary.png  used on input l
-ine 444.
+ine 447.
 (pdftex.def)             Requested size: 252.0pt x 124.7987pt.
-<figures/computational_savings.png, id=335, 714.9912pt x 427.8384pt>
+<figures/computational_savings.png, id=334, 714.9912pt x 427.8384pt>
 File: figures/computational_savings.png Graphic file (type png)
 <use figures/computational_savings.png>
 Package pdftex.def Info: figures/computational_savings.png  used on input line 
-451.
+454.
 (pdftex.def)             Requested size: 214.20154pt x 128.16971pt.
-<figures/learning_curves.png, id=336, 1075.3776pt x 444.9423pt>
+<figures/learning_curves.png, id=335, 1075.3776pt x 444.9423pt>
 File: figures/learning_curves.png Graphic file (type png)
 <use figures/learning_curves.png>
-Package pdftex.def Info: figures/learning_curves.png  used on input line 458.
+Package pdftex.def Info: figures/learning_curves.png  used on input line 461.
 (pdftex.def)             Requested size: 239.39923pt x 99.04857pt.
-<figures/depth_accuracy_tradeoff.png, id=337, 714.5094pt x 426.6339pt>
+<figures/depth_accuracy_tradeoff.png, id=336, 714.5094pt x 426.6339pt>
 File: figures/depth_accuracy_tradeoff.png Graphic file (type png)
 <use figures/depth_accuracy_tradeoff.png>
 Package pdftex.def Info: figures/depth_accuracy_tradeoff.png  used on input lin
-e 466.
+e 469.
 (pdftex.def)             Requested size: 239.39923pt x 142.94438pt.
 
 
 
 
 [7 <./figures/stability_analysis.png> <./figures/multi_granularity_summary.png>
- <./figures/computational_savings.png> <./figures/learning_curves.png> <./figur
-es/depth_accuracy_tradeoff.png>]
+ <./figures/computational_savings.png> <./figures/learning_curves.png>]
 
 
-Underfull \hbox (badness 2088) in paragraph at lines 490--491
+Underfull \hbox (badness 2088) in paragraph at lines 493--494
 []\OT1/ptm/b/n/10 High-Density Sub-word Hur-dles: \OT1/ptm/m/n/10 While ag-gres
 -sive
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 490--491
+Underfull \hbox (badness 4096) in paragraph at lines 493--494
 \OT1/ptm/m/n/10 op-ti-miza-tions re-solved the Bangla con-ver-gence is-
  []
 
 
-Underfull \hbox (badness 2096) in paragraph at lines 497--498
+Underfull \hbox (badness 2096) in paragraph at lines 500--501
 []\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
 a-tency,
  []
 
 
 
-[8]
-Underfull \hbox (badness 2529) in paragraph at lines 510--511
+[8 <./figures/depth_accuracy_tradeoff.png>]
+Underfull \hbox (badness 2529) in paragraph at lines 513--514
 \OT1/ptm/m/n/10 and through-put. Ex-plore ex-ten-sion to mul-ti-modal tasks
  []
 
@@ -768,7 +777,7 @@ fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts
 /type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/ur
 w/times/utmri8a.pfb>
-Output written on manuscript.pdf (9 pages, 1770751 bytes).
+Output written on manuscript.pdf (9 pages, 1773222 bytes).
 PDF statistics:
  460 PDF objects out of 1000 (max. 8388607)
  393 compressed objects within 4 object streams
