@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,20 +500,20 @@ LaTeX Warning: No \author given.
 
 LaTeX Warning: No \author given.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 48.
+
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 75.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 75.
 
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-
-Underfull \hbox (badness 1596) in paragraph at lines 71--73
+Underfull \hbox (badness 1596) in paragraph at lines 73--75
 []\OT1/ptm/m/n/10 Although Trans-form-ers are pow-er-ful, their fixed-depth
  []
 
@@ -524,37 +524,47 @@ usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
+Underfull \hbox (badness 2529) in paragraph at lines 103--104
+\OT1/ptm/m/n/10 small-scale eval-u-a-tion of the MoR ar-chi-tec-ture on
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 103--104
+\OT1/ptm/m/n/10 speare, demon-strat-ing its ap-pli-ca-bil-ity to resource-
+ []
+
+
 
 <figures/proposed_method_pipeline.png, id=210, 753.81625pt x 592.2125pt>
 File: figures/proposed_method_pipeline.png Graphic file (type png)
 <use figures/proposed_method_pipeline.png>
 Package pdftex.def Info: figures/proposed_method_pipeline.png  used on input li
-ne 112.
+ne 114.
 (pdftex.def)             Requested size: 252.0pt x 197.96996pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 122--123
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
 \OT1/ptm/m/n/10 trans-former ar-chi-tec-tures, Re-cur-sive Trans-form-ers, and
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 122--123
+Underfull \hbox (badness 1968) in paragraph at lines 124--125
 \OT1/ptm/m/n/10 Mixture-of-Experts (MoE) to con-tex-tu-al-ize the pro-posed
  []
 
 
 
 [2 <./figures/proposed_method_pipeline.png>]
-Underfull \hbox (badness 4805) in paragraph at lines 130--131
+Underfull \hbox (badness 4805) in paragraph at lines 132--133
 \OT1/ptm/m/n/10 gen-er-a-tive mod-els sim-i-lar to Large Lan-guage Mod-els
  []
 
 
 
-<figures/transformer_architecture.jpg, id=237, 732.7375pt x 401.5pt>
+<figures/transformer_architecture.jpg, id=236, 732.7375pt x 401.5pt>
 File: figures/transformer_architecture.jpg Graphic file (type jpg)
 <use figures/transformer_architecture.jpg>
 Package pdftex.def Info: figures/transformer_architecture.jpg  used on input li
-ne 143.
+ne 145.
 (pdftex.def)             Requested size: 201.60077pt x 110.4649pt.
 
 
@@ -563,12 +573,12 @@ ne 143.
 File: figures/mor_transformer_architecture.jpg Graphic file (type jpg)
 <use figures/mor_transformer_architecture.jpg>
 Package pdftex.def Info: figures/mor_transformer_architecture.jpg  used on inpu
-t line 169.
+t line 171.
 (pdftex.def)             Requested size: 201.60077pt x 130.06322pt.
 
 
 
-Underfull \hbox (badness 1389) in paragraph at lines 184--185
+Underfull \hbox (badness 1389) in paragraph at lines 186--187
 []\OT1/ptm/b/n/10 Tiny Shake-speare: \OT1/ptm/m/n/10 The full dataset ($\OMS/cm
 sy/m/n/10 ^^X$\OT1/ptm/m/n/10 1M char-ac-
  []
@@ -576,29 +586,29 @@ sy/m/n/10 ^^X$\OT1/ptm/m/n/10 1M char-ac-
 
 
 [4 <./figures/mor_transformer_architecture.jpg>]
-<figures/routing_mechanism.png, id=298, 858.20625pt x 568.1225pt>
+<figures/routing_mechanism.png, id=297, 858.20625pt x 568.1225pt>
 File: figures/routing_mechanism.png Graphic file (type png)
 <use figures/routing_mechanism.png>
-Package pdftex.def Info: figures/routing_mechanism.png  used on input line 243.
+Package pdftex.def Info: figures/routing_mechanism.png  used on input line 245.
 
 (pdftex.def)             Requested size: 214.20154pt x 141.7962pt.
 
 
 
-Underfull \hbox (badness 3281) in paragraph at lines 254--255
+Underfull \hbox (badness 3281) in paragraph at lines 256--257
 []\OT1/ptm/b/n/10 Experiment 4 (High-Density Sta-bil-ity): \OT1/ptm/m/n/10 An-a
 -lyzes
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 254--255
+Underfull \hbox (badness 1418) in paragraph at lines 256--257
 \OT1/ptm/m/n/10 model sta-bil-ity and con-ver-gence on the WikiText-2
  []
 
 
 
 [5 <./figures/routing_mechanism.png>]
-Underfull \hbox (badness 1975) in paragraph at lines 314--315
+Underfull \hbox (badness 1975) in paragraph at lines 316--317
  \OT1/ptm/m/it/10 1) Ex-per-i-ment 1: Ef-fi-ciency Pro-fil-ing (N=12 vs MoR
  []
 
@@ -606,19 +616,19 @@ Underfull \hbox (badness 1975) in paragraph at lines 314--315
 File: figures/exp1_efficiency_comparison.png Graphic file (type png)
 <use figures/exp1_efficiency_comparison.png>
 Package pdftex.def Info: figures/exp1_efficiency_comparison.png  used on input 
-line 337.
+line 339.
 (pdftex.def)             Requested size: 252.0pt x 72.31215pt.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 343.
+(hyperref)                removing `math shift' on input line 345.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\approx' on input line 343.
+(hyperref)                removing `\approx' on input line 345.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 343.
+(hyperref)                removing `math shift' on input line 345.
 
 
 
@@ -626,10 +636,10 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 File: figures/exp2_equal_cost_comparison.png Graphic file (type png)
 <use figures/exp2_equal_cost_comparison.png>
 Package pdftex.def Info: figures/exp2_equal_cost_comparison.png  used on input 
-line 366.
+line 368.
 (pdftex.def)             Requested size: 252.0pt x 72.31215pt.
 
-Overfull \hbox (29.82655pt too wide) in paragraph at lines 378--390
+Overfull \hbox (165.33415pt too wide) in paragraph at lines 380--393
  [][] 
  []
 
@@ -640,31 +650,31 @@ ison.png>]
 <figures/stability_analysis.png, id=332, 1075.3776pt x 448.074pt>
 File: figures/stability_analysis.png Graphic file (type png)
 <use figures/stability_analysis.png>
-Package pdftex.def Info: figures/stability_analysis.png  used on input line 420
+Package pdftex.def Info: figures/stability_analysis.png  used on input line 423
 .
 (pdftex.def)             Requested size: 214.20154pt x 89.25084pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 436--436
+Underfull \hbox (badness 10000) in paragraph at lines 439--439
 []\OT1/ptm/m/n/8 2: Equiv-a-lent
  []
 
 
-Underfull \hbox (badness 1515) in paragraph at lines 436--437
+Underfull \hbox (badness 1515) in paragraph at lines 439--440
 []\OT1/ptm/m/n/8 Dynamic depth $\OMS/cmsy/m/n/8 !$ \OT1/ptm/m/n/8 bet-
  []
 
 
-Underfull \hbox (badness 2990) in paragraph at lines 438--438
+Underfull \hbox (badness 2990) in paragraph at lines 441--441
 \OT1/ptm/m/n/8 forms MoR on Bangla
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 440--440
+Underfull \hbox (badness 10000) in paragraph at lines 443--443
 []\OT1/ptm/m/n/8 MoR con-verges (30%)
  []
 
 
-Overfull \hbox (11.62202pt too wide) in paragraph at lines 430--443
+Overfull \hbox (11.62202pt too wide) in paragraph at lines 433--446
  [][] 
  []
 
@@ -672,24 +682,24 @@ Overfull \hbox (11.62202pt too wide) in paragraph at lines 430--443
 File: figures/multi_granularity_summary.png Graphic file (type png)
 <use figures/multi_granularity_summary.png>
 Package pdftex.def Info: figures/multi_granularity_summary.png  used on input l
-ine 447.
+ine 450.
 (pdftex.def)             Requested size: 252.0pt x 124.7987pt.
 <figures/computational_savings.png, id=334, 714.9912pt x 427.8384pt>
 File: figures/computational_savings.png Graphic file (type png)
 <use figures/computational_savings.png>
 Package pdftex.def Info: figures/computational_savings.png  used on input line 
-454.
+457.
 (pdftex.def)             Requested size: 214.20154pt x 128.16971pt.
 <figures/learning_curves.png, id=335, 1075.3776pt x 444.9423pt>
 File: figures/learning_curves.png Graphic file (type png)
 <use figures/learning_curves.png>
-Package pdftex.def Info: figures/learning_curves.png  used on input line 461.
+Package pdftex.def Info: figures/learning_curves.png  used on input line 464.
 (pdftex.def)             Requested size: 239.39923pt x 99.04857pt.
 <figures/depth_accuracy_tradeoff.png, id=336, 714.5094pt x 426.6339pt>
 File: figures/depth_accuracy_tradeoff.png Graphic file (type png)
 <use figures/depth_accuracy_tradeoff.png>
 Package pdftex.def Info: figures/depth_accuracy_tradeoff.png  used on input lin
-e 469.
+e 472.
 (pdftex.def)             Requested size: 239.39923pt x 142.94438pt.
 
 
@@ -699,36 +709,36 @@ e 469.
  <./figures/computational_savings.png> <./figures/learning_curves.png>]
 
 
-Underfull \hbox (badness 2088) in paragraph at lines 493--494
+Underfull \hbox (badness 2088) in paragraph at lines 496--497
 []\OT1/ptm/b/n/10 High-Density Sub-word Hur-dles: \OT1/ptm/m/n/10 While ag-gres
 -sive
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 493--494
+Underfull \hbox (badness 4096) in paragraph at lines 496--497
 \OT1/ptm/m/n/10 op-ti-miza-tions re-solved the Bangla con-ver-gence is-
- []
-
-
-Underfull \hbox (badness 2096) in paragraph at lines 500--501
-[]\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
-a-tency,
  []
 
 
 
 [8 <./figures/depth_accuracy_tradeoff.png>]
-Underfull \hbox (badness 2529) in paragraph at lines 513--514
+Underfull \hbox (badness 2096) in paragraph at lines 503--504
+[]\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
+a-tency,
+ []
+
+
+Underfull \hbox (badness 2529) in paragraph at lines 516--517
 \OT1/ptm/m/n/10 and through-put. Ex-plore ex-ten-sion to mul-ti-modal tasks
  []
 
 (./manuscript.bbl
-Underfull \hbox (badness 1502) in paragraph at lines 50--54
+
+
+Underfull \hbox (badness 1502) in paragraph at lines 57--61
 \OT1/ptm/m/n/8 sal-ity of trans-form-ers for next-token pre-dic-tion.  \OT1/ptm
 /m/it/8 arXiv preprint
  []
-
-
 
 )
 
@@ -753,13 +763,13 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 7003D76704C7CFB4318106C25872EB3E;7045.
  ) 
 Here is how much of TeX's memory you used:
- 11874 strings out of 474662
- 187429 string characters out of 5751109
- 604429 words of memory out of 5000000
- 34655 multiletter control sequences out of 15000+600000
- 598544 words of font info for 114 fonts, out of 8000000 for 9000
+ 11864 strings out of 474662
+ 187333 string characters out of 5751109
+ 606429 words of memory out of 5000000
+ 34649 multiletter control sequences out of 15000+600000
+ 596999 words of font info for 108 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,12n,79p,1206b,533s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1206b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/c
@@ -772,15 +782,14 @@ ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025basic/texmf-dist/
-fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts
-/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
-e1/urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/ur
-w/times/utmri8a.pfb>
-Output written on manuscript.pdf (9 pages, 1773220 bytes).
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/ty
+pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
+urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/t
+imes/utmri8a.pfb>
+Output written on manuscript.pdf (9 pages, 1764299 bytes).
 PDF statistics:
- 460 PDF objects out of 1000 (max. 8388607)
- 393 compressed objects within 4 object streams
+ 456 PDF objects out of 1000 (max. 8388607)
+ 391 compressed objects within 4 object streams
  110 named destinations out of 1000 (max. 500000)
  400 words of extra memory for PDF output out of 10000 (max. 10000000)
 

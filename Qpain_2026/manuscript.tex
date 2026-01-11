@@ -45,7 +45,7 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). Experiments demonstrate that MoR achieves superior inference efficiency (reduced effective depth) and training stability on English benchmarks. However, evaluation on Bangla reveals limitations in handling high-density morphological subwords without language-specific priors. Notably, at equivalent computational cost (E $\approx$ 6) on English data, MoR outperforms a fixed shallow baseline by over 30\% in held-out accuracy. This multi-granularity analysis positions MoR as a robust architecture for stable training, while highlighting critical boundaries in its applicability to morphologically rich languages.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). While MoR achieves superior inference efficiency and training stability on English benchmarks, evaluation on Bangla reveals limitations in handling high-density morphological subwords without language-specific priors. This multi-granularity analysis positions MoR as a robust architecture for stable training of small models, while highlighting critical boundaries in its applicability to morphologically rich languages.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -55,6 +55,8 @@ Mixture-of-Recursion (MoR), Multi-Granularity Language Modeling, Transformer, Ad
 \section{Introduction}
 
 \subsection{Research Background}
+Building on the Mixture-of-Recursions (MoR) framework recently proposed by Bae et al. \cite{b11}, which demonstrated strong efficiency gains at scales up to 1.7B parameters, this work conducts the first systematic investigation of MoR's behavior in small-scale settings and across diverse token granularities, with particular emphasis on low-resource and morphologically rich languages.
+
 Large Language Models (LLMs) built on the Transformer architecture have established themselves as the cornerstone of modern artificial intelligence, demonstrating exceptional performance in tasks such as text generation, code synthesis, and question answering \cite{b1, b2, b3}. The efficacy of Transformers stems from their capacity to process sequences in parallel and capture complex patterns within extensive datasets.
 
 However, the standard Transformer architecture suffers from significant limitations. Primarily, it imposes a fixed computational depth across all inputs, disregarding the inherent variability in token complexity. Consequently, simple tokens receive the same computational resources as complex reasoning phrases, leading to inefficient resource allocation. Furthermore, the quadratic scaling of the self-attention mechanism with respect to sequence length results in substantial memory and computational overhead \cite{b4, b5, b6}. These factors collectively render large models expensive to train and challenging to deploy.
@@ -98,7 +100,7 @@ To achieve this aim, the research focuses on the following objectives:
 \subsection{Contributions}
 This work makes the following contributions:
 \begin{itemize}
-    \item \textbf{Empirical Benchmark:} We provide the first systematic evaluation of the MoR architecture on character-level language modeling using Tiny Shakespeare, demonstrating its applicability to small-scale settings.
+    \item \textbf{Empirical Benchmark:} We provide an independent small-scale evaluation of the MoR architecture on character-level language modeling using Tiny Shakespeare, demonstrating its applicability to resource-constrained settings.
     \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines in character-level tasks.
     \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets on English datasets, MoR achieves 10\% higher held-out accuracy than shallow baselines.
     \item \textbf{Granularity Bounds:} We identify a critical performance boundary in morphologically rich languages (Bangla), where structural baselines outperform dynamic recursive routing, offering vital insights into the relationship between information density and model design.
@@ -186,7 +188,7 @@ The study utilizes three distinct datasets to evaluate performance across differ
     \item \textbf{Bangla Wikipedia:} To evaluate performance on low-resource languages, we create a subset of the Bangla Wikipedia corpus ($\sim$15MB text). This dataset introduces complex morphological challenges.
 \end{itemize}
 
-While modern LLM training utilizes trillion-token corpora, this study intentionally employs small-scale benchmarks. This allows for the precise ablation of architectural routing behaviors and stability dynamics in a controlled environment, isolating these factors from the complexities of large-scale pre-training.
+While the original MoR work demonstrates gains at scales up to 1.7B parameters on large web corpora, this study focuses on controlled small-scale settings to analyze routing dynamics and cross-granularity behavior. This allows for the precise ablation of architectural routing behaviors and stability dynamics in a controlled environment, isolating these factors from the complexities of large-scale pre-training.
 
 \subsubsection{Tokenization}
 We employ three tokenization strategies to test adaptability:
@@ -293,7 +295,7 @@ Hardware & Kaggle (NVIDIA Tesla P100 GPU) \\
 To understand how well our models are working, we used some standard evaluation metrics. These help us measure accuracy and speed of our model.
 
 \subsubsection{Effective Depth (E)}
-Effective Depth (E) is the average number of layers actually executed by a model during inference or training. It is a measure of the realized computational depth of a dynamically-routed or recursive neural architecture.
+Effective Depth (E) is the weighted average number of layers actually executed by a model during inference or training. It is a measure of the realized computational depth of a dynamically-routed or recursive neural architecture.
 
 \subsubsection{Accuracy}
 Accuracy measures top-1 next-token prediction correctness for language modeling. It shows what fraction of predicted tokens match true next tokens.
@@ -385,13 +387,14 @@ MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 48m/ep \\
 MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 49.21\% & 7.40 & 32m/ep \\
 \hline
 \multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
-\multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate result at Epoch 8 (Standard) / Epoch 7 (MoR).}
+\multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
+\multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate results at Epoch 8 (Standard) / Epoch 7 (MoR) are reported to capture peak performance before overfitting.}
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations, the models successfully achieved convergence. However, a critical limitation of the MoR architecture was observed in this morphologically rich setting. As shown in Table \ref{tab:exp3_result}, the fixed-depth Standard Baseline ($N=6$) significantly outperformed the MoR model in accuracy (63.74\% vs 50.15\%) while also being faster to train (28m/ep vs 48m/ep).
+\textbf{Interpretation:} Following the implementation of aggressive optimizations, the models successfully achieved convergence. A lower auxiliary loss weight ($\lambda=0.05$) was tested to prioritize accuracy over depth reduction in this difficult task, but yielded minimal gain. However, a critical limitation of the MoR architecture was observed in this morphologically rich setting. As shown in Table \ref{tab:exp3_result}, the fixed-depth Standard Baseline ($N=6$) significantly outperformed the MoR model in accuracy (63.74\% vs 50.15\%) while also being faster to train (28m/ep vs 48m/ep).
 
-This result contradicts the efficiency gains seen in English character-level tasks. It suggests that for languages like Bangla, where individual subwords carry high morphological density, consistent depth processing (as provided by the Standard Baseline) is more effective than dynamic routing. The MoR router appears to struggle with "deciding" the complexity of morphological tokens without language-specific priors, leading to suboptimal recursion decisions. This identifies a key boundary condition for MoR: it excels in sequential pattern matching (English/Code) but requires further refinement for dense morphological tasks.
+This result contradicts the efficiency gains seen in English character-level tasks. Our results highlight a potential limitation of vanilla MoR routing when applied to morphologically rich, low-resource languages without additional inductive biases — an area for future refinement. The MoR router appears to struggle with "deciding" the complexity of morphological tokens without language-specific priors, leading to suboptimal recursion decisions. This identifies a key boundary condition for MoR: it excels in sequential pattern matching (English/Code) but requires further refinement for dense morphological tasks.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
@@ -496,7 +499,7 @@ This study has several critical limitations that must be acknowledged:
     \item \textbf{Single Task:} Only next-token prediction was evaluated across granularities. Performance on downstream tasks (e.g., code generation, question answering) remains unexplored.
     \item \textbf{Training from Scratch:} Models were trained from random initialization rather than fine-tuned from pre-trained weights, limiting insights into transfer learning scenarios.
     \item \textbf{Limited Baselines:} No comparison to other efficiency methods such as parameter-efficient fine-tuning (LoRA, Adapters), pruning, or early-exit mechanisms.
-    \item \textbf{Statistical Rigor:} Results are based on single experimental runs. However, the observed performance differentials (e.g., $>30\%$ accuracy gaps in Exp 2 and $>13\%$ in Exp 3) significantly exceed the typical variance attributable to random initialization, suggesting the findings are robust.
+    \item \textbf{Statistical Rigor:} Results are based on single experimental runs. While common in resource-intensive pre-training, small-scale benchmarks ideally require multi-seed averaging to quantify variance. We argue the large effect sizes (e.g., $>30\%$ accuracy gaps in Exp 2) likely exceed random noise, but future validation should include rigorous statistical bounds.
     \item \textbf{Deployment Metrics:} Real-world inference latency, throughput, and energy consumption were not measured.
     \item \textbf{Hyperparameter Sensitivity:} The auxiliary loss weight ($\lambda=0.1$) and router architecture were not systematically ablated. Different values may yield different efficiency-accuracy trade-offs.
 \end{itemize}
@@ -504,7 +507,7 @@ This study has several critical limitations that must be acknowledged:
 \subsection{Future Works}
 Although this research provides strong evidence for the benefits of adaptive recursion, several critical avenues remain open for future investigation:
 
-\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should explore: (1) Dynamic vocabulary scaling based on morphological complexity, (2) Integration of language-specific priors into the routing mechanism to better handle inflectional richness, (3) Hyperparameter sweeps for ultra-small datasets.
+\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should explore: (1) Integration of language-specific routing priors (e.g., morphological features), (2) Combining MoR with byte-level models for better cross-lingual performance, (3) Hyperparameter sweeps for ultra-small datasets.
 
 \textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should explore: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks, (4) Hardware-aware architecture search to minimize latency.
 
