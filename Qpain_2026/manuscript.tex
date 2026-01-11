@@ -377,6 +377,7 @@ Goal: Evaluate whether the adaptive efficiency observed in English transfers to 
 \caption{Experiment 3 Result (Bangla)}
 \label{tab:exp3_result}
 \centering
+\resizebox{0.95\columnwidth}{!}{
 \begin{tabular}{|l|c|c|c|}
 \hline
 \textbf{Model} & \textbf{Accuracy} & \textbf{Effective Depth (E)} & \textbf{Time/Epoch} \\
@@ -386,10 +387,10 @@ Standard ($N = 12$) & 75.46\%$^\ddagger$ & 12.00 & 58m/ep \\
 MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 48m/ep \\
 MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 49.21\% & 7.40 & 32m/ep \\
 \hline
-\multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
-\multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
-\multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate results at Epoch 8 (Standard) / Epoch 7 (MoR) are reported to capture peak performance before overfitting.}
+\multicolumn{4}{p{8cm}}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
+\multicolumn{4}{p{8cm}}{\footnotesize $^\ddagger$ Intermediate results at Epoch 8 (Standard) / Epoch 7 (MoR) are reported to capture peak performance before overfitting.}
 \end{tabular}
+}
 \end{table}
 
 \textbf{Interpretation:} Following the implementation of aggressive optimizations, the models successfully achieved convergence. A lower auxiliary loss weight ($\lambda=0.05$) was tested to prioritize accuracy over depth reduction in this difficult task, but yielded minimal gain. However, a critical limitation of the MoR architecture was observed in this morphologically rich setting. As shown in Table \ref{tab:exp3_result}, the fixed-depth Standard Baseline ($N=6$) significantly outperformed the MoR model in accuracy (63.74\% vs 50.15\%) while also being faster to train (28m/ep vs 48m/ep).
@@ -430,19 +431,19 @@ Training Time & 5854 s & 5922 s \\
 \caption{Overall Outcome}
 \label{tab:overall_outcome}
 \centering
-\begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|}
+\resizebox{0.95\columnwidth}{!}{
+\begin{tabular}{|l|l|p{3.5cm}|p{2.5cm}|}
 \hline
-\textbf{Experiment} & \textbf{What it proved} & \textbf{Key Takeaway} \\
+\textbf{Dataset} & \textbf{Strategy} & \textbf{MoR Performance} & \textbf{Key Insight} \\
 \hline
-1: Efficiency & For same Layer (12 L), MoR reduces \textit{depth} (E = 8) with identical accuracy. & MoR learns to skip unnecessary computation. \\
+Tiny Shakespeare & Character & \textbf{Superior:} 33\% depth reduction with parity accuracy. & Efficiency via skipping. \\
 \hline
-2: Equivalent Cost & For same average compute (E $\approx$ 6), MoR (12 L) maximizes English accuracy. & Dynamic depth $\rightarrow$ better generalization on low-density tasks. \\
+WikiText-2 & Subword & \textbf{Stable:} Converged (30\%) vs Baseline failure (3\%). & Restores stability. \\
 \hline
-3: Cross-Lingual & Standard Baseline outperforms MoR on Bangla (63\% vs 50\%). & \textbf{Limitation:} MoR struggles with high morphological density. \\
-\hline
-4: Stability & MoR converges (30\%) while Baseline fails (3\%). & \textbf{MoR stabilizes training} for deep architectures. \\
+Bangla Wikipedia & Morphological & \textbf{Limitation:} Standard models outperformed MoR by $\sim$13\%. & Struggles with heavy morphology. \\
 \hline
 \end{tabular}
+}
 \end{table}
 
 \begin{figure}[htbp]
@@ -509,7 +510,9 @@ Although this research provides strong evidence for the benefits of adaptive rec
 
 \textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should explore: (1) Integration of language-specific routing priors (e.g., morphological features), (2) Combining MoR with byte-level models for better cross-lingual performance, (3) Hyperparameter sweeps for ultra-small datasets.
 
-\textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should explore: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks, (4) Hardware-aware architecture search to minimize latency.
+\textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should prioritize a granular latency breakdown to quantify the specific cost of the MLP router versus the attention mechanism. Further optimizations could include: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks.
+
+\textbf{Visualizing Internal Dynamics:} To make the routing behavior more tangible, future studies should employ layer execution heatmaps. These visualizations would help validate whether the model correctly identifies linguistic hierarchies (e.g., distinguishing complex roots from simple suffixes) or fails to do so in morphologically rich languages.
 
 \textbf{Scaling and Generalization:} Evaluate MoR on larger and more diverse datasets, including code generation and reasoning-heavy benchmarks (e.g., GSM8K, HumanEval) to better understand its capability for deep recursive reasoning. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance.
 
