@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 01:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 01:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1075,4 +1075,97 @@ e 502.
 
 
 
-[7 <./figures/stability_
+[7 <./figures/stability_analysis.png> <./figures/multi_granularity_summary.png>
+ <./figures/computational_savings.png> <./figures/learning_curves.png>]
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 526--527
+[]\OT1/ptm/b/n/10 High-Density Sub-word Hur-dles: \OT1/ptm/m/n/10 While ag-gres
+-sive
+ []
+
+
+Underfull \hbox (badness 4096) in paragraph at lines 526--527
+\OT1/ptm/m/n/10 op-ti-miza-tions re-solved the Bangla con-ver-gence is-
+ []
+
+
+
+[8 <./figures/depth_accuracy_tradeoff.png>]
+Underfull \hbox (badness 2096) in paragraph at lines 533--534
+[]\OT1/ptm/b/n/10 Deployment Met-rics: \OT1/ptm/m/n/10 Real-world in-fer-ence l
+a-tency,
+ []
+
+
+Underfull \hbox (badness 2529) in paragraph at lines 550--551
+\OT1/ptm/m/n/10 and through-put. Ex-plore ex-ten-sion to mul-ti-modal tasks
+ []
+
+(./manuscript.bbl
+
+
+Underfull \hbox (badness 1502) in paragraph at lines 58--62
+\OT1/ptm/m/n/8 sal-ity of trans-form-ers for next-token pre-dic-tion.  \OT1/ptm
+/m/it/8 arXiv preprint
+ []
+
+
+
+[9])
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+
+
+
+
+[10
+
+] (./manuscript.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+Package rerunfilecheck Info: File `manuscript.out' has not changed.
+(rerunfilecheck)             Checksum: 7003D76704C7CFB4318106C25872EB3E;7045.
+ ) 
+Here is how much of TeX's memory you used:
+ 24682 strings out of 474662
+ 490378 string characters out of 5751109
+ 899113 words of memory out of 5000000
+ 47198 multiletter control sequences out of 15000+600000
+ 596999 words of font info for 108 fonts, out of 8000000 for 9000
+ 319 hyphenation exceptions out of 8191
+ 84i,12n,87p,1206b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/texmf-dist/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/ty
+pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
+urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/t
+imes/utmri8a.pfb>
+Output written on manuscript.pdf (10 pages, 1768000 bytes).
+PDF statistics:
+ 488 PDF objects out of 1000 (max. 8388607)
+ 405 compressed objects within 5 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 508 words of extra memory for PDF output out of 10000 (max. 10000000)
+
