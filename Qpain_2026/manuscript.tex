@@ -54,7 +54,7 @@ Mixture-of-Recursion (MoR), Multi-Granularity Language Modeling, Transformer, Ad
 
 \section{Introduction}
 
-\subsection{Background of The Research}
+\subsection{Research Background}
 Large Language Models (LLMs) built on the Transformer architecture have established themselves as the cornerstone of modern artificial intelligence, demonstrating exceptional performance in tasks such as text generation, code synthesis, and question answering \cite{b1, b2, b3}. The efficacy of Transformers stems from their capacity to process sequences in parallel and capture complex patterns within extensive datasets.
 
 However, the standard Transformer architecture suffers from significant limitations. Primarily, it imposes a fixed computational depth across all inputs, disregarding the inherent variability in token complexity. Consequently, simple tokens receive the same computational resources as complex reasoning phrases, leading to inefficient resource allocation. Furthermore, the quadratic scaling of the self-attention mechanism with respect to sequence length results in substantial memory and computational overhead \cite{b4, b5, b6}. These factors collectively render large models expensive to train and challenging to deploy.
@@ -117,7 +117,7 @@ This work makes the following contributions:
 \section{Literature Review}
 
 \subsection{Introduction}
-Large Language Models (LLMs) represent a breakthrough in artificial intelligence, enabling machines to understand, generate, and process human-like text for tasks like answering questions, code generation, summarizing, and translating. LLM built on transformer architecture \cite{b13}. Mixture-of-Recursions (MoR) is a new model using parameter sharing, adaptive computation, and a routing mechanism to enhance the efficiency of language model.
+Large Language Models (LLMs) represent a breakthrough in artificial intelligence, enabling machines to understand, generate, and process human-like text for tasks like answering questions, code generation, summarizing, and translating. LLMs are built on the Transformer architecture \cite{b13}. Mixture-of-Recursions (MoR) is a new model using parameter sharing, adaptive computation, and a routing mechanism to enhance the efficiency of language model.
 
 This chapter reviews existing studies related to Large Language Models (LLMs), Small Language Models (SLMs), transformer architectures, Recursive Transformers, and Mixture-of-Experts (MoE) to contextualize the proposed Mixture-of-Recursions (MoR) framework.
 
@@ -182,7 +182,7 @@ This chapter details the methodology employed to implement, train, and evaluate 
 The study utilizes three distinct datasets to evaluate performance across different linguistic typologies and granularities:
 \begin{itemize}
     \item \textbf{Tiny Shakespeare:} The full dataset ($\sim$1M characters) is used as a controlled character-level benchmark \cite{b35}. It serves as the baseline for high-granularity, low-information-density modeling.
-    \item \textbf{WikiText-2:} A standard benchmark for high-density subword modeling ($\sim$2M tokens). It offers a realistic vocabulary and is used to test the model on higher information densitiy.
+    \item \textbf{WikiText-2:} A standard benchmark for high-density subword modeling ($\sim$2M tokens). It offers a realistic vocabulary and is used to test the model on higher information density.
     \item \textbf{Bangla Wikipedia:} To evaluate performance on low-resource languages, we create a subset of the Bangla Wikipedia corpus ($\sim$15MB text). This dataset introduces complex morphological challenges.
 \end{itemize}
 
@@ -483,7 +483,7 @@ Finally, Experiment 4 (WikiText-2) provided the most critical insight: architect
 \subsection{Conclusion}
 This paper explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
 
-Three experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla Wikipedia. The experimental comparisons demonstrate that MoR can achieve superior performance and stability on English benchmarks while using fewer effective layers. However, results on the Bangla dataset reveal a trade-off: while MoR functioned, it was outperformed by standard fixed-depth models, highlighting a limitation in handling morphologically rich subwords. This nuance positions MoR as a specialized architecture for stability and English-like tasks, rather than a one-size-fits-all solution.
+Four experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla Wikipedia. The experimental comparisons demonstrate that MoR can achieve superior performance and stability on English benchmarks while using fewer effective layers. However, results on the Bangla dataset reveal a trade-off: while MoR functioned, it was outperformed by standard fixed-depth models, highlighting a limitation in handling morphologically rich subwords. This nuance positions MoR as a specialized architecture for stability and English-like tasks, rather than a one-size-fits-all solution.
 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
