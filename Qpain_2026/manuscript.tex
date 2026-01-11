@@ -508,11 +508,13 @@ This study has several critical limitations that must be acknowledged:
 \subsection{Future Works}
 Although this research provides strong evidence for the benefits of adaptive recursion, several critical avenues remain open for future investigation:
 
-\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should explore: (1) Integration of language-specific routing priors (e.g., morphological features), (2) Combining MoR with byte-level models for better cross-lingual performance, (3) Hyperparameter sweeps for ultra-small datasets.
+\textbf{Refining Subword Efficiency:} While we successfully achieved convergence on Bangla (63.74\% validation accuracy), future work should specifically explore \textit{Morphological-Aware Routing}. This involves explicitly training the router to recognize grammatical markers (suffixes/prefixes) that may require less recursion than semantic roots, thereby distinguishing skippable patterns from information-dense ones.
 
 \textbf{MoR Efficiency Optimization:} The observed training time parity despite 79\% parameter reduction indicates that routing overhead dominates. Future work should prioritize a granular latency breakdown to quantify the specific cost of the MLP router versus the attention mechanism. Further optimizations could include: (1) Optimized CUDA kernels for the routing mechanism, (2) Batched router inference to amortize overhead, (3) Quantization-aware training for router networks.
 
 \textbf{Visualizing Internal Dynamics:} To make the routing behavior more tangible, future studies should employ layer execution heatmaps. These visualizations would help validate whether the model correctly identifies linguistic hierarchies (e.g., distinguishing complex roots from simple suffixes) or fails to do so in morphologically rich languages.
+
+\textbf{Edge Deployment:} Given the significant parameter reduction (79\%), MoR holds immense potential for mobile and IoT applications where memory footprint is the primary constraint. Future research should benchmark \textit{inference throughput on edge devices} to assess whether the memory savings translate to real-world latency gains on hardware with limited bandwidth, potentially offsetting the routing overhead.
 
 \textbf{Scaling and Generalization:} Evaluate MoR on larger and more diverse datasets, including code generation and reasoning-heavy benchmarks (e.g., GSM8K, HumanEval) to better understand its capability for deep recursive reasoning. Combine MoR with MoE to leverage both expert specialization and recursive depth control for enhanced performance.
 

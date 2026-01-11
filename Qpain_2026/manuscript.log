@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -703,7 +703,7 @@ a-tency,
  []
 
 
-Underfull \hbox (badness 2529) in paragraph at lines 519--520
+Underfull \hbox (badness 2529) in paragraph at lines 521--522
 \OT1/ptm/m/n/10 and through-put. Ex-plore ex-ten-sion to mul-ti-modal tasks
  []
 
@@ -746,7 +746,7 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 Here is how much of TeX's memory you used:
  11865 strings out of 474662
  187340 string characters out of 5751109
- 606431 words of memory out of 5000000
+ 605431 words of memory out of 5000000
  34649 multiletter control sequences out of 15000+600000
  596999 words of font info for 108 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
@@ -767,7 +767,7 @@ ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/ty
 pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
 urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on manuscript.pdf (10 pages, 1765316 bytes).
+Output written on manuscript.pdf (10 pages, 1765762 bytes).
 PDF statistics:
  460 PDF objects out of 1000 (max. 8388607)
  394 compressed objects within 4 object streams
