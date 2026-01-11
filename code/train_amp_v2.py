@@ -305,7 +305,7 @@ def train_mor(model, train_loader, test_loader, config, experiment_name, lambda_
     with torch.no_grad():
         for x, y in test_loader:
             x, y = x.to(device), y.to(device)
-            logits, eff_depth = model(x)
+            logits, eff_depth, _ = model(x)
             loss = criterion(logits.view(-1, logits.size(-1)), y.view(-1))
             test_loss += float(loss.item())
             test_acc += calculate_accuracy(logits, y)

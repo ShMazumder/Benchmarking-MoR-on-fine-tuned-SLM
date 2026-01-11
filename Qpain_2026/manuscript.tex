@@ -375,10 +375,11 @@ Goal: Evaluate whether the adaptive efficiency observed in English transfers to 
 \hline
 Standard ($N = 6$)$^\dagger$ & 63.74\% & 6.00 & 28m/ep \\
 Standard ($N = 12$) & 75.46\%$^\ddagger$ & 12.00 & 58m/ep \\
-MoR ($N = 12$) & 49.43\%$^\ddagger$ & 8.29 & 1h 05m/ep \\
+MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 1h 05m/ep \\
+MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 47.97\% & 7.42 & 1h 02m/ep \\
 \hline
 \multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
-\multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate result at Epoch 8.}
+\multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate result at Epoch 8 (Standard) / Epoch 7 (MoR).}
 \end{tabular}
 \end{table}
 
@@ -458,7 +459,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), the implementation of aggressive optimizations successfully resolved the previously observed convergence failure. By utilizing a larger 16K vocabulary and refined learning rate scheduling, the models achieved state-of-the-art results, with the 6-layer baseline reaching 63.74\% accuracy by Epoch 10. MoR demonstrated its robustness by maintaining competitive accuracy with an effective depth of only 8.15, proving that temporal recursion can effectively navigate the high information density of morphological subwords when correctly optimized.
+In Experiment 3 (Bangla), Convergence was successfully achieved by using a carefully tuned warm-up schedule and decoupled depth penalties. Interestingly, while the Standard ($N=12$) baseline remains the performance leader (75.5\% vs 50.2\% for MoR), the MoR model exhibits significant computational efficiency. Experiment 2 ($\lambda=0.05$) reached 48.0\% accuracy with an effective depth of only 7.42 layers, a 38.2\% reduction in compute compared to the deep baseline while strictly maintaining stability in regimes where unweighted depth penalties previously failed.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
