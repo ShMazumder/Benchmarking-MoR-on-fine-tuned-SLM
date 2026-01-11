@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.8)  12 JAN 2026 00:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -740,7 +740,9 @@ Underfull \hbox (badness 1502) in paragraph at lines 57--61
 /m/it/8 arXiv preprint
  []
 
-)
+
+
+[9])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -754,7 +756,11 @@ Before submitting the final camera ready copy, remember to:
 
 
 
-[9] (./manuscript.aux)
+
+
+[10
+
+] (./manuscript.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -763,13 +769,13 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 7003D76704C7CFB4318106C25872EB3E;7045.
  ) 
 Here is how much of TeX's memory you used:
- 11864 strings out of 474662
- 187333 string characters out of 5751109
- 606429 words of memory out of 5000000
+ 11865 strings out of 474662
+ 187340 string characters out of 5751109
+ 607431 words of memory out of 5000000
  34649 multiletter control sequences out of 15000+600000
  596999 words of font info for 108 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,12n,79p,1206b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1206b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/c
@@ -786,10 +792,10 @@ ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/ty
 pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/
 urw/times/utmr8a.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on manuscript.pdf (9 pages, 1764299 bytes).
+Output written on manuscript.pdf (10 pages, 1764885 bytes).
 PDF statistics:
- 456 PDF objects out of 1000 (max. 8388607)
- 391 compressed objects within 4 object streams
- 110 named destinations out of 1000 (max. 500000)
+ 460 PDF objects out of 1000 (max. 8388607)
+ 394 compressed objects within 4 object streams
+ 111 named destinations out of 1000 (max. 500000)
  400 words of extra memory for PDF output out of 10000 (max. 10000000)
 
