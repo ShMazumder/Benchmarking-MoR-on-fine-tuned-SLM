@@ -113,9 +113,9 @@ x = np.arange(len(datasets))
 width = 0.25
 
 # Data for each experiment type
-baseline_n12 = [22.76, 21.55, 3.69]
-mor_n12 = [22.76, 20.87, 30.06]
-baseline_n6 = [15.27, 25.77, 31.89]
+baseline_n12 = [22.76, 75.46, 3.69]
+mor_n12 = [22.76, 22.45, 30.06]
+baseline_n6 = [15.27, 63.74, 31.89]
 
 bars1 = ax.bar(x - width, baseline_n12, width, label='Baseline (N=12)', 
                color='#FF6B6B', alpha=0.8, edgecolor='black', linewidth=1.5)
@@ -131,7 +131,7 @@ ax.set_xticks(x)
 ax.set_xticklabels(datasets, fontsize=11)
 ax.legend(fontsize=11, loc='upper right')
 ax.grid(axis='y', alpha=0.3, linestyle='--')
-ax.set_ylim([0, 40])
+ax.set_ylim([0, 85])
 
 # Add value labels
 for bars in [bars1, bars2, bars3]:
@@ -157,8 +157,8 @@ data_points = [
     (5.89, 49.67, 'MoR N=12 E≈6\n(Shakespeare)', '#4ECDC4', 'D'),
     (12.00, 3.69, 'Baseline N=12\n(WikiText)', '#FF6B6B', 'o'),
     (8.13, 30.06, 'MoR N=12\n(WikiText)', '#4ECDC4', 's'),
-    (12.00, 21.55, 'Baseline N=12\n(Bangla)', '#FF6B6B', 'v'),
-    (8.15, 20.87, 'MoR N=12\n(Bangla)', '#4ECDC4', 'X'),
+    (12.00, 75.46, 'Baseline N=12\n(Bangla)', '#FF6B6B', 'v'),
+    (8.15, 22.45, 'MoR N=12\n(Bangla)', '#4ECDC4', 'X'),
 ]
 
 for depth, acc, label, color, marker in data_points:
@@ -171,7 +171,7 @@ ax.set_title('Efficiency-Performance Trade-off', fontsize=14, fontweight='bold')
 ax.legend(fontsize=9, loc='best', ncol=2)
 ax.grid(True, alpha=0.3, linestyle='--')
 ax.set_xlim([4, 13])
-ax.set_ylim([0, 55])
+ax.set_ylim([0, 85])
 
 plt.tight_layout()
 plt.savefig(figures_dir / 'depth_accuracy_tradeoff.png', dpi=300, bbox_inches='tight')
