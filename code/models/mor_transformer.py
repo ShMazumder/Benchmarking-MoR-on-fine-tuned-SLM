@@ -74,16 +74,17 @@ class MoRTransformer(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
     
-    def forward(self, x, training=True):
+    def forward(self, x, training=True, return_aux_loss=False):
         """
         Args:
             x: Input token indices [batch, seq_len]
             training: If True, use Gumbel-Softmax; else use argmax
+            return_aux_loss: If True, returns aux_loss (depth penalty) instead of stats
         
         Returns:
             logits: Output logits [batch, seq_len, vocab_size]
             effective_depth: Average depth used [scalar]
-            routing_stats: Dictionary with routing statistics
+            aux_loss_or_stats: If return_aux_loss=True, returns aux_loss; else returns routing_stats
         """
         batch_size, seq_len = x.shape
         
@@ -106,7 +107,7 @@ class MoRTransformer(nn.Module):
         # Pass through layers with routing
         for layer_idx in range(self.n_layers):
             # Get routing decision
-            actions, logits = self.routers[layer_idx](x, training=training)
+            actions, r_logits = self.routers[layer_idx](x, training=training)
             
             # Count actions
             skip_mask = (actions == 0)
@@ -141,6 +142,10 @@ class MoRTransformer(nn.Module):
         
         # Calculate effective depth (average across all tokens)
         effective_depth = token_depths.mean()
+        
+        if return_aux_loss:
+            # Auxiliary loss is the depth penalty (minimizing effective depth)
+            return logits, effective_depth, effective_depth
         
         # Routing statistics
         total_decisions = batch_size * seq_len * self.n_layers
