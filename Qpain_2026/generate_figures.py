@@ -114,7 +114,7 @@ width = 0.25
 
 # Data for each experiment type
 baseline_n12 = [22.76, 75.46, 3.69]
-mor_n12 = [22.76, 48.61, 30.06]
+mor_n12 = [22.76, 49.43, 30.06]
 baseline_n6 = [15.27, 63.74, 31.89]
 
 bars1 = ax.bar(x - width, baseline_n12, width, label='Baseline (N=12)', 
@@ -158,7 +158,7 @@ data_points = [
     (12.00, 3.69, 'Baseline N=12\n(WikiText)', '#FF6B6B', 'o'),
     (8.13, 30.06, 'MoR N=12\n(WikiText)', '#4ECDC4', 's'),
     (12.00, 75.46, 'Baseline N=12\n(Bangla)', '#FF6B6B', 'v'),
-    (8.29, 48.61, 'MoR N=12\n(Bangla)', '#4ECDC4', 'X'),
+    (8.29, 49.43, 'MoR N=12\n(Bangla)', '#4ECDC4', 'X'),
 ]
 
 for depth, acc, label, color, marker in data_points:
