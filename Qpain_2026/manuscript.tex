@@ -376,14 +376,14 @@ Goal: Evaluate whether the adaptive efficiency observed in English transfers to 
 Standard ($N = 6$)$^\dagger$ & 63.74\% & 6.00 & 28m/ep \\
 Standard ($N = 12$) & 75.46\%$^\ddagger$ & 12.00 & 58m/ep \\
 MoR ($N = 12$, $\lambda=0.1$) & 50.15\% & 8.30 & 48m/ep \\
-MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 47.97\% & 7.42 & 45m/ep \\
+MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 49.21\% & 7.40 & 32m/ep \\
 \hline
 \multicolumn{4}{l}{\footnotesize $^\dagger$ Final performance recorded at Epoch 10.} \\
 \multicolumn{4}{l}{\footnotesize $^\ddagger$ Intermediate result at Epoch 8 (Standard) / Epoch 7 (MoR).}
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with 16K vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a final validation accuracy of 63.74\% by epoch 10. Crucially, the deeper 12-layer baseline has reached 75.46\% by epoch 8 (with training accuracy exceeding 77\% in epoch 9), indicating that the optimization regime has successfully unlocked the significant headroom available in deeper architectures on morphological subwords. MoR successfully navigated this space with an effective depth of 8.30, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
+\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with a 16,000 subword vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a final validation accuracy of 63.74\% by epoch 10. Crucially, the deeper 12-layer baseline has reached 75.46\% by epoch 8 (with training accuracy exceeding 77\% in epoch 9), indicating that the optimization regime has successfully unlocked the significant headroom available in deeper architectures on morphological subwords. MoR successfully navigated this space with an effective depth of 8.30, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
@@ -448,6 +448,13 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \label{fig:computational_savings}
 \end{figure}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/learning_curves.png}
+\caption{Learning Trajectories on Bangla Benchmark. The dual-subplot visualization shows (a) Training Loss and (b) Training Accuracy across 10 epochs. The comparison includes both deep (N=12) and shallow (N=6) standard baselines alongside MoR experiments. While the larger 12-layer baseline leverages its capacity for higher performance headroom, the 6-layer baseline and MoR variants demonstrate the efficiency-stability trade-off under the optimized regime.}
+\label{fig:learning_curves}
+\end{figure}
+
 \subsection{Result Analysis}
 \begin{figure}[htbp]
 \centering
@@ -459,7 +466,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), Convergence was successfully achieved by using a carefully tuned warm-up schedule and decoupled depth penalties. Interestingly, while the Standard ($N=12$) baseline remains the performance leader (75.5\% vs 50.2\% for MoR), the MoR model exhibits significant computational efficiency. Experiment 2 ($\lambda=0.05$) reached 48.0\% accuracy with an effective depth of only 7.42 layers, a 38.2\% reduction in compute compared to the deep baseline while strictly maintaining stability in regimes where unweighted depth penalties previously failed.
+In Experiment 3 (Bangla), Convergence was successfully achieved by using a carefully tuned warm-up schedule and decoupled depth penalties. Interestingly, while the Standard ($N=12$) baseline remains the performance leader (75.5\% vs 50.15\% for MoR), the MoR model exhibits significant computational efficiency compared to its architectural counterparts. As shown in Figure \ref{fig:learning_curves}, the MoR experiments closely track the initial convergence speed of the 6-layer baseline despite their larger nominal capacity, eventually stabilizing at a lower computational footprint. Experiment 2 ($\lambda=0.05$) reached 49.21\% accuracy with an effective depth of only 7.40 layers, a 38.3\% reduction in compute compared to the deep baseline while strictly maintaining stability in regimes where unweighted depth penalties previously failed.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
