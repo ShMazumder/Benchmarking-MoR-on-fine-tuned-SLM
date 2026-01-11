@@ -10,6 +10,8 @@
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes, arrows, calc, shapes.geometric, arrows.meta, shadows}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -112,9 +114,36 @@ This work makes the following contributions:
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/proposed_method_pipeline.png}
-\caption{Evaluated Research Pipeline}
+\caption{Research Pipeline}
 \label{fig:proposed_method}
 \end{figure}
+
+% \begin{figure}[htbp]
+% \centering
+% \resizebox{\columnwidth}{!}{
+% \begin{tikzpicture}[node distance=1.8cm and 2.2cm, every node/.style={align=center, font=\small}]
+% \node[draw, fill=blue!10, rounded corners, minimum width=3.2cm, minimum height=1.2cm] (A) {Dataset\\tokenization};
+% \node[draw, fill=green!10, rounded corners, minimum width=4cm, minimum height=1.2cm, right=of A] (B) {Initialize Two\\models};
+% \node[draw, fill=orange!15, rounded corners, minimum width=4.2cm, minimum height=1.2cm, right=of B] (C) {MoR Transformer};
+% \node[draw, fill=gray!20, rounded corners, minimum width=3.8cm, minimum height=1.2cm, below=1.2cm of C, xshift=-1.8cm] (D) {Router Decision\\Process};
+% \node[draw, fill=purple!10, rounded corners, minimum width=3.5cm, minimum height=1.2cm, below=1.8cm of B] (E) {Standard\\Transformer};
+% \node[draw, fill=yellow!15, rounded corners, minimum width=3cm, minimum height=1.2cm, below=1.2cm of E] (F) {Training};
+% \node[draw, fill=teal!10, rounded corners, minimum width=3cm, minimum height=1.2cm, below=of F] (G) {Experiment};
+% \node[draw, fill=cyan!10, rounded corners, minimum width=3cm, minimum height=1.2cm, below=of G] (H) {Evaluation};
+% \draw[->, thick] (A) -- (B);
+% \draw[->, thick] (B) -- (C);
+% \draw[->, thick] (B) -- (E);
+% \draw[->, thick] (C) -- ++(0,-0.8) -| (D);
+% \draw[->, thick] (E) -- (F);
+% \draw[->, thick] (D) |- (F);
+% \draw[->, thick] (F) -- (G);
+% \draw[->, thick] (G) -- (H);
+% \draw[->, thick, dashed, bend right=30] (F.east) to[out=0,in=0] ++(0.8,0) to[out=180,in=180] (F.east);
+% \end{tikzpicture}
+% }
+% \caption{Research Pipeline}
+% \label{fig:proposed_method}
+% \end{figure}
 
 \section{Literature Review}
 
