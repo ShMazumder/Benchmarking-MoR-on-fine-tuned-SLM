@@ -81,14 +81,14 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MoR Routing Mechanism. The router predicts discrete actions (Skip, Forward, Recurse) for each token to optimize computational depth.}}{5}{figure.4}\protected@file@percent }
 \newlabel{fig:routing_mechanism}{{4}{5}{MoR Routing Mechanism. The router predicts discrete actions (Skip, Forward, Recurse) for each token to optimize computational depth}{figure.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Experiments}{5}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Fine-tuning Process}{5}{subsection.3.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Fine-tuning Configuration}}{5}{table.2}\protected@file@percent }
-\newlabel{tab:training_config}{{II}{5}{Fine-tuning Configuration}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Training Configuration}{5}{subsection.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Training Configuration}}{5}{table.2}\protected@file@percent }
+\newlabel{tab:training_config}{{II}{5}{Training Configuration}{table.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-F}}Evaluation metrics}{5}{subsection.3.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-F}1}Effective Depth (E)}{5}{subsubsection.3.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-F}2}Accuracy}{5}{subsubsection.3.6.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-F}3}Held-out accuracy}{5}{subsubsection.3.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-F}4}Fine-tuning Time}{5}{subsubsection.3.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-F}4}Training Time}{5}{subsubsection.3.6.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Result and Analysis}{5}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Results}{5}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}1}Experiment 1: Efficiency Profiling (N=12 vs MoR N=12)}{5}{subsubsection.4.1.1}\protected@file@percent }
@@ -107,20 +107,20 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}4}Experiment 4: High-Density \& Stability (WikiText-2)}{6}{subsubsection.4.1.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Experiment 4 Result (WikiText-2)}}{6}{table.6}\protected@file@percent }
 \newlabel{tab:exp4_result}{{VI}{6}{Experiment 4 Result (WikiText-2)}{table.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}5}Overall Experimental Outcome}{6}{figure.10}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Stability Analysis across WikiText-2 and Bangla benchmarks. While standard 12-layer architectures diverge (WikiText) or fail to converge (Bangla) under standard regimes, MoR restores architectural stability through dynamic execution paths.}}{7}{figure.7}\protected@file@percent }
 \newlabel{fig:stability_analysis}{{7}{7}{Stability Analysis across WikiText-2 and Bangla benchmarks. While standard 12-layer architectures diverge (WikiText) or fail to converge (Bangla) under standard regimes, MoR restores architectural stability through dynamic execution paths}{figure.7}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Overall Outcome}}{7}{table.7}\protected@file@percent }
 \newlabel{tab:overall_outcome}{{VII}{7}{Overall Outcome}{table.7}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Performance Summary Across Token Granularities. MoR demonstrates consistent efficiency gains across character-level (Shakespeare), morphological subword (Bangla), and high-density subword (WikiText-2) tokenization.}}{7}{figure.8}\protected@file@percent }
 \newlabel{fig:multi_granularity}{{8}{7}{Performance Summary Across Token Granularities. MoR demonstrates consistent efficiency gains across character-level (Shakespeare), morphological subword (Bangla), and high-density subword (WikiText-2) tokenization}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}5}Overall Experimental Outcome}{7}{figure.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Result Analysis}{7}{subsection.4.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Computational Savings Across Datasets. MoR consistently achieves approximately 33\% reduction in effective depth across all three datasets.}}{7}{figure.9}\protected@file@percent }
 \newlabel{fig:computational_savings}{{9}{7}{Computational Savings Across Datasets. MoR consistently achieves approximately 33\% reduction in effective depth across all three datasets}{figure.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Learning Trajectories on Bangla Benchmark. The dual-subplot visualization shows (a) Training Loss and (b) Training Accuracy across 10 epochs. The comparison includes both deep (N=12) and shallow (N=6) standard baselines alongside MoR experiments. While the larger 12-layer baseline leverages its capacity for higher performance headroom, the 6-layer baseline and MoR variants demonstrate the efficiency-stability trade-off under the optimized regime.}}{7}{figure.10}\protected@file@percent }
 \newlabel{fig:learning_curves}{{10}{7}{Learning Trajectories on Bangla Benchmark. The dual-subplot visualization shows (a) Training Loss and (b) Training Accuracy across 10 epochs. The comparison includes both deep (N=12) and shallow (N=6) standard baselines alongside MoR experiments. While the larger 12-layer baseline leverages its capacity for higher performance headroom, the 6-layer baseline and MoR variants demonstrate the efficiency-stability trade-off under the optimized regime}{figure.10}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Efficiency-Performance Trade-off. MoR models (blue markers) consistently occupy the upper-left quadrant, achieving higher accuracy at lower effective depths compared to deep fixed baselines.}}{7}{figure.11}\protected@file@percent }
 \newlabel{fig:tradeoff}{{11}{7}{Efficiency-Performance Trade-off. MoR models (blue markers) consistently occupy the upper-left quadrant, achieving higher accuracy at lower effective depths compared to deep fixed baselines}{figure.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Result Analysis}{7}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion \& Future Work}{8}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Conclusion}{8}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Limitations}{8}{subsection.5.2}\protected@file@percent }

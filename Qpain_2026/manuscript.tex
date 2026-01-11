@@ -45,7 +45,7 @@
 \thispagestyle{firstpage}
 
 \begin{abstract}
-This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). Experiments demonstrate that MoR achieves superior efficiency, training stability, and generalization. Notably, at equivalent computational cost (E $\approx$ 6), MoR outperforms a fixed shallow baseline by over 30\% in held-out accuracy, validating its ability to simulate deeper capacity on demand. This multi-granularity analysis positions MoR as a robust, adaptive architecture for diverse language modeling constraints.
+This paper benchmarks the Mixture-of-Recursion (MoR) architecture, which dynamically adapts computational depth for efficient language modeling. Unlike standard Transformers that apply fixed depth to all tokens, MoR uses lightweight routers to skip, execute, or recurse through layers based on input complexity. We present a comprehensive evaluation of MoR across three levels of token granularity: Character (Tiny Shakespeare), Morphological Subword (Bangla), and High-Density Subword (WikiText-2). Experiments demonstrate that MoR achieves superior inference efficiency (reduced effective depth) and training stability on English benchmarks. However, evaluation on Bangla reveals limitations in handling high-density morphological subwords without language-specific priors. Notably, at equivalent computational cost (E $\approx$ 6) on English data, MoR outperforms a fixed shallow baseline by over 30\% in held-out accuracy. This multi-granularity analysis positions MoR as a robust architecture for stable training, while highlighting critical boundaries in its applicability to morphologically rich languages.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -99,9 +99,9 @@ To achieve this aim, the research focuses on the following objectives:
 This work makes the following contributions:
 \begin{itemize}
     \item \textbf{Empirical Benchmark:} We provide the first systematic evaluation of the MoR architecture on character-level language modeling using Tiny Shakespeare, demonstrating its applicability to small-scale settings.
-    \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines.
-    \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets, MoR achieves 10\% higher held-out accuracy than shallow baselines, validating adaptive depth allocation.
-    \item \textbf{Granularity Analysis:} We analyze how MoR's recursive behavior shifts between Character and Subword modeling (Low vs High Density), offering new insights into the relationship between information density and required computational depth.
+    \item \textbf{Efficiency Analysis:} We show that MoR achieves a 33\% reduction in effective computational depth while maintaining accuracy equivalent to fixed-depth baselines in character-level tasks.
+    \item \textbf{Generalization Evidence:} We demonstrate that under equivalent compute budgets on English datasets, MoR achieves 10\% higher held-out accuracy than shallow baselines.
+    \item \textbf{Granularity Bounds:} We identify a critical performance boundary in morphologically rich languages (Bangla), where structural baselines outperform dynamic recursive routing, offering vital insights into the relationship between information density and model design.
 
 
     \item \textbf{Routing Behavior:} We analyze MoR's routing decisions, providing insights into how dynamic recursion adapts to token-level complexity in next-token prediction tasks.
@@ -226,11 +226,14 @@ The MoR-Transformer uses the same backbone but introduces a routing mechanism. E
 The MoR router is a lightweight feed-forward network that determines the execution path for each token:
 \begin{itemize}
     \item \textbf{Input:} Token embeddings of dimension $d_{model}=256$
-    \item \textbf{Architecture:} Two-layer MLP: $256 \rightarrow 128 \rightarrow 3$ with ReLU activation
+    \item \textbf{Architecture:} Two-layer MLP: $256 \rightarrow 128 \rightarrow 3$ with ReLU activation. Formally, for a hidden state $h$, the router computes probabilities $P$:
+    \begin{equation}
+        P(a|h) = \text{Softmax}(W_2 \cdot \text{ReLU}(W_1 h + b_1) + b_2)
+    \end{equation}
+    where $a \in \{\text{Skip, Forward, Recurse}\}$.
     \item \textbf{Output:} Softmax probability distribution over three actions: Skip (cost 0), Forward (cost 1), Recurse (cost 1+)
-    \item \textbf{Training:} Gumbel-Softmax reparameterization with temperature $\tau=1.0$ for differentiable discrete sampling
-    \item \textbf{Inference:} Argmax selection of highest-probability action
-    \item \textbf{Regularization:} Auxiliary loss $\lambda \cdot E$ penalizes effective depth to encourage efficient routing
+    \item \textbf{Training:} Gumbel-Softmax reparameterization with temperature $\tau=1.0$ for differentiable discrete sampling.
+    \item \textbf{Regularization:} Auxiliary loss $\lambda \cdot E$ penalizes effective depth to encourage efficient routing.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -250,11 +253,11 @@ We conducted two experiments:
 
 \textbf{Data Split:} Experiment 1 uses the full set for training/evaluation. Experiment 2 uses the first half for training and the second half as held-out test data.
 
-\subsection{Fine-tuning Process}
+\subsection{Training Configuration}
 Both models are trained from scratch on the full Tiny Shakespeare dataset. Configuration details are in Table \ref{tab:training_config}.
 
 \begin{table}[htbp]
-\caption{Fine-tuning Configuration}
+\caption{Training Configuration}
 \label{tab:training_config}
 \centering
 \begin{tabular}{|p{3.5cm}|p{4.5cm}|}
@@ -295,8 +298,8 @@ Accuracy measures top-1 next-token prediction correctness for language modeling.
 \subsubsection{Held-out accuracy}
 Held-out accuracy is the classification accuracy measured on data that was not used for training (the held-out or test set). It tells how well the model generalizes to unseen examples.
 
-\subsubsection{Fine-tuning Time}
-Fine-tuning time is the total amount of time a model spends to finish fine-tuning on a given dataset. It helps evaluate: Efficiency (how fast a model trains), Comparison between models (e.g., Standard Transformer vs. MoR), Compute cost and Time-to-convergence.
+\subsubsection{Training Time}
+Training time is the total wall-clock time required to complete the training process on a given dataset. It evaluates real-world efficiency, comparing the computational speed of Standard Transformers against the overhead-constrained MoR architecture.
 
 \section{Result and Analysis}
 This chapter presents the experimental results obtained after training and evaluating the MoR and baseline models. The results are analyzed based on metrics such as accuracy, effective depth, and training time. The performance of the MoR-Transformer is discussed in detail to demonstrate its effectiveness.
@@ -305,7 +308,7 @@ This chapter presents the experimental results obtained after training and evalu
 This section details the results of the Efficiency Profiling and Equal Cost Comparison experiments.
 
 \subsubsection{Experiment 1: Efficiency Profiling (N=12 vs MoR N=12)}
-Goal: Compare a normal Transformer (12 layers executed always) with a MoR Transformer (12 recursive layers allowed to skip/recurse dynamically).
+Goal: Compare a normal Transformer (12 layers executed always) with a MoR Transformer (12 recursive layers allowed to skip/recurse dynamically) on the Tiny Shakespeare dataset.
 
 \begin{table}[htbp]
 \caption{Experiment 1 result}
@@ -319,12 +322,12 @@ Accuracy & 22.7634 & 22.7635 \\
 \hline
 Effective Depth (E) & 12.00 & 8.00 \\
 \hline
-Fine-tuning Time & 108 s & 83 s \\
+Training Time & 108 s & 83 s \\
 \hline
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} The results indicate that the MoR model achieves virtually identical predictive accuracy to the standard Transformer (approx. 22.76). Notably, the MoR router utilized an average of only 8 layers per sample, compared to the fixed 12 layers of the baseline. This 33\% reduction in computations per token sequence underscores the efficiency gains of adaptive routing, leading to faster and more resource-efficient training without compromising accuracy.
+\textbf{Interpretation:} The results indicate that the MoR model achieves virtually identical predictive accuracy to the standard Transformer (approx. 22.76). Notably, the MoR router utilized an average of only 8 layers per sample, compared to the fixed 12 layers of the baseline. This 33\% reduction in effective depth translated into a tangible speedup: MoR completed training in 83s compared to 108s for the Baseline, representing a 23\% reduction in wall-clock time. This confirms that on character-level tasks where attention is computationally cheap, the reduction in MLP layer evaluations outweighs the routing overhead.
 
 \begin{figure}[htbp]
 \centering
@@ -348,12 +351,12 @@ Held-out Accuracy & 14.90 \% & 49.67 \% \\
 \hline
 Effective Depth (E) & 6.00 & 5.89 \\
 \hline
-Fine-tuning Time & 30 s & 59 s \\
+Training Time & 30 s & 59 s \\
 \hline
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} With an effective depth E $\approx$ 6, the MoR model operated within the same average compute budget as the 6-layer baseline. However, the performance gap was substantial: MoR achieved 49.67\% held-out accuracy compared to the Baseline's 14.90\%. This suggests that the fixed 6-layer Baseline lacked the necessary capacity to model the data complexity, whereas the MoR model, despite having the same \textit{average} cost, could leverage its recursive mechanism to apply deep processing (up to 12 steps) on difficult tokens, effectively behaving like a much larger model.
+\textbf{Interpretation:} MoR was configured to match the \textit{effective depth} (E $\approx$ 6) of the 6-layer Baseline, ensuring equivalent theoretical FLOPs per token. However, MoR achieved a 3x higher held-out accuracy (49.67\% vs 14.90\%). It is important to note that while "depth cost" was equal, the wall-clock training time for MoR was higher (59s vs 30s) due to the lack of CUDA-optimized routing kernels. Nevertheless, the results prove that dynamic allocation of depth provides vastly superior parameter efficiency than static depth.
 
 \begin{figure}[htbp]
 \centering
@@ -383,7 +386,9 @@ MoR ($N = 12$, $\lambda=0.05$)$^\ddagger$ & 49.21\% & 7.40 & 32m/ep \\
 \end{tabular}
 \end{table}
 
-\textbf{Interpretation:} Following the implementation of aggressive optimizations---including a curated 20MB Wikipedia corpus, BPE tokenization with a 16,000 subword vocabulary, and linear warmup/cosine annealing---the models successfully achieved convergence. Unlike previous attempts that stagnated at 3.09\%, the models now demonstrate state-of-the-art learning curves for this scale. The 6-layer baseline (representing the equivalent compute cost of MoR) achieved a final validation accuracy of 63.74\% by epoch 10. Crucially, the deeper 12-layer baseline has reached 75.46\% by epoch 8 (with training accuracy exceeding 77\% in epoch 9), indicating that the optimization regime has successfully unlocked the significant headroom available in deeper architectures on morphological subwords. MoR successfully navigated this space with an effective depth of 8.30, confirming that adaptive computation remains robust for morphologically rich subword modeling even at high accuracy regimes.
+\textbf{Interpretation:} Following the implementation of aggressive optimizations, the models successfully achieved convergence. However, a critical limitation of the MoR architecture was observed in this morphologically rich setting. As shown in Table \ref{tab:exp3_result}, the fixed-depth Standard Baseline ($N=6$) significantly outperformed the MoR model in accuracy (63.74\% vs 50.15\%) while also being faster to train (28m/ep vs 48m/ep).
+
+This result contradicts the efficiency gains seen in English character-level tasks. It suggests that for languages like Bangla, where individual subwords carry high morphological density, consistent depth processing (as provided by the Standard Baseline) is more effective than dynamic routing. The MoR router appears to struggle with "deciding" the complexity of morphological tokens without language-specific priors, leading to suboptimal recursion decisions. This identifies a key boundary condition for MoR: it excels in sequential pattern matching (English/Code) but requires further refinement for dense morphological tasks.
 
 \subsubsection{Experiment 4: High-Density \& Stability (WikiText-2)}
 Goal: Analyze model behavior on WikiText-2, which has higher information density than Shakespeare, and evaluate training stability.
@@ -400,7 +405,7 @@ Accuracy & 3.69 \% (Diverged) & 30.06 \% \\
 \hline
 Effective Depth (E) & 12.00 & 8.13 \\
 \hline
-Fine-tuning Time & 5854 s & 5922 s \\
+Training Time & 5854 s & 5922 s \\
 \hline
 \end{tabular}
 \end{table}
@@ -423,11 +428,11 @@ Fine-tuning Time & 5854 s & 5922 s \\
 \hline
 \textbf{Experiment} & \textbf{What it proved} & \textbf{Key Takeaway} \\
 \hline
-1: Efficiency & For same Layer (12 L), MoR reduces compute (E = 8) with identical accuracy. & MoR learns to skip unnecessary computation. \\
+1: Efficiency & For same Layer (12 L), MoR reduces \textit{depth} (E = 8) with identical accuracy. & MoR learns to skip unnecessary computation. \\
 \hline
-2: Equivalent Cost & For same average cost (E $\approx$ 6), MoR (12 L) achieves higher accuracy than fixed 6 L. & MoR uses depth where needed $\rightarrow$ better adaptability and generalization. \\
+2: Equivalent Cost & For same average compute (E $\approx$ 6), MoR (12 L) maximizes English accuracy. & Dynamic depth $\rightarrow$ better generalization on low-density tasks. \\
 \hline
-3: Cross-Lingual & Models achieve 63.7\% on Bangla (Subword). & Successfully resolves morpho-convergence hurdles. \\
+3: Cross-Lingual & Standard Baseline outperforms MoR on Bangla (63\% vs 50\%). & \textbf{Limitation:} MoR struggles with high morphological density. \\
 \hline
 4: Stability & MoR converges (30\%) while Baseline fails (3\%). & \textbf{MoR stabilizes training} for deep architectures. \\
 \hline
@@ -466,7 +471,7 @@ In Experiment 1, the MoR-Transformer reduced effective depth by 33\% (E=8.00 vs 
 
 Experiment 2 revealed even stronger benefits: on held-out data, the MoR model (N=12, E=5.89) drastically outperformed the shallower baseline (N=6, E=6.00) in accuracy (49.67\% vs 14.90\%) at marginally lower computational cost. This confirms that MoR leverages its greater nominal capacity through adaptive execution paths—allocating deeper recursion to complex sequences while skipping simpler ones—thus validating the core hypothesis that MoR provides superior efficiency and generalization by escaping the "fixed-depth" trap of standard shallow Transformers.
 
-In Experiment 3 (Bangla), Convergence was successfully achieved by using a carefully tuned warm-up schedule and decoupled depth penalties. Interestingly, while the Standard ($N=12$) baseline remains the performance leader (75.5\% vs 50.15\% for MoR), the MoR model exhibits significant computational efficiency compared to its architectural counterparts. As shown in Figure \ref{fig:learning_curves}, the MoR experiments closely track the initial convergence speed of the 6-layer baseline despite their larger nominal capacity, eventually stabilizing at a lower computational footprint. Experiment 2 ($\lambda=0.05$) reached 49.21\% accuracy with an effective depth of only 7.40 layers, a 38.3\% reduction in compute compared to the deep baseline while strictly maintaining stability in regimes where unweighted depth penalties previously failed.
+In Experiment 3 (Bangla), a clear limitation of the current MoR architecture was identified. While the models achieved convergence, the fixed-depth Standard Baseline ($N=6$) demonstrated superior performance (63.74\%) compared to the MoR model (50.15\%) and did so with faster training times. This suggests that the "overhead" of the routing decision outweighs its benefits when dealing with the high information density of Bangla subwords. Unlike in English, where skipping layers for simple characters is effective, morphological tokens may uniformly require a baseline level of processing that the router fails to guarantee. This result pivots the understanding of MoR from a "universally efficient" architecture to a "context-dependent" one, excellent for variable-complexity tasks but potentially suboptimal for uniformly dense morphological processing.
 
 Finally, Experiment 4 (WikiText-2) provided the most critical insight: architectural stability. While the 12-layer Standard Transformer failed to learn (stagnating at 3.69\% accuracy), the MoR model successfully converged (30.06\%) with an effective depth of 8.13. This suggests that dynamic execution paths not only improve efficiency but also alleviate optimization difficulties associated with deep networks on small datasets, acting as a form of implicit regularization that prevents vanishing gradients or bad local minima.
 
@@ -475,7 +480,7 @@ Finally, Experiment 4 (WikiText-2) provided the most critical insight: architect
 \subsection{Conclusion}
 This paper explored the effectiveness of the Mixture of Recursions (MoR) architecture as an adaptive computation mechanism for next-token prediction tasks, with a particular focus on small language models (SLMs). Unlike standard Transformers, which apply a fixed depth of computation to every input, MoR introduces a lightweight routing mechanism that allows each token to either skip, execute once, or recurse through a shared layer. This design enables the model to allocate more computation to complex tokens while saving resources on simpler ones.
 
-Three experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla Wikipedia. The Experimental comparisons demonstrate that MoR can achieve superior performance while using fewer effective layers. Notably, MoR exhibited superior training stability, successfully converging on WikiText-2 where the equivalent deep Baseline failed. This model not only lowers effective depth but also preserves and improves accuracy compared to standard Transformers under the same computational budget. The study confirms MoR supports recursive reasoning and generalizes to diverse languages.
+Three experiments were conducted using Tiny Shakespeare, WikiText-2, and Bangla Wikipedia. The experimental comparisons demonstrate that MoR can achieve superior performance and stability on English benchmarks while using fewer effective layers. However, results on the Bangla dataset reveal a trade-off: while MoR functioned, it was outperformed by standard fixed-depth models, highlighting a limitation in handling morphologically rich subwords. This nuance positions MoR as a specialized architecture for stability and English-like tasks, rather than a one-size-fits-all solution.
 
 In conclusion, our findings position MoR as a viable alternative to fixed-depth Transformers, particularly in resource-constrained scenarios favoring SLMs, such as mobile and edge computing. By enhancing computational efficiency without sacrificing accuracy, MoR represents a significant step towards sustainable and scalable language modeling.
 
