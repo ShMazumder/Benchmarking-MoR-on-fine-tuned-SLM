@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.19)  12 JAN 2026 15:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.19)  12 JAN 2026 15:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -992,7 +992,7 @@ n/12 ^^X$\T1/cmr/m/n/12 2M to-kens) is larger than character-
  []
 
 [23] [24] (./manuscript.bbl [25] [26] [27]
-Underfull \hbox (badness 1259) in paragraph at lines 112--113
+Underfull \hbox (badness 1259) in paragraph at lines 160--162
 []\T1/cmr/m/n/12 A. Karpa-thy, char-rnn, GitHub repos-i-tory, []$\T1/cmtt/m/n/1
 2 https : / / github . com /
  []
